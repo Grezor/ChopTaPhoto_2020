@@ -246,7 +246,7 @@ $DB->query('SELECT * FROM products');
                                         <del class="price-old">$1980</del>
                                     </div> <!-- price-wrap.// -->
                                 </div>
-                                <a href="addpanier.php?id=<?= $product['id']; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product['id']; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
                             </figcaption>
                         </figure>
                     </div> <!-- col.// -->

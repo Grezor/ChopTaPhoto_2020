@@ -14,7 +14,7 @@ $panier = new Panier($DB);
     <meta http-equiv="cache-control" content="max-age=604800" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Website title - bootstrap html template</title>
+    <title>ChopTaPhoto</title>
 
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -73,7 +73,7 @@ $panier = new Panier($DB);
                     <div class="col-lg-4 col-sm-6 col-12">
                         <div class="widgets-wrap float-md-right">
                             <div class="widget-header  mr-3">
-                                <a href="panier.php" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="../Ecommerce_Bootstrap/panier/manage.php" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
                                 <span class="badge badge-pill badge-danger notify"><?= $panier->countPanier(); ?></span>
                             </div>
                             <div class="widget-header icontext">
