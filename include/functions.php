@@ -1,4 +1,8 @@
 <?php 
+require_once  __DIR__ . '/db.php';
+
+$DB = new DB();
+
 
 function randomId() {
     //fonction qui génére un id aléatoire

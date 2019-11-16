@@ -1,5 +1,6 @@
 <?php
-require_once '../include/_header.php';
+require_once  '../include/header.php';
+$title = "Panier ";
 //var_dump($_SESSION);
 if (isset($_GET['del'])) {
 	$panier->del($_GET['del']);
@@ -11,7 +12,7 @@ if (isset($_GET['del'])) {
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
 	<div class="container">
-		<h2 class="title-page">Shopping cart</h2>
+		<h2 class="title-page"><?= $title; ?></h2>
 	</div> <!-- container //  -->
 </section>
 <!-- ========================= SECTION INTRO END// ========================= -->
@@ -41,7 +42,7 @@ if (isset($_GET['del'])) {
 							if (empty($ids)) {
 								$products = [];
 							} else {
-								$products = $DB->query('SELECT * FROM products WHERE id IN (' . implode(',', $ids) . ')');
+								$products = $DB->query('SELECT * FROM product WHERE id IN (' . implode(',', $ids) . ')');
 							}
 							foreach ($products as $product) :
 								?>
@@ -58,12 +59,6 @@ if (isset($_GET['del'])) {
 										</figure>
 									</td>
 									<td>
-										<!-- <select class="form-control">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-										</select> -->
 										<span><?= $_SESSION['panier'][$product->id]; ?></span>
 									</td>
 									<td>
@@ -78,7 +73,7 @@ if (isset($_GET['del'])) {
 							
 									<td class="text-right">
 										<a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-										<a href="panier.php?delPanier=<?= $product->id; ?>" class="btn btn-light">Supprimer</a>
+										<a href="panier.php?del=<?= $product->id; ?>" class="btn btn-light">Supprimer</a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
@@ -87,8 +82,8 @@ if (isset($_GET['del'])) {
 					</table>
 
 					<div class="card-body border-top">
-						<a href="#" class="btn btn-primary float-md-right"> payement <i class="fa fa-chevron-right"></i> </a>
-						<a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue d'acheter </a>
+						<a href="payment.php" class="btn btn-primary float-md-right"> payement <i class="fa fa-chevron-right"></i> </a>
+						<a href="index.php" class="btn btn-light"><i class="fa fa-chevron-left"></i> Continue d'acheter </a>
 					</div>
 				</div> <!-- card.// -->
 

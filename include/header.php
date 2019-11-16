@@ -1,14 +1,20 @@
 <?php 
-require_once 'include/db.php';
- require_once 'include/panier.class.php';
+session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
+require_once  __DIR__ . '/db.php';
+require_once  __DIR__ . '/panier.class.php';
 $DB = new DB();
 $panier = new Panier($DB);
+
 ?>
 
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
+    <base href="http://localhost/Ecommerce_Bootstrap/">
     <meta charset="utf-8">
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="max-age=604800" />
@@ -16,21 +22,26 @@ $panier = new Panier($DB);
 
     <title>ChopTaPhoto</title>
 
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="images/home/logo2.png" rel="shortcut icon" type="image/x-icon">
 
     <!-- jQuery -->
-    <script src="js/jquery-2.0.0.min.js" type="text/javascript"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
 
     <!-- Bootstrap4 files-->
-    <script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <!-- Font awesome 5 -->
-    <link rel="stylesheet" href="css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> 
 
     <!-- plugin: fancybox  -->
-    <script src="plugins/fancybox/fancybox.min.js" type="text/javascript"></script>
-    <link href="plugins/fancybox/fancybox.min.css" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" type="text/javascript"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" type="text/css" rel="stylesheet">
 
     <!-- custom style -->
     <link href="css/ui.css" rel="stylesheet" type="text/css" />
@@ -52,22 +63,22 @@ $panier = new Panier($DB);
                 <div class="row align-items-center">
                     <div class="col-lg-2 col-4">
                         <a href="index.php" class="brand-wrap">
-                            <img class="logo" src="images/home/home.png">
+                            <img class="logo" src="images/home/logo1.png">
                         </a>
                         <!-- brand-wrap.// -->
                     </div>
                     <div class="col-lg-6 col-sm-12">
-                        <form action="#" class="search">
+                        <!-- <form action="#" class="search">
                             <div class="input-group w-100">
                                 <input type="text" class="form-control" placeholder="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
 			        <i class="fa fa-search"></i>
-			      </button>
+			                        </button>
                                 </div>
                             </div>
-                        </form>
-                        <!-- search-wrap .end// -->
+                        </form> -->
+                     
                     </div>
                     
                     <div class="col-lg-4 col-sm-6 col-12">
@@ -81,21 +92,24 @@ $panier = new Panier($DB);
                                 <div class="text">
                                     <span class="text-muted">Bienvenue!</span>
                                     <div>
-                                        <a href="#">Connexion</a> |
-                                        <a href="#">Inscription</a>
+                                        <?php if (isset($_SESSION['auth'])):?>
+                                            <a href="http://localhost/Ecommerce_Bootstrap/auth/logout.php">Deconnexion</a>
+                                        <?php else: ?>
+                                        <a href="http://localhost/Ecommerce_Bootstrap/auth/login.php">Connexion</a> |
+                                        <a href="http://localhost/Ecommerce_Bootstrap/auth/register.php">Inscription</a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <!-- widgets-wrap.// -->
+                        
                     </div>
-                    <!-- col.// -->
+                    
                 </div>
-                <!-- row.// -->
+        
             </div>
-            <!-- container.// -->
+          
         </section>
-        <!-- header-main .// -->
+      
     </header>
-    <!-- section-header.// -->

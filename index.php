@@ -1,16 +1,24 @@
 <?php
 
-require_once '../Ecommerce_Bootstrap/include/header.php';
-require_once '../Ecommerce_Bootstrap/include/db.php';
-
-$DB->query('SELECT * FROM products');
+require_once  __DIR__ . '/include/header.php';
+require_once  __DIR__ . '/include/db.php';
+require_once __DIR__ . '/include/functions.php'; 
+$DB->query('SELECT * FROM product');
 
 ?>
 
 
 
+<?php 
 
-
+if(isset($_SESSION['flash'])): ?>
+<?php foreach($_SESSION['flash'] as $type => $message) : ?> 
+    <div class="alert alert-<?= $type; ?>">
+    <?= $message ?>
+</div>
+<?php endforeach ?>
+<?php unset($_SESSION['flash']);
+ endif ?>
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
     <div class="container">
@@ -39,35 +47,32 @@ $DB->query('SELECT * FROM products');
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
                                 <i class="icon-control fa fa-chevron-down"></i>
-                                <h6 class="title">Product type</h6>
+                                <h6 class="title">Catégorie</h6>
                             </a>
                         </header>
                         <div class="filter-content collapse show" id="collapse_1" style="">
                             <div class="card-body">
-                                <form class="pb-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-light" type="button"><i class="fa fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
+                                
+                                <?php
 
+                $ids = array_keys($_SESSION['panier']);
+if (empty($ids)) {
+    $categories = [];
+} else {
+    $categories = $pdo->prepare('SELECT name FROM category');
+}
+var_dump($categorie);
+foreach ($categories as $categorie) :
+    ?>
                                 <ul class="list-menu">
-                                    <li><a href="#">People </a></li>
-                                    <li><a href="#">Watches </a></li>
-                                    <li><a href="#">Cinema </a></li>
-                                    <li><a href="#">Clothes </a></li>
-                                    <li><a href="#">Home items </a></li>
-                                    <li><a href="#">Animals</a></li>
-                                    <li><a href="#">People </a></li>
+                                    <li><a href="#"><?= $categories->name; ?></a></li>
                                 </ul>
-
+<?php endforeach;?>
                             </div>
-                            <!-- card-body.// -->
+                          
                         </div>
                     </article>
-                    <!-- filter-group  .// -->
+                    
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
@@ -228,25 +233,26 @@ $DB->query('SELECT * FROM products');
 
                 <div class="row">
                 <?php
-                        $products = $DB->query('SELECT * FROM products');
-                        foreach($products as $product) :
+                    $products = $DB->query('SELECT * FROM product');
+                    foreach($products as $product) :
                         ?>
                     <div class="col-md-4">
                         <figure class="card card-product-grid">
                             <div class="img-wrap">
                                 <span class="badge badge-danger"> NEW </span>
-                                <img src="images/shop/<?= $product['id']; ?>.jpg">
+                                <img src="images/shop/<?= $product->id; ?>.jpg">
                                 <a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
                             </div> <!-- img-wrap.// -->
                             <figcaption class="info-wrap">
                                 <div class="fix-height">
-                                    <a href="#" class="title"><?= $product['name']; ?></a>
+                                    <a href="#" class="title"><?= $product->name; ?></a>
                                     <div class="price-wrap mt-2">
-                                        <span class="price"><?= $product['price']; ?> €</span>
+                                        <span class="price"><?= $product->price; ?> €</span>
+                                        <span class=""><?= $product->description; ?> €</span>
                                         <del class="price-old">$1980</del>
                                     </div> <!-- price-wrap.// -->
                                 </div>
-                                <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product['id']; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
                             </figcaption>
                         </figure>
                     </div> <!-- col.// -->

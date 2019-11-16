@@ -11,7 +11,7 @@ class Panier{
         }
 
         if (!isset($_SESSION['panier'])) {
-            $_SESSION['panier'] = array();
+            $_SESSION['panier'] = [];
         }
         $this->DB = $DB;
         if (isset($_GET['delPanier'])) {
@@ -36,10 +36,10 @@ class Panier{
         if (empty($ids)) {
             $products = [];
         } else {
-            $products = $this->DB->query('SELECT id, price FROM products WHERE id IN (' . implode(',', $ids) . ')');
+            $products = $this->DB->query('SELECT id, price FROM product WHERE id IN (' . implode(',', $ids) . ')');
         } 
         foreach($products as $product){
-            $total += $product['price'] * $_SESSION['panier'][$product['id']];
+            $total += $product->price * $_SESSION['panier'][$product->id];
         }
         return $total;
     }

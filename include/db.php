@@ -5,7 +5,7 @@ class DB
     private $host = 'localhost';
     private $username = 'root';
     private $password = '';
-    private $database = 'ecommerce1820';
+    private $database = 'choptaphoto';
     private $db;
 
     public function __construct($host = null, $username = null, $password = null, $database = null)
@@ -18,9 +18,9 @@ class DB
         }
         try {
             $this->db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password, array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8',
-                 PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING
-                 //PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ
+                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8',
+                 PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
+                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
             ));
         } catch (PDOException $e) { 
             die('IMPOSSIBLE DE SE CONNECTER A LA BASE DE DONNEE');
@@ -36,6 +36,6 @@ class DB
 
 }
 
-// $pdo = new PDO('mysql:dbname=ppe1719;host=localhost', 'root', '');
-// $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+$pdo = new PDO('mysql:dbname=choptaphoto;host=localhost', 'root', '');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
