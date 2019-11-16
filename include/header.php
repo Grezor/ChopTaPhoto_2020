@@ -1,8 +1,5 @@
 <?php 
-session_start();
-if(!isset($_SESSION)){
-    session_start();
-}
+
 require_once  __DIR__ . '/db.php';
 require_once  __DIR__ . '/panier.class.php';
 $DB = new DB();
@@ -93,10 +90,10 @@ $panier = new Panier($DB);
                                     <span class="text-muted">Bienvenue!</span>
                                     <div>
                                         <?php if (isset($_SESSION['auth'])):?>
-                                            <a href="http://localhost/Ecommerce_Bootstrap/auth/logout.php">Deconnexion</a>
+                                            <a href="auth/logout.php">Deconnexion</a>
                                         <?php else: ?>
-                                        <a href="http://localhost/Ecommerce_Bootstrap/auth/login.php">Connexion</a> |
-                                        <a href="http://localhost/Ecommerce_Bootstrap/auth/register.php">Inscription</a>
+                                        <a href="auth/login.php">Connexion</a> |
+                                        <a href="auth/register.php">Inscription</a>
                                         <?php endif; ?>
                                     </div>
                                 </div>

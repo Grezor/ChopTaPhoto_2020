@@ -1,6 +1,7 @@
 <?php 
 
 require_once '../include/functions.php';
+sessionStart();
 
 if (!empty($_POST)) {
 	$errors = [];

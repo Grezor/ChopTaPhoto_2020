@@ -3,8 +3,9 @@
 require_once  __DIR__ . '/include/header.php';
 require_once  __DIR__ . '/include/db.php';
 require_once __DIR__ . '/include/functions.php'; 
-$DB->query('SELECT * FROM product');
 
+// $DB->query('SELECT * FROM product');
+$panier = new Panier($DB);
 ?>
 
 
@@ -47,27 +48,21 @@ if(isset($_SESSION['flash'])): ?>
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
                                 <i class="icon-control fa fa-chevron-down"></i>
-                                <h6 class="title">Catégorie</h6>
+                                <h6 class="title">Catégorie</span></h6>
                             </a>
                         </header>
                         <div class="filter-content collapse show" id="collapse_1" style="">
                             <div class="card-body">
                                 
                                 <?php
-
-                $ids = array_keys($_SESSION['panier']);
-if (empty($ids)) {
-    $categories = [];
-} else {
-    $categories = $pdo->prepare('SELECT name FROM category');
-}
-var_dump($categorie);
-foreach ($categories as $categorie) :
-    ?>
+                                $category = $pdo->prepare('SELECT name FROM category');
+                                $category->execute([]);
+                                foreach ($category as $categorie) :
+                                ?>
                                 <ul class="list-menu">
-                                    <li><a href="#"><?= $categories->name; ?></a></li>
+                                    <li><a href="#"><?= $categorie->name; ?></a></li>
                                 </ul>
-<?php endforeach;?>
+                                <?php endforeach;?>
                             </div>
                           
                         </div>

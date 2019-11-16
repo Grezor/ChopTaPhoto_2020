@@ -47,17 +47,18 @@ if(isset($_SESSION['flash'])): ?>
 <?php unset($_SESSION['flash']); ?>
 
 <?php endif; ?>
-      <h4 class="card-title mb-4">Connexion </h4>
+      <h4 class="card-title mb-4">Reset Mot de passe </h4>
       <form action="" method="POST">
       	  
-          <div class="form-group">
-          <label>Nom ou email</label>
-			 <input name="name" class="form-control" placeholder="Username" type="text">
-          </div> <!-- form-group// -->
+     
           <div class="form-group">
           <label>Mot de passe</label>
 			<input name="password" class="form-control" placeholder="Password" type="password">
-          </div> <!-- form-group// -->
+          </div>
+
+          <label>Confirmation Mot de passe</label>
+			<input name="password_confirm" class="form-control" placeholder="Password" type="password">
+          </div>
           
           <div class="form-group">
           	<a href="Auth/forget.php" class="float-right">Mot de passe oublié ?</a> 

@@ -9,6 +9,8 @@
 # la date de confirmation dans le champs confirmed_at.
 # Ce champs nous permettra de savoir si oui ou non l'utilisateur a un compte validé ou pas.
 
+require_once '../include/functions.php';
+sessionStart();
 
 $user_id = $_GET['id'];
 $token = $_GET['token'];
@@ -21,7 +23,6 @@ $req->execute([
     ':token' => $token
 ]);
 $user = $req->fetch();
-session_start();
 
 if ($user) {
     $pdo->prepare('UPDATE client SET email_token = NULL, connection_at = NOW()  WHERE id = ?')->execute([$user_id]);

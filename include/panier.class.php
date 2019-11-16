@@ -1,15 +1,13 @@
 <?php 
 
+require_once __DIR__ . '/functions.php';
+sessionStart();
+
 class Panier{
     
     private $DB;
     public function __construct($DB)
     {
-        //si il n'y a pas de sessions
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-
         if (!isset($_SESSION['panier'])) {
             $_SESSION['panier'] = [];
         }
