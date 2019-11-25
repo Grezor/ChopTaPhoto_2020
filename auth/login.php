@@ -14,8 +14,13 @@ if (!empty($_POST) && !empty($_POST['name']) && !empty($_POST['password'])) {
         $_SESSION['flash']['success'] = "Vous etes maintenant connecté";
 
         $pdo->prepare('UPDATE client SET connection_at = NOW()  WHERE id = ?')->execute([$user->id]);
+
+        if($user->role === '1'){
+            header('Location: admin.php');
+            exit();
+        }        
         header('Location: account.php');
-        exit();
+        
     }else{
         $_SESSION['flash']['danger'] = "Mot de passe ou identifiant incorrecte";
 

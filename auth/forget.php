@@ -17,13 +17,11 @@ if (!empty($_POST) && !empty($_POST['email'])) {
         $pdo->prepare('UPDATE client SET reset_token = ?, reset_at = now() WHERE id = ?')->execute([$reset_token, $user->id]);
     
         $_SESSION['flash']['success'] = "Les instructions du rappel du mot de passe vous ont été envoyé par email";
-    mail($_POST['email'], 'Reintialisation de votre mot de passe', "Afin de reinitialiser votre compte merci de cliquer sur ce lien\n\nhttp://localhost/Ecommerce_Bootstrap/auth/reset.php?id={$user->id}&token=$reset_token");
-       
+        mail($_POST['email'], 'Reintialisation de votre mot de passe', "Afin de reinitialiser votre compte merci de cliquer sur ce lien\n\nhttp://localhost/Ecommerce_Bootstrap/auth/reset.php?id={$user->id}&token=$reset_token");
         header('Location: login.php');
         exit();
     }else{
         $_SESSION['flash']['danger'] = "Aucun compte ne correspond a cette adresse";
-
     }
    die();
    
@@ -37,21 +35,21 @@ require_once '../include/header.php';
 
 <section class="section-conten padding-y" style="min-height:84vh">
 
-<!-- ============================ COMPONENT LOGIN   ================================= -->
+<!-- ============================    ================================= -->
 	<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
       <div class="card-body">
       <?php 
-if(isset($_SESSION['flash'])): ?>
+        if(isset($_SESSION['flash'])): ?>
 
-<?php foreach ($_SESSION['flash'] as $type=> $message): ?>
-    <div class="alert alert-<?= $type; ?>">
-<?= $message; ?>
-    </div>
+            <?php foreach ($_SESSION['flash'] as $type=> $message): ?>
+                <div class="alert alert-<?= $type; ?>">
+                    <?= $message; ?>
+                </div>
 
-<?php endforeach; ?>
-<?php unset($_SESSION['flash']); ?>
+            <?php endforeach; ?>
+            <?php unset($_SESSION['flash']); ?>
 
-<?php endif; ?>
+        <?php endif; ?>
       <h4 class="card-title mb-4">Mot de passe oublier </h4>
       <form action="" method="POST">
       	  
@@ -69,7 +67,6 @@ if(isset($_SESSION['flash'])): ?>
 
      <p class="text-center mt-4">Pas de compte ? <a href="Auth/register.php">Inscription</a></p>
      <br><br>
-<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
 
 
 </section>

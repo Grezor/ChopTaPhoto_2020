@@ -2,26 +2,36 @@
 
 
 require_once '../include/functions.php';
-sessionStart();
+// sessionStart();
 
 
-if (!empty($_POST) && !empty($_POST['name']) && !empty($_POST['password'])) {
-   $req = $pdo->prepare('SELECT * FROM client WHERE (name = :name OR email = :email) AND email_token IS NULL');
-   $req->execute(['name' => $_POST['name'], 'email' => $_POST['name']]);
-   $user = $req->fetch();
-    if (password_verify($_POST['password'], $user->password)) {
-        $_SESSION['auth'] = $user;
-        $_SESSION['flash']['success'] = "Vous etes maintenant connecté";
-
-        $pdo->prepare('UPDATE client SET connection_at = NOW()  WHERE id = ?')->execute([$user->id]);
-        header('Location: account.php');
-        exit();
+if(isset($_GET['id']) && isset($_GET['token'])){
+    require_once '../include/db.php';
+    require_once '../include/functions.php';
+    $req = $pdo->prepare('SELECT * FROM client WHERE id = ? and reset_token = ? AND reset_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)');
+    $req->execute([$_GET['id'],$_GET['token']]);
+    $user = $req->fetch();
+    // si on a un utilisateur on continue
+    if ($user) {
+        if (!empty($_POST)) {
+            if (!empty($_POST['password']) && $_POST['password'] === $_POST['password_confirm']) {
+                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $pdo->prepare('UPDATE client SET password = ? ')->execute([$password]);
+                session_start();
+                $_SESSION['flash']['success'] = "Votre mot de passe a bien été modifié";
+                $_SESSION['auth'] = $user;
+                header('Location: account.php');
+            }
+        }
     }else{
-        $_SESSION['flash']['danger'] = "Mot de passe ou identifiant incorrecte";
-
+        session_start();
+        $_SESSION['flash']['danger'] = "ce token n'est pas valide";
+        header('Location: login.php');
+        exit();
     }
-   die();
-   
+}else{
+   header('Location: login.php');
+   exit();
 }
 
 require_once '../include/header.php';
@@ -32,7 +42,7 @@ require_once '../include/header.php';
 
 <section class="section-conten padding-y" style="min-height:84vh">
 
-<!-- ============================ COMPONENT LOGIN   ================================= -->
+
 	<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
       <div class="card-body">
       <?php 
@@ -61,11 +71,11 @@ if(isset($_SESSION['flash'])): ?>
           </div>
           
           <div class="form-group">
-          	<a href="Auth/forget.php" class="float-right">Mot de passe oublié ?</a> 
+          	
             <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
           </div> <!-- form-group form-check .// -->
           <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block"> Se connecter  </button>
+              <button type="submit" class="btn btn-primary btn-block"> reinitialiser votre mot de passe </button>
           </div> <!-- form-group// -->    
       </form>
       </div> <!-- card-body.// -->
