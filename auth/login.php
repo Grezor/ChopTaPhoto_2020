@@ -22,6 +22,7 @@ if (!empty($_POST) && !empty($_POST['name']) && !empty($_POST['password'])) {
         header('Location: account.php');
         
     }else{
+        header('Location: login.php');
         $_SESSION['flash']['danger'] = "Mot de passe ou identifiant incorrecte";
 
     }

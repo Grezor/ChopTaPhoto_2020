@@ -12,7 +12,7 @@ if (!empty($_POST) && !empty($_POST['email'])) {
    $req->execute(['email' => $_POST['email']]);
    $user = $req->fetch();
     if ($user) {
-        $_SESSION['auth'] = $user;
+        
         $reset_token = str_random(60);
         $pdo->prepare('UPDATE client SET reset_token = ?, reset_at = now() WHERE id = ?')->execute([$reset_token, $user->id]);
     

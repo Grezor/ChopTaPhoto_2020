@@ -15,7 +15,7 @@ for ($i = 0; $i < 10; $i++) {
     $price = $faker->numberBetween(20, 2000);
     $quantity = $faker->numberBetween(1,20);
     $ref = 'ref_' . $faker->numberBetween(1, 200);
-    $is_location = $faker->numberBetween(0, 1);
+    // $is_location = $faker->numberBetween(0, 1);
    
     // tableau des divers informations
     $product = [

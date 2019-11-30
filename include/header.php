@@ -31,6 +31,8 @@ $panier = new Panier($DB);
 
     <!-- Bootstrap4 files-->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/basic.css" rel="stylesheet" type="text/css" />
+
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -91,39 +93,28 @@ $panier = new Panier($DB);
                                 <div class="text">
                                     <span class="text-muted">Bienvenue!</span>
                                     <div>
-                                        <?php if (isset($_SESSION['auth'])):?>
-                                            <a href="auth/logout.php">Deconnexion</a>
-                                             
-                                        <?php else: ?>
-                                        <a href="auth/login.php">Connexion</a> |
-                                        <a href="auth/register.php">Inscription</a>
-                                        <?php endif; ?>
-                                        
 
-                                        <?php// if (isset($_SESSION['auth'])): ?>
-                                <!-- <li class="nav-item "><a class="nav-link" href="auth/logout.php">Se deconnecter</a></> -->
-                <!-- Si la personnes est un admin alors il a le mennu admin -->
                 
-                <!-- <?php 
-              //  if (isAdmin($_SESSION['auth'] === 1)): ?>
-                   <a href="auth/logout.php">Se deconnecter</a>
+                <?php
+            //    var_dump($_SESSION['auth']);
+               if(isset($_SESSION['auth'])): ?>
+                <a href="auth/logout.php">Se deconnecter</a>
+                <a href="auth/account.php">Mon compte</a>
+                <?php if (isAdmin($_SESSION['auth'])): ?>
                    <a href="auth/roles.php">roles</a>
                    <a href="auth/dashboard.php">dashboard</a>
-                   <a href="auth/createProjects.php">Crée projet</a>
-                   <a href="auth/ListUsers.php">Liste utilisateurs</a>
-                   <a href="auth/account.php">Mon compte</a>
-                   
+                   <a href="auth/addCoupon.php">Crée coupon</a>
+                   <a href="auth/addProduct.php">Crée produit</a>
+                   <a href="auth/addCategory.php">Crée Category</a>
+                   <a href="auth/allUsers.php">Liste utilisateurs</a>
+                   <?php endif; ?>
+                <?php else: ?>
+                    <a href="auth/login.php">Connexion</a> |
+                                        <a href="auth/register.php">Inscription</a>
                 
-            <?php// endif; ?> -->
+            <?php endif; ?>
             
-            <?php // else: ?>
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="auth/register.php">S'inscrire <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="auth/login.php">Se connecter </a>
-                </li> -->
-            <?php //endif; ?>
+            
 
 
 

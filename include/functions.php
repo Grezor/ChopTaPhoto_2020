@@ -39,6 +39,7 @@ function logged_only(){
         exit();
     }
 }
-// function isAdmin($user) {
-//     return $user->role === 1;
-// }
+function isAdmin($user): bool {
+    
+    return (int) $user->role === 1;
+}
