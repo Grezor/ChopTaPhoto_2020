@@ -81,17 +81,17 @@ if (!empty($_POST)) {
 		<header class="mb-4"><h4 class="card-title">creattion d'un coupon</h4></header>
 
 		<?php 
-if(isset($_SESSION['flash'])): ?>
+		if(isset($_SESSION['flash'])): ?>
 
-<?php foreach ($_SESSION['flash'] as $type=> $message): ?>
-    <div class="alert alert-<?= $type; ?>">
-<?= $message; ?>
-    </div>
+		<?php foreach ($_SESSION['flash'] as $type=> $message): ?>
+			<div class="alert alert-<?= $type; ?>">
+		<?= $message; ?>
+			</div>
 
-<?php endforeach; ?>
-<?php unset($_SESSION['flash']); ?>
+		<?php endforeach; ?>
+		<?php unset($_SESSION['flash']); ?>
 
-<?php endif; ?>
+		<?php endif; ?>
 
 		<form action="" method="POST">
 				<div class="form-row">

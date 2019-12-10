@@ -31,6 +31,7 @@ class Panier{
         
         $total = 0;
         $ids = array_keys($_SESSION['panier']);
+
         if (empty($ids)) {
             $products = [];
         } else {
@@ -39,23 +40,79 @@ class Panier{
         foreach($products as $product){
             $total += $product->price * $_SESSION['panier'][$product->id];
         }
+    
         return $total;
     }
+    /**
+     * Ajoute un produit 
+     * Il verifie la session dans le panier:
+     * -> S'il y a déja un produit avec le meme id: il rajoute 1 à la quantité du produit
+     * -> Si c'est un nouveau produit dans le panier: il défini à 1 la quantité de ce produit
+     */
+    public function add($product_id)
+    {
+        $_SESSION['panier'][$product_id] = ($_SESSION['panier'][$product_id] ?? 0) + 1;
+    }
 
-    public function add($product_id){
-        // est ce que dans le panier il y a deja le produit ajouter
-        if (isset($_SESSION['panier'][$product_id])) {
-            $_SESSION['panier'][$product_id]++;
-        }else{
-            $_SESSION['panier'][$product_id] = 1;
-        }
-        
-        
+    /**
+     * @param int $productId
+     * @return bool
+     */
+    public function checkProduct($productId)
+    {
+        return isset($_SESSION['panier'][$productId]);
     }
 
     public function del($product_id){
         unset($_SESSION['panier'][$product_id]);
     }
 
-    
+    public function getPrixCoupon()
+    {
+        // il verifie que on a mis un code dans le input
+        $couponCode = $_POST['code_coupon'] ?? '';
+        // si c'est vide, message
+        if (empty($couponCode)) {
+            unset($_SESSION['panier_reduc']);
+            return '';
+        }
+        // il verifie que le coupon existe dans la base de donnée
+        $coupon = $this->DB->query("SELECT product_id, price_reduc from coupon where code = :code", [
+            ':code' => $couponCode
+        ]);
+        // si le coupon existe pas, il renvoie null
+        $coupon = $coupon[0] ?? null;
+        if ($coupon === null) {
+            return 'coupon invalide';
+        }
+        // il verifie que le coupon est lier au produit
+        $productId = $coupon->product_id;
+        if ($productId === null) {
+            $_SESSION['panier_reduc'] = $coupon;
+            return $coupon;
+        }
+
+        // requete qui vérifie que le produit exite
+        $product = $this->DB->query('SELECT id FROM product WHERE id = :id', [
+            ':id' => $productId
+        ]);
+        // si le produit n'existe pas, il renvoit null
+        $product = $product[0] ?? null;
+        if ($product === null || !$this->checkProduct($product->id)) {
+            return 'produit invalide';
+        }
+        
+        $_SESSION['panier_reduc'] = $coupon;
+        return $coupon;
+    }
+
+    public function affichePrixCouponExiste()
+    {
+        $coupon = $_SESSION['panier_reduc'] ?? '';
+        if (is_string($coupon)) {
+            return $coupon;
+        }
+
+        return $coupon->price_reduc . ' €';
+    }
 }

@@ -8,8 +8,8 @@ if (isset($_GET['id'])) {
         die('ce produit n_exite pas');
     }
     $panier->add($product[0]->id);
-    echo 'produit ajouter';
-    header('Location: http://localhost/Ecommerce_Bootstrap/panier/manage.php');
+  
+    header('Location: manage.php');
     exit();
     //var_dump($product);
 }else {

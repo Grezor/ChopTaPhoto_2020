@@ -3,6 +3,7 @@ require_once  __DIR__ . '/db.php';
 
 $DB = new DB();
 
+date_default_timezone_set('Europe/Paris');
 
 function sessionStart() {
     if(session_status() === PHP_SESSION_NONE){
@@ -40,6 +41,5 @@ function logged_only(){
     }
 }
 function isAdmin($user): bool {
-    
     return (int) $user->role === 1;
 }

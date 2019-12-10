@@ -5,8 +5,10 @@ $title = "Panier ";
 if (isset($_GET['del'])) {
 	$panier->del($_GET['del']);
 }
-?>
 
+$panier->affichePrixCouponExiste();
+
+?>
 
 
 <!-- ========================= SECTION PAGETOP ========================= -->
@@ -20,7 +22,18 @@ if (isset($_GET['del'])) {
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 	<div class="container">
+	<?php 
+if(isset($_SESSION['flash'])): ?>
 
+<?php foreach ($_SESSION['flash'] as $type=> $message): ?>
+    <div class="alert alert-<?= $type; ?>">
+<?= $message; ?>
+    </div>
+
+<?php endforeach; ?>
+<?php unset($_SESSION['flash']); ?>
+
+<?php endif; ?>
 		<div class="row">
 			<main class="col-md-9">
 				<div class="card">
@@ -73,7 +86,7 @@ if (isset($_GET['del'])) {
 							
 									<td class="text-right">
 										<a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-										<a href="panier.php?del=<?= $product->id; ?>" class="btn btn-light">Supprimer</a>
+										<a href="./Ecommerce_Bootstrap/panier/manage.php?del=<?= $product->id; ?>" class="btn btn-light">Supprimer</a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
@@ -96,44 +109,54 @@ if (isset($_GET['del'])) {
 				<div class="card mb-3">
 					<div class="card-body">
 						
-						<form>
 							<div class="form-group">
 								<label>Saisir le coupon ?</label>
 								<div class="input-group">
-									<form action="" method="post">
-										<input type="text" class="form-control" name="code" placeholder="Coupon code">
+									<form action="" method="POST">
+										<input type="text" class="form-control" name="code_coupon" placeholder="Coupon code">
 										<span class="input-group-append">
-											<button class="btn btn-primary" name="apply_coupon">Apply</button>
+											<button class="btn btn-primary btn-block" name="Apply_Coupon">Valider</button>
 										</span>
+										
 									</form>
+
+
+						
 								</div>
 							</div>
-						</form>
+					
 					</div> 
 				</div> 
 				<div class="card">
+					<?php
+					$totalPanier = $panier->total();
+					$totalPanierTVA = $totalPanier * 1.2;
+
+					$coupon = $panier->getPrixCoupon();
+					$totalPanierTVACoupon = $totalPanierTVA - ((is_string($coupon)) ? 0 : $coupon->price_reduc);
+					?>
 					<div class="card-body">
 						<dl class="dlist-align">
 							<dt>Total prix:</dt>
 							<dd class="text-right">
-								<?= number_format($panier->total(), 2, ',', ' ') ?> €</dd>
+								<?= number_format($totalPanier, 2, ',', ' ') ?> €</dd>
 						</dl>
 						<dl class="dlist-align">
 							<dt>prix TVA</dt>
 							<dd class="text-right">
-								<?= number_format(($panier->total() * 1.2) - $panier->total(), 2, ',', ' ') ?> €</dd>
+								<?= number_format($totalPanierTVA - $totalPanier, 2, ',', ' ') ?> €</dd>
 						</dl>
 						<dl class="dlist-align">
-							<dt>Discount: -- coupon</dt>
-							<dd class="text-right">USD 658</dd>
+							<dt class="titleReduction"><strong>Reduction</strong> </dt>
+							<dd class="text-right"><?= $panier->affichePrixCouponExiste() ?></dd>
 						</dl>
 						<dl class="dlist-align">
 							<dt>Total:</dt>
-							<dd class="text-right  h5"><strong>	<?= number_format($panier->total() * 1.2, 2, ',', ' ') ?> €</strong></dd>
+							<dd class="text-right  h5"><strong>	<?= number_format($totalPanierTVACoupon, 2, ',', ' ') ?> €</strong></dd>
 						</dl>
 						<hr>
 						<p class="text-center mb-3">
-							<img src="images/misc/payments.png" height="26">
+							<!-- <img src="images/misc/payments.png" height="26"> -->
 						</p>
 
 					</div> <!-- card-body.// -->
@@ -143,6 +166,13 @@ if (isset($_GET['del'])) {
 
 	</div> <!-- container .//  -->
 </section>
+
+<style>
+.titleReduction{
+	font-weight: 700;
+    color: #3167eb;   
+}
+</style>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 <!-- ========================= SECTION  ========================= -->
