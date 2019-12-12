@@ -2,13 +2,15 @@
 
 ## Présentation : 
 
+La société « ChopTaPhoto » est une société de location de borne photo travaillant principalement dans le Nord. Elle propose ses services auprès de particulier et entreprise, afin de répondre à des événements de type mariage, anniversaire, journée d’intégration, salon, conférences, événements ….
+
 ## A quoi sa sert ? : 
 
-Le projet ChoptaPhoto, es
+Le projet ChoptaPhoto, sert a l'apprentissage et la création d'un site Ecommerce.
 
 ## L'architecture : 
 ```
-├───auth
+├───auth (l'authetification du site)
 ├───css
 ├───fonts
 ├───images
@@ -19,15 +21,18 @@ Le projet ChoptaPhoto, es
 │   ├───home
 │   ├───product-details
 │   └───shop
-├───include
+├───include (les fichiers header,footer)
 ├───js
-├───panier
-├───seeds
-└───vendor
+├───panier (fichiers des functione du paniers)
+├───seeds (fichier pour fausses donnees)
+└───vendor (librairie faker)
 ```
 ## Déployment : 
 
 ## Détails des branches : 
+
+- branche master :
+- branche login : 
 
 ## Glossaire : 
 
