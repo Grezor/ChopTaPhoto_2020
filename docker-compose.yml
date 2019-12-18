@@ -1,0 +1,26 @@
+version: "2"
+services:
+  # apache & php
+  test_app:
+    image: php:apache-stretch
+    container_name: choptaphoto
+    ports:
+      - 7766:80
+    volumes:
+      - "./:/var/www/html"
+  db:
+    image: mysql
+    volumes:
+        - /var/lib/mysql:/var/lib/mysql
+    environment:
+        MYSQL_USER: root
+        MYSQL_PASSWORD: test
+        MYSQL_ROOT_PASSWORD: test
+        MYSQL_DATABASE: choptaphoto
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links:
+          - db:db
+      ports:
+          - "5580:80"
+        

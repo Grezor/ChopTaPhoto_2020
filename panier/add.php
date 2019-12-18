@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     }
     $panier->add($product[0]->id);
   
-    header('Location: manage.php');
+    
     exit();
     //var_dump($product);
 }else {

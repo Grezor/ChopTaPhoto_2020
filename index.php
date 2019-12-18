@@ -1,6 +1,6 @@
 <?php
 
-require_once  __DIR__ . '/include/header.php';
+include_once 'include/header.php';
 require_once  __DIR__ . '/include/db.php';
 require_once __DIR__ . '/include/functions.php'; 
 
@@ -252,6 +252,7 @@ if(isset($_SESSION['flash'])): ?>
                                     </div> <!-- price-wrap.// -->
                                 </div>
                                 <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Reservation</a>
                             </figcaption>
                         </figure>
                     </div>

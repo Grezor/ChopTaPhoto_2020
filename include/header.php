@@ -11,45 +11,36 @@ $panier = new Panier($DB);
 
 <!DOCTYPE HTML>
 <html lang="en">
-
 <head>
-    <base href="http://localhost/Ecommerce_Bootstrap/">
-    <meta charset="utf-8">
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="cache-control" content="max-age=604800" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="max-age=604800" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>ChopTaPhoto</title>
+<title>Website title - bootstrap html template</title>
 
-    <link href="images/home/logo2.png" rel="shortcut icon" type="image/x-icon">
+<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-    <!-- jQuery -->
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="../js/jquery-2.0.0.min.js" type="text/javascript"></script>
 
-    <!-- Bootstrap4 files-->
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/basic.css" rel="stylesheet" type="text/css" />
+<!-- Bootstrap4 files-->
+<script src="../js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<link href="./Ecommerce_Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 
+<!-- Font awesome 5 -->
+<link href="../fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- plugin: fancybox  -->
+<script src="../plugins/fancybox/fancybox.min.js" type="text/javascript"></script>
+<link href="../plugins/fancybox/fancybox.min.css" type="text/css" rel="stylesheet">
 
-    <!-- Font awesome 5 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> 
+<!-- custom style -->
+<link href="./Ecommerce_Bootstrap/css/ui.css" rel="stylesheet" type="text/css"/>
+<link href="./css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
 
-    <!-- plugin: fancybox  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" type="text/javascript"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" type="text/css" rel="stylesheet">
-
-    <!-- custom style -->
-    <link href="css/ui.css" rel="stylesheet" type="text/css" />
-    <link href="css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
-
-    <!-- custom javascript -->
-    <script src="js/script.js" type="text/javascript"></script>
+<!-- custom javascript -->
+<script src="../js/script.js" type="text/javascript"></script>
 
     
 

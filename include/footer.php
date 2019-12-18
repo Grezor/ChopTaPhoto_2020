@@ -77,11 +77,11 @@
 	
 
   
-    <script src="../js/jquery.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/jquery.scrollUp.min.js"></script>
-	<script src="../js/price-range.js"></script>
-    <script src="../js/jquery.prettyPhoto.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="./Ecommerce_Bootstrap/"></script>
+	<script src="./Ecommerce_Bootstrap/js/bootstrap.min.js"></script>
+	<script src="./Ecommerce_Bootstrap/js/jquery.scrollUp.min.js"></script>
+	<script src="./Ecommerce_Bootstrap/js/price-range.js"></script>
+    <script src="./Ecommerce_Bootstrap/js/jquery.prettyPhoto.js"></script>
+    <script src="./Ecommerce_Bootstrap/js/main.js"></script>
 </body>
 </html>

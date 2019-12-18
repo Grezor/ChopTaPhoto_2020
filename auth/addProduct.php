@@ -34,6 +34,10 @@ if (!empty($_POST)) {
 		$errors['ref'] = "Votre ref n'est pas valide";
 	}
 
+	$file = $_FILES['file'];
+	print_r($file);
+	$fileName = $_FILES['file']['name'];
+
 	$location = (isset($_POST['is_location']));
 
 
@@ -88,7 +92,7 @@ if (!empty($_POST)) {
 
 			<?php endif; ?>
 
-			<form action="" method="POST">
+			<form action="" method="POST" enctype="multipart/form-data">
 				<div class="form-row">
 					<div class="col form-group">
 						<label>Nom</label>
@@ -123,7 +127,7 @@ if (!empty($_POST)) {
 						</label>
 					</div>
 
-					
+					<input type="file" name="file" id="">
 
 				</div>
 				<div class="form-group">
