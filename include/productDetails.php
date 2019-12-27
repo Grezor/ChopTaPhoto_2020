@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
 
     <div class="container">
     <div class="col-md-3">
-<a href="../Ecommerce_Bootstrap/index.php" class="btn btn-block btn-primary">Retour</a>
+<a href="../index.php" class="btn btn-block btn-primary">Retour</a>
 </div>
                             </figcaption>
         <br>
@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
         <article class="card card-product-list">
             <div class="row no-gutters">
                 <aside class="col-md-3">
-                    <a href="#" class="img-wrap"><img src="images/shop/<?= $product->id; ?>.jpg"></a>
+                    <a href="#" class="img-wrap"><img src="../images/shop/<?= $product->id; ?>.jpg"></a>
                 </aside> <!-- col.// -->
                 <div class="col-md-6">
                     <div class="info-main">

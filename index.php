@@ -251,8 +251,8 @@ if(isset($_SESSION['flash'])): ?>
                                         <del class="price-old">$1980</del>
                                     </div> <!-- price-wrap.// -->
                                 </div>
-                                <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
-                                <a href="../Ecommerce_Bootstrap/panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Reservation</a>
+                                <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Reservation</a>
                             </figcaption>
                         </figure>
                     </div>

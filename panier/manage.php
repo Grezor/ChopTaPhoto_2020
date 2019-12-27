@@ -64,7 +64,7 @@ if(isset($_SESSION['flash'])): ?>
 
 
 										<figure class="itemside">
-											<div class="aside"><img src="images/shop/<?= $product->id; ?>.jpg" class="img-sm"></div>
+											<div class="aside"><img src="../images/shop/<?= $product->id; ?>.jpg" class="img-sm"></div>
 											<figcaption class="info">
 												<a href="#" class="title text-dark"><?= $product->name; ?></a>
 												<p class="text-muted small">Size: XL, Color: blue, <br> Brand: Gucci</p>
