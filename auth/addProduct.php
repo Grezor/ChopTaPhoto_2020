@@ -33,13 +33,27 @@ if (!empty($_POST)) {
 	if (empty($_POST['ref'])) {
 		$errors['ref'] = "Votre ref n'est pas valide";
 	}
-
-	$file = $_FILES['file'];
-	print_r($file);
-	$fileName = $_FILES['file']['name'];
-
+	if (empty($_FILES['files'])) {
+		$errors['files'] = "Votre image_product n'est pas valide";
+	}
 	$location = (isset($_POST['is_location']));
+	// $files = $_FILES['file']['name'];
 
+	// ajout d'une image au produit
+	// la variable globale $_FILES va contenir tout les information du fichier.
+	$files = $_FILES['files'];
+	var_dump($files);
+	$filesname = $files['name'];
+	$filetmp = $files['tmp_name'];
+
+	$fileext = explode('.', $filesname);
+	$filecheck = strtolower(end($fileext));
+	$fileextstored = ['png', 'jpeg', 'jpg'];
+
+	if(!in_array($filecheck, $fileextstored)){
+		$errors['image__format'] = "Votre image n'est pas dans un format valide";
+	}
+	print_r($filesname);
 
 	// Pour envoyer les données a la base de données
 	if (empty($errors)) {
@@ -52,11 +66,23 @@ if (!empty($_POST)) {
 			':price' => (int) $_POST['price'],
 			':quantity' => $_POST['quantity'],
 			':ref' => $_POST['ref'],
-			':is_location' => (int) $location
+			':is_location' => (int) $location			
+		]);
+		
+		echo "<pre>" . $req->debugDumpParams() . "</pre>";
+		$productId = (int) $pdo->lastInsertId();
+		
+		$destinationfile = 'images/shop/'. $filesname;
+		move_uploaded_file($filetmp, $destinationfile);
+
+		$insertImage = $pdo->prepare('INSERT INTO product_image (product_id, is_main, path, name)
+		VALUES(:productId, 1, :files, "")');
+		$insertImage->execute([
+			':productId' => $productId,
+			':files' => $destinationfile
 		]);
 
 
-		echo "<pre>" . $req->debugDumpParams() . "</pre>";
 
 		// On envoit l'email de confirmation
 		// mail($_POST['email'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur ce lien\n\nhttp://localhost/Ecommerce_Bootstrap/auth/confirm.php?id=$user_id&token=$token");
@@ -65,6 +91,7 @@ if (!empty($_POST)) {
 
 		exit();
 	}
+	var_dump($errors);
 }
 ?>
 
@@ -127,7 +154,7 @@ if (!empty($_POST)) {
 						</label>
 					</div>
 
-					<input type="file" name="file" id="">
+					<input type="file" name="files"  id="files">
 
 				</div>
 				<div class="form-group">

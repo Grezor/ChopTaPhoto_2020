@@ -2,25 +2,23 @@
 
 include_once 'include/header.php';
 require_once  __DIR__ . '/include/db.php';
-require_once __DIR__ . '/include/functions.php'; 
+require_once __DIR__ . '/include/functions.php';
 
 // $DB->query('SELECT * FROM product');
 $panier = new Panier($DB);
-
 ?>
 
 
 
-<?php 
-
-if(isset($_SESSION['flash'])): ?>
-<?php foreach($_SESSION['flash'] as $type => $message) : ?> 
-    <div class="alert alert-<?= $type; ?>">
-    <?= $message ?>
-</div>
-<?php endforeach ?>
+<?php
+if (isset($_SESSION['flash'])) : ?>
+    <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
+        <div class="alert alert-<?= $type; ?>">
+            <?= $message ?>
+        </div>
+    <?php endforeach ?>
 <?php unset($_SESSION['flash']);
- endif ?>
+endif ?>
 <section class="section-pagetop bg">
     <div class="container">
         <h2 class="title-page">Category products</h2>
@@ -32,7 +30,7 @@ if(isset($_SESSION['flash'])): ?>
             </ol>
         </nav>
     </div>
-   
+
 </section>
 <!-- ========================= SECTION INTRO END// ========================= -->
 
@@ -53,21 +51,21 @@ if(isset($_SESSION['flash'])): ?>
                         </header>
                         <div class="filter-content collapse show" id="collapse_1" style="">
                             <div class="card-body">
-                                
+
                                 <?php
                                 $category = $pdo->prepare('SELECT name FROM category');
                                 $category->execute([]);
                                 foreach ($category as $categorie) :
                                 ?>
-                                <ul class="list-menu">
-                                    <li><a href="#"><?= $categorie->name; ?></a></li>
-                                </ul>
-                                <?php endforeach;?>
+                                    <ul class="list-menu">
+                                        <li><a href="#"><?= $categorie->name; ?></a></li>
+                                    </ul>
+                                <?php endforeach; ?>
                             </div>
-                          
+
                         </div>
                     </article>
-                    
+
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
@@ -105,7 +103,7 @@ if(isset($_SESSION['flash'])): ?>
                             </div>
                         </div>
                     </article>
-                    
+
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
@@ -126,13 +124,13 @@ if(isset($_SESSION['flash'])): ?>
                                         <input class="form-control" placeholder="$1,0000" type="number">
                                     </div>
                                 </div>
-                                
+
                                 <button class="btn btn-block btn-primary">Apply</button>
                             </div>
-                            
+
                         </div>
                     </article>
-                    
+
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
@@ -162,10 +160,10 @@ if(isset($_SESSION['flash'])): ?>
                                     <span class="btn btn-light"> XXL </span>
                                 </label>
                             </div>
-                            
+
                         </div>
                     </article>
-                    
+
                     <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
@@ -195,15 +193,15 @@ if(isset($_SESSION['flash'])): ?>
                                     <div class="custom-control-label">Very old</div>
                                 </label>
                             </div>
-                            
+
                         </div>
                     </article>
-                    
+
                 </div>
-                
+
 
             </aside>
-            
+
             <main class="col-md-9">
 
                 <header class="border-bottom mb-4 pb-3">
@@ -223,61 +221,45 @@ if(isset($_SESSION['flash'])): ?>
                         </div>
                     </div>
                 </header>
-                <!-- sect-heading -->
+             
 
                 <div class="row">
 
-                <?php
-                // Affichage de la listes des produits
-                    $products = $DB->query('SELECT id, name, price, description, created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < created_at) AS is_new FROM product');
-                    foreach($products as $product) :
-                        ?>
-                    <div class="col-md-4">
-                        <figure class="card card-product-grid">
-                            <div class="img-wrap">
+                    <?php
+                    // Affichage de la listes des produits
+                    $products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description,
+                        p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
+                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 ORDER BY p.created_at');
+                    foreach ($products as $product) :
+                    ?>
+                        <div class="col-md-4">
+                            <figure class="card card-product-grid">
+                                <div class="img-wrap">
 
-                                <?php if ((int) $product->is_new): ?>
-                                    <span class="badge badge-danger"> NEW </span>
-                                <?php endif; ?>
-                                <img src="images/shop/<?= $product->id; ?>.jpg">
-                                <a class="btn-overlay" href="./include/productDetails.php?id=<?= $product->id; ?>"><i class="fa fa-search-plus"></i> Plus d'infos</a>
-                            </div> <!-- img-wrap.// -->
-                            <figcaption class="info-wrap">
-                                <div class="fix-height">
-                                    <a href="#" class="title"><?= $product->name; ?></a>
-                                    <div class="price-wrap mt-2">
-                                        <span class="price"><?= $product->price; ?> €</span>
-                                        <span class=""><?= $product->description; ?> €</span>
-                                        <del class="price-old">$1980</del>
-                                    </div> <!-- price-wrap.// -->
+                                    <?php if ((int) $product->is_new) : ?>
+                                        <span class="badge badge-danger"> NEW </span>
+                                    <?php endif; ?>
+                                    <?php $productImage = $product->path ?? 'images/shop/default.jpg'; ?>
+                                    <img src="../<?= $productImage; ?>">
+                                    <a class="btn-overlay" href="./include/productDetails.php?id=<?= $product->p_id; ?>"><i class="fa fa-search-plus"></i> Plus d'infos</a>
                                 </div>
-                                <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
-                                <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Reservation</a>
-                            </figcaption>
-                        </figure>
-                    </div>
+                                <figcaption class="info-wrap">
+                                    <div class="fix-height">
+                                        <a href="#" class="title"><?= $product->name; ?></a>
+                                        <div class="price-wrap mt-2">
+                                            <span class="price"><?= $product->price; ?> €</span>
+                                            <span class=""><?= $product->description; ?> €</span>
+                                            <del class="price-old">$1980</del>
+                                        </div>
+                                    </div>
+                                    <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                    <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Reservation</a>
+                                </figcaption>
+                            </figure>
+                        </div>
 
                     <?php endforeach; ?>
-
-                   
-
-
-                    
-
-
-
-
-
-
-                </div> <!-- row end.// -->
-
-
-
-
-
-
-
-
+                </div>
 
                 <nav class="mt-4" aria-label="Page navigation sample">
                     <ul class="pagination">
@@ -290,12 +272,11 @@ if(isset($_SESSION['flash'])): ?>
                 </nav>
 
             </main>
-            <!-- col.// -->
-
+   
         </div>
 
     </div>
-    <!-- container .//  -->
+   
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
@@ -309,7 +290,6 @@ if(isset($_SESSION['flash'])): ?>
             <a href="#">Terms and conditions</a>
         </p>
     </div>
-    <!-- //container -->
 </footer>
 <!-- ========================= FOOTER END // ========================= -->
 
