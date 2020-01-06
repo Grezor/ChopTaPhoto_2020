@@ -248,12 +248,12 @@ endif ?>
                                         <a href="#" class="title"><?= $product->name; ?></a>
                                         <div class="price-wrap mt-2">
                                             <span class="price"><?= $product->price; ?> €</span>
-                                            <span class=""><?= $product->description; ?> €</span>
+                                            <span class=""><?= $product->description; ?></span>
                                             <del class="price-old">$1980</del>
                                         </div>
                                     </div>
-                                    <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
-                                    <a href="../panier/add.php?id=<?= $product->id; ?>" class="btn btn-block btn-primary">Reservation</a>
+                                    <a href="../app/panier/add.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                    <a href="../app/panier/reservation.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary">Reservation</a>
                                 </figcaption>
                             </figure>
                         </div>

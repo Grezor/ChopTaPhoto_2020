@@ -6,9 +6,7 @@ require_once  __DIR__ . '/functions.php';
 
 $DB = new DB();
 $panier = new Panier($DB);
-
 ?>
-
 <!DOCTYPE HTML>
 <html lang="fr">
 
@@ -19,32 +17,30 @@ $panier = new Panier($DB);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>ChopTaphoto </title>
+    <!-- jQuery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="../images/home/logo2.png" rel="shortcut icon" type="image/x-icon">
+    <link href="../../public/images/home/logo2.png" rel="shortcut icon" type="image/x-icon">
 
     <!-- jQuery -->
-    <script src="../js/jquery-2.0.0.min.js" type="text/javascript"></script>
+    <script src="../../public/css/bootstrap.css/js/jquery-2.0.0.min.js" type="text/javascript"></script>
 
     <!-- Bootstrap4 files-->
-    <script src="../js/bootstrap.bundle.min.js" type="text/javascript"></script>
-    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="../../public/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <link href="../../public/css/bootstrap.css" rel="stylesheet" type="text/css" />
 
     <!-- Font awesome 5 -->
-    <link href="../fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
+    <link href="../../public/fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
 
     <!-- plugin: fancybox  -->
-    <script src="../plugins/fancybox/fancybox.min.js" type="text/javascript"></script>
-    <link href="../plugins/fancybox/fancybox.min.css" type="text/css" rel="stylesheet">
+    <script src="../../public/plugins/fancybox/fancybox.min.js" type="text/javascript"></script>
+    <link href="../../public/plugins/fancybox/fancybox.min.css" type="text/css" rel="stylesheet">
 
     <!-- custom style -->
-    <link href="../css/ui.css" rel="stylesheet" type="text/css" />
-    <link href="../css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+    <link href="../../public/css/ui.css" rel="stylesheet" type="text/css" />
+    <link href="../../public/css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
 
     <!-- custom javascript -->
-    <script src="../js/script.js" type="text/javascript"></script>
-
-
-
+    <script src="../../public/js/script.js" type="text/javascript"></script>
 
 </head>
 
@@ -93,8 +89,8 @@ $panier = new Panier($DB);
                                                 <a href="../auth/allUsers.php">Liste utilisateurs</a>
                                             <?php endif; ?>
                                         <?php else : ?>
-                                            <a href="auth/login.php">Connexion</a> |
-                                            <a href="auth/register.php">Inscription</a>
+                                            <a href="./app/auth/login.php">Connexion</a> |
+                                            <a href="./app/auth/register.php">Inscription</a>
 
                                         <?php endif; ?>
 

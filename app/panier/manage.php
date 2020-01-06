@@ -1,5 +1,5 @@
 <?php
-require_once  '../../include/header.php';
+require_once  '../..//include/header.php';
 $title = "Panier ";
 //var_dump($_SESSION);
 if (isset($_GET['del'])) {

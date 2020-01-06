@@ -56,9 +56,9 @@ if (isset($_GET['id'])) {
                         <span class="badge badge-secondary"><?= $product->ref; ?></span>
 
                         <p> <?= $product->description; ?></p>
-                    </div> <!-- info-main.// -->
+                    </div> 
                     
-                </div> <!-- col.// -->
+                </div> 
                 <aside class="col-sm-3">
                     <div class="info-aside">
                         <div class="price-wrap">
