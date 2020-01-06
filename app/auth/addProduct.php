@@ -1,11 +1,11 @@
 <?php
 
-require_once '../include/functions.php';
+require_once '../../include/functions.php';
 sessionStart();
 
 if (!empty($_POST)) {
 	$errors = [];
-	require_once '../include/db.php';
+	require_once '../../include/db.php';
 
 	if (empty($_POST['name']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['name'])) {
 		$errors['name'] = "Votre nom n'est pas valide";
@@ -33,13 +33,27 @@ if (!empty($_POST)) {
 	if (empty($_POST['ref'])) {
 		$errors['ref'] = "Votre ref n'est pas valide";
 	}
-
-	$file = $_FILES['file'];
-	print_r($file);
-	$fileName = $_FILES['file']['name'];
-
+	if (empty($_FILES['files'])) {
+		$errors['files'] = "Votre image_product n'est pas valide";
+	}
 	$location = (isset($_POST['is_location']));
+	// $files = $_FILES['file']['name'];
 
+	// ajout d'une image au produit
+	// la variable globale $_FILES va contenir tout les information du fichier.
+	$files = $_FILES['files'];
+	var_dump($files);
+	$filesname = $files['name'];
+	$filetmp = $files['tmp_name'];
+
+	$fileext = explode('.', $filesname);
+	$filecheck = strtolower(end($fileext));
+	$fileextstored = ['png', 'jpeg', 'jpg'];
+
+	if(!in_array($filecheck, $fileextstored)){
+		$errors['image__format'] = "Votre image n'est pas dans un format valide";
+	}
+	print_r($filesname);
 
 	// Pour envoyer les données a la base de données
 	if (empty($errors)) {
@@ -52,11 +66,23 @@ if (!empty($_POST)) {
 			':price' => (int) $_POST['price'],
 			':quantity' => $_POST['quantity'],
 			':ref' => $_POST['ref'],
-			':is_location' => (int) $location
+			':is_location' => (int) $location			
+		]);
+		
+		echo "<pre>" . $req->debugDumpParams() . "</pre>";
+		$productId = (int) $pdo->lastInsertId();
+		
+		$destinationfile = '/images/shop/'. $filesname;
+		move_uploaded_file($filetmp, $destinationfile);
+
+		$insertImage = $pdo->prepare('INSERT INTO product_image (product_id, is_main, path, name)
+		VALUES(:productId, 1, :files, "")');
+		$insertImage->execute([
+			':productId' => $productId,
+			':files' => $destinationfile
 		]);
 
 
-		echo "<pre>" . $req->debugDumpParams() . "</pre>";
 
 		// On envoit l'email de confirmation
 		// mail($_POST['email'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur ce lien\n\nhttp://localhost/Ecommerce_Bootstrap/auth/confirm.php?id=$user_id&token=$token");
@@ -65,10 +91,20 @@ if (!empty($_POST)) {
 
 		exit();
 	}
+	var_dump($errors);
 }
+
+
+
 ?>
 
-<?php require_once '../include/header.php'; ?>
+<!-- update -->
+<?php 
+
+
+
+?>
+<?php require_once '../../include/header.php'; ?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 
@@ -76,7 +112,7 @@ if (!empty($_POST)) {
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
 		<article class="card-body">
 			<header class="mb-4">
-				<h4 class="card-title">creattion d'un produit</h4>
+				<h4 class="card-title">creation d'un produit</h4>
 			</header>
 
 			<?php
@@ -93,10 +129,11 @@ if (!empty($_POST)) {
 			<?php endif; ?>
 
 			<form action="" method="POST" enctype="multipart/form-data">
+			
 				<div class="form-row">
 					<div class="col form-group">
 						<label>Nom</label>
-						<input type="text" name="name" class="form-control" placeholder="">
+						<input type="text" name="name" class="form-control" placeholder="" >
 					</div> <!-- form-group end.// -->
 					<div class="col form-group">
 						<label>description</label>
@@ -112,7 +149,7 @@ if (!empty($_POST)) {
 
 					<div class="form-group col-md-12">
 						<label>quantité</label>
-						<input type="text" name="quantity" class="form-control" placeholder="">
+						<input type="text" name="quantity" class="form-control" placeholder="" >
 					</div>
 
 					<div class="form-group col-md-12">
@@ -126,19 +163,22 @@ if (!empty($_POST)) {
 							<div class="custom-control-label">Location ?</div>
 						</label>
 					</div>
-
-					<input type="file" name="file" id="">
-
+					<div class="form-group col-md-12">
+						<input type="file" name="files"  class="form-control" id="files">
+					</div>
 				</div>
+
+				
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-block">Ajouter le produit </button>
 				</div> <!-- form-group// -->
 
 			</form>
+
 		</article>
 	</div>
 
-	<div class="container">
+	
 		<div class="card mx-auto" style="margin-top:40px;">
 			<article class="card-body">
 				<header class="mb-4">
@@ -155,6 +195,9 @@ if (!empty($_POST)) {
 							<th scope="col">quantité</th>
 							<th scope="col">reference</th>
 							<th scope="col">is_location</th>
+							<th scope="col">IMAGE</th>
+							
+							<th scope="col">modifications</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -163,6 +206,7 @@ if (!empty($_POST)) {
 						$requeteSelect = "SELECT id, name, description, price, quantity, ref, is_location, created_at FROM product ";
 						$selectproduct = $pdo->prepare($requeteSelect);
 						$selectproduct->execute();
+
 						?>
 						<?php foreach ($selectproduct as $resultProduct) { ?>
 							<tr>
@@ -174,8 +218,12 @@ if (!empty($_POST)) {
 								<th><?= $resultProduct->quantity; ?></th>
 								<th><?= $resultProduct->ref; ?></th>
 								<th><?= $resultProduct->is_location; ?></th>
+								<th></th>
 								<th><?= $resultProduct->created_at; ?></th>
-								
+							
+								<th><a href="edit.php?id=<?= $resultProduct->id; ?>" class="btn btn-success">Edit</a></th>
+								<th><a href="delete.php?id=<?= $resultProduct->id; ?>" class="btn btn-danger">Delete</a></th>
+							
 							</tr>
 
 						<?php } ?>
@@ -190,7 +238,7 @@ if (!empty($_POST)) {
 			</article>
 		</div>
 
-	</div>
+
 
 
 

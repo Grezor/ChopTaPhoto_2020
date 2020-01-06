@@ -1,11 +1,11 @@
 <?php 
 
-require_once '../include/functions.php';
+require_once '../../include/functions.php';
 sessionStart();
 
 if (!empty($_POST)) {
 	$errors = [];
-	require_once '../include/db.php';
+	require_once '../../include/db.php';
 
 	if (empty($_POST['name']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['name'])) {
 		$errors['name'] = "Votre nom n'est pas valide";
@@ -71,14 +71,14 @@ if (!empty($_POST)) {
 }
 ?>
 
-<?php require_once '../include/header.php'; ?>
+<?php require_once '../../include/header.php'; ?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 
 <!-- ============================ COMPONENT REGISTER   ================================= -->
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
-		<header class="mb-4"><h4 class="card-title">creattion d'un coupon</h4></header>
+		<header class="mb-4"><h4 class="card-title">creation d'un coupon</h4></header>
 
 		<?php 
 		if(isset($_SESSION['flash'])): ?>

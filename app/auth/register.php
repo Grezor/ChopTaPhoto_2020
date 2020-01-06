@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../include/functions.php';
+require_once '../../include/functions.php';
 sessionStart();
 
 if (!empty($_POST)) {
@@ -61,7 +61,7 @@ if (!empty($_POST)) {
 }
 ?>
 
-<?php require_once '../include/header.php'; ?>
+<?php require_once ('../../include/header.php');?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 
