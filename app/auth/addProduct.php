@@ -72,7 +72,7 @@ if (!empty($_POST)) {
 		echo "<pre>" . $req->debugDumpParams() . "</pre>";
 		$productId = (int) $pdo->lastInsertId();
 		
-		$destinationfile = '/images/shop/'. $filesname;
+		$destinationfile = 'images/shop/'. $filesname;
 		move_uploaded_file($filetmp, $destinationfile);
 
 		$insertImage = $pdo->prepare('INSERT INTO product_image (product_id, is_main, path, name)
@@ -163,9 +163,15 @@ if (!empty($_POST)) {
 							<div class="custom-control-label">Location ?</div>
 						</label>
 					</div>
+<<<<<<< HEAD:app/auth/addProduct.php
 					<div class="form-group col-md-12">
 						<input type="file" name="files"  class="form-control" id="files">
 					</div>
+=======
+
+					<input type="file" name="files"  id="files">
+
+>>>>>>> 6cf0c3d77607175c85f1e52a06fc62d9b88a07b5:auth/addProduct.php
 				</div>
 
 				
