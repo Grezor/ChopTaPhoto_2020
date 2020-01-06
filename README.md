@@ -10,7 +10,12 @@ Le projet ChoptaPhoto, sert a l'apprentissage et la création d'un site Ecommerc
 
 ## L'architecture : 
 ```
-├───auth (l'authetification du site)
+├─── app
+│   ├─── authentifications
+│   ├─── panier
+│   ├─── booking
+│   ├─── payment
+|   ├─── router
 ├───css
 ├───fonts
 ├───images
