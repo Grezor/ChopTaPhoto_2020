@@ -226,10 +226,11 @@ endif ?>
                 <div class="row">
 
                     <?php
+                    $perPage = 12;
                     // Affichage de la listes des produits
                     $products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description,
                         p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
-                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 ORDER BY p.created_at');
+                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 ORDER BY p.created_at DESC LIMIT  $perPage OFFSET);
                     foreach ($products as $product) :
                     ?>
                         <div class="col-md-4">
@@ -260,7 +261,21 @@ endif ?>
 
                     <?php endforeach; ?>
                 </div>
+<?php 
+$currentPage = (int)($_GET['page'] ?? 1);
+if ($currentPage <= 0) {
+    echo "Numero de page invalide";
+}
+var_dump($currentPage);
+$count = $pdo->query('SELECT COUNT(id) FROM product')->fetch(PDO::FETCH_NUM)[0];
 
+$pages = ceil($count / $perPage);
+if ($currentPage > $pages) {
+    echo "cette page n'existe pas";
+}
+var_dump($pages);
+
+?>
                 <nav class="mt-4" aria-label="Page navigation sample">
                     <ul class="pagination">
                         <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
