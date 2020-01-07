@@ -253,7 +253,7 @@ endif ?>
                                         </div>
                                     </div>
                                     <a href="../app/panier/add.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
-                                    <a href="../app/booking/reservation.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary">Reservation</a>
+                                    <a href="../app/booking/reservations.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary">Reservation</a>
                                 </figcaption>
                             </figure>
                         </div>

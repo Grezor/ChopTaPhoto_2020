@@ -138,34 +138,39 @@ if (!empty($_POST)) {
 					<div class="col form-group">
 						<label>prenom</label>
 						<input type="text" name="description" class="form-control" placeholder="">
-					</div> <!-- form-group end.// -->
+					</div> 
+
+				
 				</div>
 
 				<div class="form-row">
-					<div class="col form-group">
-						<label>adresse</label>
+
+				<div class="col form-group col-md-12">
+						<label>email</label>
+						<input type="text" name="description" class="form-control" placeholder="">
+					</div> 
+
+					<div class="col form-group col-md-12">
+						<label>adresse de livraison</label>
 						<input type="text" name="price" class="form-control" placeholder="">
 					</div>
 
 					<div class="form-group col-md-12">
-						<label>email</label>
+						<label>code postal</label>
 						<input type="text" name="quantity" class="form-control" placeholder="" >
 					</div>
 
 					<div class="form-group col-md-12">
-						<label></label>
+						<label>Ville</label>
 						<input type="text" name="ref" class="form-control" placeholder="">
 					</div>
 
 					<div class="form-group col-md-12">
-						<label class="custom-control custom-checkbox">
-							<input type="checkbox" name="is_location" class="custom-control-input">
-							<div class="custom-control-label">Location ?</div>
-						</label>
+						<label>pays</label>
+						<input type="text" name="ref" class="form-control" placeholder="">
 					</div>
-					<div class="form-group col-md-12">
-						<input type="file" name="files"  class="form-control" id="files">
-					</div>
+
+					
 				</div>
 
 				
