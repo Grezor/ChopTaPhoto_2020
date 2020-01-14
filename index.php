@@ -1,13 +1,13 @@
 <?php
-
+require_once './vendor/autoload.php';
 include_once 'include/header.php';
 
 require_once  __DIR__ . '/include/db.php';
 require_once __DIR__ . '/include/functions.php';
-require_once './vendor/autoload.php';
+
 // $DB->query('SELECT * FROM product');
 $panier = new Panier($DB);
-// // $page = $_GET['page'] ?? '404';
+$page = $_GET['page'] ?? '404';
 
 // // if ($page === 'login') {
 // //     require ('./app/auth/login.php');
@@ -15,11 +15,13 @@ $panier = new Panier($DB);
 // //     require './app/error/404.php';
 // // }
 // // var_dump($_SERVER);
-// $uri = $_SERVER['REQUEST_URI'];
-// $router = new AltoRouter();
-// $router->map('GET', '/', function() {
-//     echo 'Testing AutoRouter';
-// });
+$uri = $_SERVER['REQUEST_URI'];
+
+$router = new AltoRouter();
+$router->map('GET', '/produit[*]', function() {
+echo 'dddddd';
+});
+$match = $router->match();
 
 ?>
 
