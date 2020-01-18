@@ -1,20 +1,20 @@
 <?php 
 
-require_once '../include/functions.php';
+require_once __DIR__ . '/../../include/functions.php';
 sessionStart();
 
 
-require_once '../include/header.php'; ?>
+ require_once (__DIR__ .'/../../include/header.php');?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 
 
 <button type="button" class="btn btn-primary">
-  Admin <span class="badge badge-light"><img src="../Ecommerce_Bootstrap/images/admin/king.png" alt="" class="king"></span>
+  Admin <span class="badge badge-light"><img src="/images/admin/king.png" alt="" class="king"></span>
 </button>
 
 <button type="button" class="btn btn-primary">
-  Visiteurs <span class="badge badge-light"><img src="../Ecommerce_Bootstrap/images/admin/role.png" alt="" class="king"></span>
+  Visiteurs <span class="badge badge-light"><img src="/images/admin/role.png" alt="" class="king"></span>
 </button>
 
 <button type="button" class="btn btn-primary">
@@ -76,12 +76,18 @@ require_once '../include/header.php'; ?>
         <span class="badge badge-danger"> Non Activé</span>
       <?php }?>
       </td>
+      <style>
+      .king{
+       width: 24px; 
+       height: 24px;
+      }</style>
       <td><?= strftime('%d-%m-%Y',strtotime($row->register_at)); ?></td>
-      <td><?php if ($row->role === '1') { ?><img src="../Ecommerce_Bootstrap/images/admin/king.png" alt="" class="king"></td><?php } ?>
+      <td><?php if ($row->role === '1') { ?><img src="/images/admin/king.png" alt="" class="king"></td><?php } ?>
       <!-- acheteur : badge level 2  -->
       <?php
-      if ($row->role === '0') { ?>
-        <img src="../Ecommerce_Bootstrap/images/admin/role.png" alt="" class="king">
+     
+      if ($row->role === '2') {  ?>
+        <img src="/images/admin/role.png" alt="" class="king">
       <?php } ?>
       <!-- Si c'est un nouveau utilisateurs  -->
       <?php if ((int) $row->is_new){ ?>

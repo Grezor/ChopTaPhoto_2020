@@ -1,5 +1,5 @@
 <?php 
-require_once '../../include/header.php';
+require_once (__DIR__ . '../../../include/header.php');
 ?>
 
 

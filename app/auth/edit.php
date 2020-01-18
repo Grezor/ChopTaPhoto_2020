@@ -1,5 +1,5 @@
 <?php
-require '../../include/db.php' ;
+require __DIR__ . '/../../include/db.php' ;
 
 // recuperation de l'id selectionner
 $id = $_GET['id'];
@@ -26,10 +26,10 @@ if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['pri
       ':id' => $id
     ])) {
       $_SESSION['flash']['success'] = "Vous avez mis a jour";
-    header("Location: addProduct.php");
+    header("Location: /addProduct");
   }
 }
-require '../../include/header.php' ; 
+ require_once (__DIR__ .'/../../include/header.php');
  ?>
 
 <div class="container">

@@ -52,7 +52,7 @@ $panier = new Panier($DB);
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-2 col-4">
-                        <a href="../index.php" class="brand-wrap">
+                        <a href="/" class="brand-wrap">
                             <img class="logo" src="../images/home/logo1.png">
                         </a>
                         <!-- brand-wrap.// -->
@@ -78,19 +78,19 @@ $panier = new Panier($DB);
                                         <?php
                                         //    var_dump($_SESSION['auth']);
                                         if (isset($_SESSION['auth'])) : ?>
-                                            <a href="../auth/logout.php">Se deconnecter</a>
-                                            <a href="../auth/account.php">Mon compte</a>
+                                            <a href="/logout">Se deconnecter</a>
+                                            <a href="/account">Mon compte</a>
                                             <?php if (isAdmin($_SESSION['auth'])) : ?>
-                                                <a href="../auth/roles.php">roles</a>
-                                                <a href="../auth/dashboard.php">dashboard</a>
-                                                <a href="../auth/addCoupon.php">Crée coupon</a>
-                                                <a href="../auth/addProduct.php">Crée produit</a>
-                                                <a href="../auth/addCategory.php">Crée Category</a>
-                                                <a href="../auth/allUsers.php">Liste utilisateurs</a>
+                                                <a href="/roles">roles</a>
+                                                <a href="/authbooking">reservation</a>
+                                                <a href="/addCoupon">Crée coupon</a>
+                                                <a href="/addProduct">Crée produit</a>
+                                                <a href="/addCategory">Crée Category</a>
+                                                <a href="/allUsers">Liste utilisateurs</a>
                                             <?php endif; ?>
                                         <?php else : ?>
-                                            <a href="./app/auth/login.php">Connexion</a> |
-                                            <a href="./app/auth/register.php">Inscription</a>
+                                            <a href="/login">Connexion</a> |
+                                            <a href="/register">Inscription</a>
 
                                         <?php endif; ?>
 

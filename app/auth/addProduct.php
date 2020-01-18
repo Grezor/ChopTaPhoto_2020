@@ -1,11 +1,11 @@
 <?php
 
-require_once '../../include/functions.php';
-sessionStart();
+require_once __DIR__ . '/../../include/functions.php';
+// sessionStart();
 
 if (!empty($_POST)) {
 	$errors = [];
-	require_once '../../include/db.php';
+	require_once  __DIR__ . '/../../include/db.php';
 
 	if (empty($_POST['name']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['name'])) {
 		$errors['name'] = "Votre nom n'est pas valide";
@@ -104,7 +104,7 @@ if (!empty($_POST)) {
 
 
 ?>
-<?php require_once '../../include/header.php'; ?>
+<?php require_once (__DIR__ .'/../../include/header.php');?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 
@@ -221,8 +221,8 @@ if (!empty($_POST)) {
 								<th></th>
 								<th><?= $resultProduct->created_at; ?></th>
 							
-								<th><a href="edit.php?id=<?= $resultProduct->id; ?>" class="btn btn-success">Edit</a></th>
-								<th><a href="delete.php?id=<?= $resultProduct->id; ?>" class="btn btn-danger">Delete</a></th>
+								<th><a href="/edit?id=<?= $resultProduct->id; ?>" class="btn btn-success">Edit</a></th>
+								<th><a href="/delete?id=<?= $resultProduct->id; ?>" class="btn btn-danger">Delete</a></th>
 							
 							</tr>
 

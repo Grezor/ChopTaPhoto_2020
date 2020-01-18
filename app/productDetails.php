@@ -1,11 +1,11 @@
 <?php
 // afficher le produit en détails
-require_once  __DIR__ . '../../include/_header.php';
+require_once (__DIR__ . '/../include/header.php');
 ob_start();
-if (isset($_GET['id'])) {
-    $products = $DB->query('SELECT id, name, price, description, ref  FROM product WHERE id=:id', array('id' => $_GET['id']));
-} else {
-    die('vous n avez rien selectionner');
+$products = $DB->query('SELECT p.id, p.name, p.price, p.description, p.ref, pimg.path FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 WHERE p.id=:id', array('id' => $productId));
+if (count($products) === 0) {
+    pageNotFound('Produit introuvable');
+    exit();
 }
 ?>
 <section class="section-pagetop bg">
@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
 
     <div class="container">
     <div class="col-md-3">
-<a href="../index.php" class="btn btn-block btn-primary">Retour</a>
+<a href="/" class="btn btn-block btn-primary">Retour</a>
 </div>
                             </figcaption>
         <br>
@@ -47,7 +47,9 @@ if (isset($_GET['id'])) {
         <article class="card card-product-list">
             <div class="row no-gutters">
                 <aside class="col-md-3">
-                    <a href="#" class="img-wrap"><img src="../images/shop/<?= $product->id; ?>.jpg"></a>
+                <?php $productImage = $product->path ?? 'images/shop/default.jpg'; ?>
+                                    
+                    <a href="#" class="img-wrap"><img src="../<?= $productImage; ?>"></a>
                 </aside> <!-- col.// -->
                 <div class="col-md-6">
                     <div class="info-main">
