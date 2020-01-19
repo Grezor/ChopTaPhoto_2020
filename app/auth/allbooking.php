@@ -19,6 +19,7 @@ require_once (__DIR__ .'/../../include/header.php');?>
       <th scope="col">postal</th>
       <th scope="col">debut</th>
       <th scope="col">fin</th>
+      <th scope="col">produit</th>
     </tr>
   </thead>
   <tbody>
@@ -30,7 +31,8 @@ require_once (__DIR__ .'/../../include/header.php');?>
 
 
 	
-	$sql = "SELECT id, nom, prenom, email, adresse, ville, debut, fin FROM booking ";
+  $sql = "SELECT booking.id, nom, prenom, email, adresse, ville, debut, fin, product_id, `name` FROM booking
+    INNER JOIN product ON product.id = booking.product_id";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	
@@ -46,9 +48,7 @@ require_once (__DIR__ .'/../../include/header.php');?>
       <td><?= $row->ville; ?></td>
       <td><?= strftime('%d/%m/%Y',strtotime($row->debut)); ?></td>
       <td><?= strftime('%d/%m/%Y',strtotime($row->fin)); ?></td>
-
-         
-
+      <td><a href="/admin/product/<?= $row->product_id; ?>" target="_blank"><?= $row->name; ?></a></td>
       </td>
     </tr>
 

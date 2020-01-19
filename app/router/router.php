@@ -46,20 +46,12 @@ $router->map('GET | POST', '/booking', function() {
 }, 'booking');
 
 $router->map('GET | POST', '/authbooking', function() {
-    require VIEW_PATH . '/auth/booking.php';
+    require VIEW_PATH . '/auth/allbooking.php';
 }, 'authbooking');
 
 // $router->map('GET | POST', '/reservations/[i:id]', function() {
 //     require VIEW_PATH . '/booking/reservations.php';
 // }, 'reservations');
-/*
-call create_range_date('2020-01-21', '2020-01-30', 1, 'DAY');
-select max(q.nb) as m, q.t from (
-    select count(*) as nb, interval_start as t from booking, time_intervals
-	where interval_start between booking.debut and booking.fin
-	group by interval_start
-) as q;
-*/
 
 $router->map('GET | POST', '/reset', function() {
     require VIEW_PATH . '/auth/reset.php';
@@ -82,12 +74,6 @@ $router->map('GET | POST', '/allUsers', function() {
 }, 'allUsers');
 
 
-$router->map('GET | POST', '/edit', function() {
-    require VIEW_PATH . '/auth/edit.php';
-}, 'edit');
-
-
-
 $router->map('GET | POST', '/delete', function() {
     require VIEW_PATH . '/auth/delete.php';
 }, 'delete');
@@ -95,6 +81,10 @@ $router->map('GET | POST', '/delete', function() {
 $router->map('GET', '/admin', function() {
     require VIEW_PATH . '/auth/admin.php';
 }, 'admin');
+
+$router->map('GET', '/admin/product/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/edit.php';
+}, 'admin.product.edit');
 
 $router->map('GET', '/', function() {
     require VIEW_PATH . '/products.php';
@@ -110,3 +100,16 @@ if ($match === false) {
 
 // var_dump($router->generate('produit.show', ['id' => 1]));
 call_user_func_array($match['target'], $match['params']);
+
+// Routes admin crud (version laravel: https://laravel.com/docs/5.7/controllers#resource-controllers)
+
+// Ressource : produits (products)
+/**
+ * [GET] /admin/products => /Liste les produits
+ * [GET] /admin/products/new => Formulaire d'ajour d'un produit
+ * [POST] /admin/products => Traitement du formulaire d'ajout (insert sql)
+ * 
+ * [GET] /admin/products/{id} => Formulaire d'édition d'un produit (id en paramètre)
+ * [POST] /admin/products/{id} => Traitement du formulaire d'édition du produit (update sql)
+ * [DELETE] /admin/products/{id} => Suppression d'un produit (delete sql)
+ */

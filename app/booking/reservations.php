@@ -3,8 +3,15 @@
 require_once __DIR__ . '/../../include/functions.php';
 sessionStart();
 
-if (empty($_GET['id'])) {
-	$_SESSION['flash']['danger'] = 'Id manquant';
+$productId = intval($_GET['id'] ?? '0');
+$reqProduct = $pdo->prepare('SELECT quantity FROM product WHERE id = :id');
+$reqProduct->execute([
+	':id' => $productId
+]);
+$rowQty = $reqProduct->fetch();
+
+if ($rowQty === false) {
+	$_SESSION['flash']['danger'] = 'Produit introuvable';
 
 	header('Location: /', true, 301);
 	exit();
@@ -37,7 +44,33 @@ if (!empty($_POST)) {
 		$errors['ville'] = "Votre prenom n'est pas valide";
 	}
 
-	$product_id = $_GET['id'];
+	if (empty($errors)) {
+		['debut' => $startStr, 'fin' => $endStr] = $_POST;
+		
+		$start = new DateTimeImmutable($startStr);
+		$end = new DateTimeImmutable($endStr);
+		$endOnePlus = $end->add(new DateInterval('P1D'));
+
+		// Count booking
+		$req = $pdo->prepare("call create_range_date(:debut, :fin, 1, 'DAY');");
+		$req->execute([
+			':debut' => $start->format('Y-m-d'),
+			':fin' => $endOnePlus->format('Y-m-d')
+		]);
+		$req = $pdo->prepare("select max(q.nb) as m, q.t from (
+			select count(*) as nb, interval_start as t from booking, time_intervals
+			where interval_start between booking.debut and booking.fin and booking.product_id = :productId
+			group by interval_start
+		) as q;");
+		$req->execute([':productId' => $productId]);
+
+		$quantityRented = intval($req->fetch()->m);
+		$quantityStored = intval($rowQty->quantity);
+
+		if (($quantityStored - $quantityRented) <= 0) {
+			$errors['out_of_stock'] = "Le produit {$productId} n'est pas réservable pour cette période";
+		}
+	}
 
 	if (empty($errors)) {
 		//$req = $pdo->prepare("INSERT INTO client (name, firstname, password, email, e) VALUES(:name, :firstname, :password, :email )");
@@ -46,37 +79,31 @@ if (!empty($_POST)) {
 
 		
 		$req->execute([
-			':nom' =>$_POST['nom'],
-			':prenom' =>$_POST['prenom'],
-			':email' =>$_POST['email'],
-			':adresse' =>$_POST['adresse'],
-			':postal' =>$_POST['postal'],
-			':ville' =>$_POST['ville'],
-			':debut' =>$_POST['debut'],
-			':fin' =>$_POST['fin'],
-			':productId' => $product_id
-			
+			':nom' => $_POST['nom'],
+			':prenom' => $_POST['prenom'],
+			':email' => $_POST['email'],
+			':adresse' => $_POST['adresse'],
+			':postal' => $_POST['postal'],
+			':ville' => $_POST['ville'],
+			':debut' => $start->format('Y-m-d'),
+			':fin' => $end->format('Y-m-d'),
+			':productId' => $productId
 		]);
 		$user_id = $pdo->lastInsertId();
-    // On envoit l'email de confirmation
-   // mail($_POST['email'], 'Confirmation de votre compte', "Nous avons bien recu votre commande, votre compte merci");
-    // On redirige l'utilisateur vers la page de login avec un message flash
-    $_SESSION['flash']['success'] = "Le produit {$product_id} a bien été reservé";
-    header('Location: /booking');
-    exit();
+		// On envoit l'email de confirmation
+	// mail($_POST['email'], 'Confirmation de votre compte', "Nous avons bien recu votre commande, votre compte merci");
+		// On redirige l'utilisateur vers la page de login avec un message flash
+		$_SESSION['flash']['success'] = "Le produit {$productId} a bien été reservé";
+		header('Location: /booking');
+		exit();
+	} else {
+		$_SESSION['flash']['danger'] = "Problème survenue lors de la réservation du produit";
 	}
 
 }
 
+require_once (__DIR__ .'/../../include/header.php');
 ?>
-
-<!-- update -->
-<?php 
-
-
-
-?>
-<?php require_once (__DIR__ .'/../../include/header.php');?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 

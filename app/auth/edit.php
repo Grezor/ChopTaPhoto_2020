@@ -2,10 +2,9 @@
 require __DIR__ . '/../../include/db.php' ;
 
 // recuperation de l'id selectionner
-$id = $_GET['id'];
 $sql = 'SELECT * FROM product WHERE id=:id';
 $statement = $pdo->prepare($sql);
-$statement->execute([':id' => $id ]);
+$statement->execute([':id' => $productId ]);
 $person = $statement->fetch(PDO::FETCH_OBJ);
 if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['quantity']) &&  isset($_POST['ref'])) {
 
@@ -23,7 +22,7 @@ if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['pri
       ':price'=> $price,
       ':quantity' => $quantity,
       ':ref' => $ref,
-      ':id' => $id
+      ':id' => $productId
     ])) {
       $_SESSION['flash']['success'] = "Vous avez mis a jour";
     header("Location: /addProduct");
