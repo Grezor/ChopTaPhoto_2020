@@ -80,6 +80,12 @@ $panier = new Panier($DB);
                         </div>
                     </ul>
                 </div>
+
+                <style>
+                .bg-light {
+    background-color: red!important;
+}
+                </style>
                 <ul class="navbar-nav">
                     <?php
                     if (isset($_SESSION['auth'])) : ?>
