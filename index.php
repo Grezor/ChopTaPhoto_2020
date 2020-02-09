@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 include_once 'include/header.php';
 require_once  __DIR__ . '/include/db.php';
@@ -313,3 +314,7 @@ var_dump($pages);
 </body>
 
 </html>
+=======
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/app/router/router.php';
+>>>>>>> booking
