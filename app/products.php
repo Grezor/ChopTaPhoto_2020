@@ -1,11 +1,12 @@
 <?php
 include_once __DIR__ . '/../include/header.php';
-
 require_once __DIR__ . '/../include/db.php';
 require_once __DIR__ . '/../include/functions.php';
 
 // $DB->query('SELECT * FROM product');
 $panier = new Panier($DB);
+$categoryId = intval($_GET['category'] ?? 0);
+var_dump($categoryId);
 
 if (isset($_SESSION['flash'])) : ?>
     <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
@@ -17,14 +18,14 @@ if (isset($_SESSION['flash'])) : ?>
 endif ?>
 <section class="section-pagetop bg">
     <div class="container">
-        <h2 class="title-page">Category products</h2>
-        <nav>
+        <h2 class="title-page">Produits</h2>
+        <!-- <nav>
             <ol class="breadcrumb text-white">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Best category</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Great articles</li>
             </ol>
-        </nav>
+        </nav> -->
     </div>
 
 </section>
@@ -49,12 +50,12 @@ endif ?>
                             <div class="card-body">
 
                                 <?php
-                                $category = $pdo->prepare('SELECT name FROM category');
+                                $category = $pdo->prepare('SELECT id, name FROM category');
                                 $category->execute([]);
                                 foreach ($category as $categorie) :
                                 ?>
                                     <ul class="list-menu">
-                                        <li><a href="#"><?= $categorie->name; ?></a></li>
+                                        <li><a href='/?category=<?= $categorie->id ?>'><?= $categorie->name; ?></a></li>
                                     </ul>
                                 <?php endforeach; ?>
                             </div>
@@ -62,7 +63,7 @@ endif ?>
                         </div>
                     </article>
 
-                    <article class="filter-group">
+                    <!-- <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
                                 <i class="icon-control fa fa-chevron-down"></i>
@@ -98,9 +99,9 @@ endif ?>
                                 </label>
                             </div>
                         </div>
-                    </article>
+                    </article> -->
 
-                    <article class="filter-group">
+                    <!-- <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
                                 <i class="icon-control fa fa-chevron-down"></i>
@@ -125,9 +126,9 @@ endif ?>
                             </div>
 
                         </div>
-                    </article>
+                    </article> -->
 
-                    <article class="filter-group">
+                    <!-- <article class="filter-group">
                         <header class="card-header">
                             <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
                                 <i class="icon-control fa fa-chevron-down"></i>
@@ -191,7 +192,7 @@ endif ?>
                             </div>
 
                         </div>
-                    </article>
+                    </article> -->
 
                 </div>
 
@@ -223,10 +224,17 @@ endif ?>
 
                     <?php
                     // Affichage de la listes des produits
+                    $where = '';
+                    if (!empty($categoryId)) {
+                        $where = 'WHERE category_id = '.$DB->getDB()->quote($categoryId);
+                    }
+                    $loop = false;
+
                     $products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description,
                         p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
-                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 ORDER BY p.created_at');
+                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 '.$where.' ORDER BY p.created_at');
                     foreach ($products as $product) :
+                        $loop = true;
                     ?>
                         <div class="col-md-4">
                             <figure class="card card-product-grid">
@@ -255,6 +263,11 @@ endif ?>
                         </div>
 
                     <?php endforeach; ?>
+                    <?php if ($loop === false): ?>
+                        <div class="col-md-12">
+                            Aucun élément à afficher (vérifier la catégorie)
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <nav class="mt-4" aria-label="Page navigation sample">
@@ -274,23 +287,12 @@ endif ?>
     </div>
    
 </section>
-<!-- ========================= SECTION CONTENT END// ========================= -->
+<section>
+<?php 
+include_once __DIR__ . '/../include/footer.php';
+?>
+</section>
 
-<!-- ========================= FOOTER ========================= -->
-<footer class="section-footer border-top padding-y">
-    <div class="container">
-        <p class="float-md-right">
-            &copy Copyright 2019 All rights reserved
-        </p>
-        <p>
-            <a href="#">Terms and conditions</a>
-        </p>
-    </div>
-</footer>
 <!-- ========================= FOOTER END // ========================= -->
 
 
-
-</body>
-
-</html>

@@ -52,6 +52,14 @@ $router->map('GET | POST', '/authbooking', function() {
 // $router->map('GET | POST', '/reservations/[i:id]', function() {
 //     require VIEW_PATH . '/booking/reservations.php';
 // }, 'reservations');
+/**
+ * ABOUT 
+ */
+
+$router->map('GET | POST', '/about', function() {
+    require VIEW_PATH . '/menu/about.php';
+}, 'about');
+
 
 $router->map('GET | POST', '/reset', function() {
     require VIEW_PATH . '/auth/reset.php';
@@ -64,6 +72,10 @@ $router->map('GET | POST', '/account', function() {
 $router->map('GET | POST', '/addProduct', function() {
     require VIEW_PATH . '/auth/addProduct.php';
 }, 'addProduct');
+
+$router->map('GET | POST', '/addCategory', function() {
+    require VIEW_PATH . '/auth/addCategory.php';
+}, 'addCategory');
 
 $router->map('GET | POST', '/addCoupon', function() {
     require VIEW_PATH . '/auth/addCoupon.php';
@@ -86,9 +98,27 @@ $router->map('GET', '/admin/product/[i:id]', function($productId) {
     require VIEW_PATH . '/auth/edit.php';
 }, 'admin.product.edit');
 
+
+$router->map('GET | POST', '/admin/edit/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/edit.php';
+}, 'adminedit');
+
+$router->map('GET | POST', '/admin/delete/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/delete.php';
+}, 'admindelete');
+
+$router->map('GET | POST', '/admin/deleteCategory/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/deleteCategorie.php';
+}, 'deleteCategory');
+
+$router->map('GET | POST', '/admin/deleteBooking/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/deleteBooking.php';
+}, 'deleteBooking');
+
 $router->map('GET', '/', function() {
     require VIEW_PATH . '/products.php';
 }, 'home');
+
 $match = $router->match();
 if ($match === false) {
     $match = [

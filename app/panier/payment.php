@@ -222,8 +222,6 @@ if (!empty($_POST)) {
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 
-
-
-</body>
-
-</html>
+<?php 
+include_once __DIR__ . '/../include/footer.php';
+?>

@@ -6,15 +6,17 @@ $sql = 'SELECT * FROM product WHERE id=:id';
 $statement = $pdo->prepare($sql);
 $statement->execute([':id' => $productId ]);
 $person = $statement->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['quantity']) &&  isset($_POST['ref'])) {
+if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['price']) 
+&& isset($_POST['quantity']) &&  isset($_POST['ref']) && isset($_POST['category_id'])) {
 
   $name = $_POST['name'];
   $description = $_POST['description'];
   $price = $_POST['price'];
   $quantity = $_POST['quantity'];
   $ref = $_POST['ref'];
+  $category_id = $_POST['category_id'];
 
-  $sql = 'UPDATE product SET name=:name, description=:description, price=:price, quantity = :quantity, ref = :ref WHERE id=:id';
+  $sql = 'UPDATE product SET name=:name, description=:description, price=:price, quantity = :quantity, category_id = :category_id, ref = :ref WHERE id=:id';
   $statement = $pdo->prepare($sql);
   if ($statement->execute([
       ':name' => $name,
@@ -22,6 +24,7 @@ if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['pri
       ':price'=> $price,
       ':quantity' => $quantity,
       ':ref' => $ref,
+      ':category_id' => $category_id,
       ':id' => $productId
     ])) {
       $_SESSION['flash']['success'] = "Vous avez mis a jour";
@@ -74,7 +77,23 @@ if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['pri
           <input type="text" value="<?= $person->ref; ?>" name="ref" id="ref" class="form-control">
         </div>
 
-
+        <?php
+                           
+                           $sql = "SELECT id, name FROM category";
+                           $stmt = $pdo->prepare($sql);
+                           $stmt->execute();
+                           ?>
+                           <div class="form-group col-md-12">
+                             <select name="category_id">
+                             <?php foreach ($stmt as $row) {
+                              if ($row->id === $person->category_id) { ?>
+                                <option selected value="<?php echo $row->id; ?>"><?php echo $row->id; ?> - <?php echo $row->name; ?></option>
+                              <?php }else{ ?>
+                                <option value="<?php echo $row->id; ?>"><?php echo $row->id; ?> - <?php echo $row->name; ?></option>
+                              <?php }
+                             } ?>
+                             </select>
+                             </div> 
         <div class="form-group">
           <button type="submit" class="btn btn-info">Mis a jour du produit</button>
         </div>
@@ -82,3 +101,7 @@ if (isset ($_POST['name'])  && isset($_POST['description']) && isset($_POST['pri
     </div>
   </div>
 </div>
+
+<?php 
+include_once __DIR__ . '/../../include/footer.php';
+?>

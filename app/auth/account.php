@@ -56,3 +56,6 @@ if(isset($_SESSION['flash'])): ?>
 
 
 </div>
+<?php 
+include_once __DIR__ . '/../../include/footer.php';
+?>

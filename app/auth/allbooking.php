@@ -6,7 +6,7 @@ sessionStart();
 
 require_once (__DIR__ .'/../../include/header.php');?>
 
-
+<section class="section-content padding-y">
 
 <table class="table table-hover">
   <thead>
@@ -49,8 +49,12 @@ require_once (__DIR__ .'/../../include/header.php');?>
       <td><?= strftime('%d/%m/%Y',strtotime($row->debut)); ?></td>
       <td><?= strftime('%d/%m/%Y',strtotime($row->fin)); ?></td>
       <td><a href="/admin/product/<?= $row->product_id; ?>" target="_blank"><?= $row->name; ?></a></td>
-      </td>
+      <th><a href="/admin/deleteBooking/<?= $row->id; ?>" class="btn btn-danger">Delete</a></th>
     </tr>
 
 	<?php } ?>	
-    
+  </tbody>
+  </section>
+  <?php 
+include_once __DIR__ . '/../../include/footer.php';
+?> 

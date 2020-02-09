@@ -87,3 +87,7 @@ if(isset($_SESSION['flash'])): ?>
 
 
 </section>
+
+<?php 
+include_once __DIR__ . '/../../include/footer.php';
+?>

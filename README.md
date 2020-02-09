@@ -37,14 +37,9 @@ Le projet ChoptaPhoto, sert a l'apprentissage et la création d'un site Ecommerc
 ## Détails des branches : 
 
 - branche master :
-- branche login : 
-
+- branche login : L'authentification
+- branche booking : Système de réservation
+- branche payment : payment du panier 
 ## Glossaire : 
 
 
-```sql
-alter table booking add
-    constraint fk_booking_product_id 
-    foreign key (product_id) 
-    references product (id)
-```
