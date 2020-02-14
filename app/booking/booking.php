@@ -25,4 +25,6 @@
 		</article>
     </div>
     
-                </section>
+				</section>
+				
+				<?php 

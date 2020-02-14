@@ -70,16 +70,16 @@ if(isset($_SESSION['flash'])): ?>
 			<input name="password_confirm" class="form-control" placeholder="Password" type="password">
           </div>
           
-          <div class="form-group">
+         
           	
-            <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
-          </div> <!-- form-group form-check .// -->
+            
+     
           <div class="form-group">
               <button type="submit" class="btn btn-primary btn-block"> reinitialiser votre mot de passe </button>
           </div> <!-- form-group// -->    
       </form>
-      </div> <!-- card-body.// -->
-    </div> <!-- card .// -->
+      </div> 
+    </div> 
 
      <p class="text-center mt-4">Pas de compte ? <a href="Auth/register.php">Inscription</a></p>
      <br><br>

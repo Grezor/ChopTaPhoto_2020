@@ -185,6 +185,7 @@ require_once (__DIR__ .'/../../include/header.php');
 		</article>
 	</div>
 
+
 	
 	
 
@@ -195,3 +196,6 @@ require_once (__DIR__ .'/../../include/header.php');
 
 
 </section>
+
+
+<?php require_once (__DIR__ .'/../../include/header.php');?>

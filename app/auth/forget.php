@@ -23,6 +23,7 @@ if (!empty($_POST) && !empty($_POST['email'])) {
     }else{
         $_SESSION['flash']['danger'] = "Aucun compte ne correspond a cette adresse";
     }
+    header('Location: /login');
    die();
    
 }

@@ -60,6 +60,14 @@ $router->map('GET | POST', '/about', function() {
     require VIEW_PATH . '/menu/about.php';
 }, 'about');
 
+// $router->map('GET | POST', '/about', function() {
+//     require VIEW_PATH . '/menu/about.php';
+// }, 'about');
+
+
+$router->map('GET | POST', '/newproduct', function() {
+    require VIEW_PATH . '/menu/news.php';
+}, 'nouveauté');
 
 $router->map('GET | POST', '/reset', function() {
     require VIEW_PATH . '/auth/reset.php';

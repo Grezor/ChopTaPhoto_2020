@@ -99,7 +99,7 @@ $panier->affichePrixCouponExiste();
 
 					<div class="card-body border-top">
 						<a href="payment.php" class="btn btn-primary float-md-right"> payement <i class="fa fa-chevron-right"></i> </a>
-						<a href="index.php" class="btn btn-light"><i class="fa fa-chevron-left"></i> Continue d'acheter </a>
+						<a href="/" class="btn btn-light"><i class="fa fa-chevron-left"></i> Continue d'acheter </a>
 					</div>
 				</div> <!-- card.// -->
 

@@ -206,8 +206,8 @@ if (!empty($_POST)) {
 
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block">lll</button>
-				</div> <!-- form-group// -->
+					<button type="submit" class="btn btn-primary btn-block">Payer</button>
+				</div> 
 
 			</form>
 </div>
@@ -219,9 +219,5 @@ if (!empty($_POST)) {
     color: #3167eb;   
 }
 </style>
-<!-- ========================= SECTION CONTENT END// ========================= -->
 
-
-<?php 
-include_once __DIR__ . '/../include/footer.php';
-?>
+<?php require_once (__DIR__ .'/../../include/header.php');?>

@@ -61,32 +61,24 @@ $panier = new Panier($DB);
                             <a class="nav-link" href="/about">Propos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="/contact">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">nouveauté</a>
+                            <a class="nav-link" href="/newproduct">nouveauté</a>
                         </li>
-                        <div class="dropdown show">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown link
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+                        
                     </ul>
                 </div>
 
                 <style>
-                .bg-light {
-    background-color: red!important;
-}
+
                 </style>
                 <ul class="navbar-nav">
+                <div class="widget-header  mr-3">
+                                <a href="../panier/manage.php" class="icon icon-sm rounded-circle border"><i
+                                        class="fa fa-shopping-cart"></i></a>
+                                <span class="badge badge-pill badge-danger notify"><?= $panier->countPanier(); ?></span>
+                            </div>
                     <?php
                     if (isset($_SESSION['auth'])) : ?>
                     <li class="nav-item">
@@ -128,70 +120,7 @@ $panier = new Panier($DB);
 
         </div>
     </section>
-    <header class="section-header">
-
-        <section class="header-main border-bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-2 col-4">
-                        <a href="/" class="brand-wrap">
-                            <img class="logo" src="../images/home/logo1.png">
-                        </a>
-                        <!-- brand-wrap.// -->
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-
-
-                    </div>
-
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="widgets-wrap float-md-right">
-                            <div class="widget-header  mr-3">
-                                <a href="../panier/manage.php" class="icon icon-sm rounded-circle border"><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <span class="badge badge-pill badge-danger notify"><?= $panier->countPanier(); ?></span>
-                            </div>
-                            <div class="widget-header icontext">
-                                <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
-                                <div class="text">
-                                    <span class="text-muted">Bienvenue!</span>
-                                    <div>
-
-
-                                        <?php
-                                        //    var_dump($_SESSION['auth']);
-                                        if (isset($_SESSION['auth'])) : ?>
-                                        <a href="/logout">Se deconnecter</a>
-                                        <a href="/account">Mon compte</a>
-                                        <?php if (isAdmin($_SESSION['auth'])) : ?>
-                                        <!-- <a href="/roles">roles</a> -->
-                                        <a href="/authbooking">reservation</a>
-                                        <a href="/addCoupon">Crée coupon</a>
-                                        <a href="/addProduct">Crée produit</a>
-                                        <a href="/addCategory">Crée Category</a>
-                                        <a href="/allUsers">Liste utilisateurs</a>
-                                        <?php endif; ?>
-                                        <?php else : ?>
-                                        <a href="/login">Connexion</a> |
-                                        <a href="/register">Inscription</a>
-
-                                        <?php endif; ?>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </header>
+  
 
 
     <style>

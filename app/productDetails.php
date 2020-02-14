@@ -69,7 +69,7 @@ if (count($products) === 0) {
                         <p class="text-success">Prix avec TVA : <?= number_format($product->price * 1.2, 2, ',', ' ') ?>€</p>
                         <br>
                         <p>
-                            <a href="#" class="btn btn-primary btn-block"> Ajouter au panier  </a>
+                            <a href="../app/panier/add.php?id=<?= $product->p_id; ?>" class="btn btn-primary btn-block"> Ajouter au panier  </a>
                             <a href="#" class="btn btn-light btn-block"><i class="fa fa-heart"></i>
                                 <span class="text"></span>
                             </a>

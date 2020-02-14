@@ -17,13 +17,8 @@
                 <div class="img-big-wrap">
                     <a href="#"><img src="./public/images/about/une-ccigrandlille.jpg"></a>
                 </div> 
-                <div class="thumbs-wrap">
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/9.jpg"></a>
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/10.jpg"></a>
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/7.jpg"></a>
-                    <a href="#" class="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/8.jpg"></a>
-                </div> <!-- thumbs-wrap.// -->
-            </article> <!-- gallery-wrap .end// -->
+
+            </article> 
         </aside>
         <main class="col-sm-6">
             <article class="content-body">
@@ -40,59 +35,14 @@
                     <li>Livraison rapide </li>
                 </ul>
 
-                <div class="item-option-select">
-                    <h6>Model</h6>
-                    <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-light active">
-                            <input type="radio" name="radio_size" checked> Xs
-                        </label>
-                        <label class="btn btn-light">
-                            <input type="radio" name="radio_size"> Xs Max
-                        </label>
-                    </div>
-                </div>
-
-                <div class="item-option-select">
-                    <h6>Color</h6>
-                    <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-light">
-                            <input type="radio" name="radio_color"> Silver
-                        </label>
-                        <label class="btn btn-light active">
-                            <input type="radio" name="radio_color" checked> Gray
-                        </label>
-                        <label class="btn btn-light">
-                            <input type="radio" name="radio_color"> Gold
-                        </label>
-                    </div>
-                </div>
-
-                <div class="item-option-select">
-                    <h6>Capacity</h6>
-                    <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-light active">
-                            <input type="radio" name="options" checked> 64 GB
-                        </label>
-                        <label class="btn btn-light">
-                            <input type="radio" name="options"> 256 GB
-                        </label>
-                        <label class="btn btn-light">
-                            <input type="radio" name="options"> 512 GB
-                        </label>
-                    </div>
-                </div>
 
 
-                <div class="row mt-3 align-items-center">
-                    <div class="col-4">
-                        <span class="price h4">$815.00</span>
-                    </div> 
-                    <div class="col text-right">
-                        <a href="#" class="btn  btn-primary"> Add to cart <i class="fas fa-shopping-cart"></i> </a>
-                        <a href="#" class="btn  btn-light"> <i class="fas fa-heart"></i> </a>
-                        <a href="#" class="btn  btn-light"> <i class="fa fa-folder-plus"></i> </a>
-                    </div> 
-                </div> 
+
+
+
+
+
+
 
             </article> 
         </main> 

@@ -58,7 +58,7 @@ if(isset($_SESSION['flash'])): ?>
           
           <div class="form-group">
           	<a href="/forget" class="float-right">Mot de passe oublié ?</a> 
-            <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
+            
           </div> <!-- form-group form-check .// -->
           <div class="form-group">
               <button type="submit" class="btn btn-primary btn-block"> Se connecter  </button>
