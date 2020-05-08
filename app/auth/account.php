@@ -11,10 +11,9 @@ if(!empty($_POST)){
     }else{
         $user_id = $_SESSION['auth']->id;
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        require_once __DIR__ . '/../include/db.php';
+        require_once __DIR__ . '/../../include/db.php';
         $req = $pdo->prepare('UPDATE client SET password = ?')->execute([$password]);
         $_SESSION['flash']['success']= "Votre mot de passe a jour";
-   
     }
 }
 
@@ -39,7 +38,7 @@ if(isset($_SESSION['flash'])): ?>
 
 <h3>Bonjour <?= $_SESSION['auth']->name?></h3>
 
-
+<h3> <span class="badge badge-pill badge-primary"><?= $_SESSION['auth']->email?></span></h3>
 
 <form action="" method="post">
 <div class="form-group">

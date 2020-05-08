@@ -15,9 +15,22 @@ if (!empty($_POST) && !empty($_POST['email'])) {
         
         $reset_token = str_random(60);
         $pdo->prepare('UPDATE client SET reset_token = ?, reset_at = now() WHERE id = ?')->execute([$reset_token, $user->id]);
+
+        ob_start();
+        require 'mail_forget.php';
+        $content = ob_get_clean();
     
+        // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    
+        
+        
+    
+        mail($_POST['email'], 'Mot de passe oublier', $content, $headers);
+        // envoie un mail de verification a la personne
         $_SESSION['flash']['success'] = "Les instructions du rappel du mot de passe vous ont été envoyé par email";
-        mail($_POST['email'], 'Reintialisation de votre mot de passe', "Afin de reinitialiser votre compte merci de cliquer sur ce lien\n\nhttp://localhost:5222/reset?id={$user->id}&token=$reset_token");
+
         header('Location: /login');
         exit();
     }else{

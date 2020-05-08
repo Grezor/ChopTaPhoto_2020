@@ -5899,9 +5899,10 @@ a.badge-info.focus {
     box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
 }
 
-.badge-warning {
+.badge-warning-quantity {
     color: #fff;
     background-color: #ff9017;
+    position: relative;
 }
 
 a.badge-warning:hover,

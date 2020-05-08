@@ -1,11 +1,15 @@
 <?php
+// header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0", false);
+// header("Pragma: no-cache");
 
 require_once  __DIR__ . '/db.php';
 require_once  __DIR__ . '/panier.class.php';
+require_once  __DIR__ . '/vote.php';
 require_once  __DIR__ . '/functions.php';
 
 $DB = new DB();
 $panier = new Panier($DB);
+header('Content-type: text/html; charset=UTF-8');
 ?>
 <!DOCTYPE HTML>
 <html lang="fr">
@@ -13,34 +17,23 @@ $panier = new Panier($DB);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="cache-control" content="max-age=604800" />
+    <!-- <meta http-equiv="cache-control" content="max-age=604800" /> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>ChopTaphoto </title>
     <!-- jQuery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="../../public/images/home/logo2.png" rel="shortcut icon" type="image/x-icon">
-
-    <!-- jQuery -->
-    <script src="../../public/css/bootstrap.css/js/jquery-2.0.0.min.js" type="text/javascript"></script>
-
-    <!-- Bootstrap4 files-->
-    <script src="../../public/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-    <link href="../../public/css/bootstrap.css" rel="stylesheet" type="text/css" />
-
-    <!-- Font awesome 5 -->
-    <link href="../../public/fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
-
-    <!-- plugin: fancybox  -->
-    <script src="../../public/plugins/fancybox/fancybox.min.js" type="text/javascript"></script>
-    <link href="../../public/plugins/fancybox/fancybox.min.css" type="text/css" rel="stylesheet">
-
+    <!-- <script src="../../public/css/bootstrap.css/js/jquery-2.0.0.min.js" type="text/javascript"></script> -->
+    <!-- <script src="../../public/js/bootstrap.bundle.min.js" type="text/javascript"></script> -->
+    <link href="../../public/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
+    <link href="../../public/fonts/all.min.css" type="text/css" rel="stylesheet">
     <!-- custom style -->
     <link href="../../public/css/ui.css" rel="stylesheet" type="text/css" />
     <link href="../../public/css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
 
     <!-- custom javascript -->
-    <script src="../../public/js/script.js" type="text/javascript"></script>
 
 </head>
 
@@ -49,7 +42,7 @@ $panier = new Panier($DB);
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom header-main">
             <div class="container">
                 <a href="/" class="brand-wrap">
-                    <img class="logo" src="../images/home/logo1.png">
+                    <img class="logo" src="/images/home/logo1.png">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +59,6 @@ $panier = new Panier($DB);
                         <li class="nav-item">
                             <a class="nav-link" href="/newproduct">nouveauté</a>
                         </li>
-                        
                     </ul>
                 </div>
 
@@ -74,11 +66,12 @@ $panier = new Panier($DB);
 
                 </style>
                 <ul class="navbar-nav">
-                <div class="widget-header  mr-3">
-                                <a href="../panier/manage.php" class="icon icon-sm rounded-circle border"><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <span class="badge badge-pill badge-danger notify"><?= $panier->countPanier(); ?></span>
-                            </div>
+                    <div class="widget-header  mr-3">
+                        <a href="app/panier/manage.php" class="icon icon-sm rounded-circle border">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <span class="badge badge-pill badge-danger notify"><?= $panier->countPanier(); ?></span>
+                    </div>
                     <?php
                     if (isset($_SESSION['auth'])) : ?>
                     <li class="nav-item">
@@ -97,10 +90,14 @@ $panier = new Panier($DB);
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/authbooking">reservation</a>
-                                <a class="dropdown-item" href="/addCoupon">Crée coupon</a>
-                                <a class="dropdown-item" href="/addProduct">Crée produit</a>
-                                <a class="dropdown-item" href="/addCategory">Crée Category</a>
+                                <a class="dropdown-item" href="/achatClient">Achats Clients</a>
+                                <a class="dropdown-item" href="/addCoupon">Création coupon</a>
+                                <a class="dropdown-item" href="/addProduct">Création produit</a>
+                                <a class="dropdown-item" href="/addCategory">Création categorie</a>
                                 <a class="dropdown-item" href="/allUsers">Liste utilisateurs</a>
+                                <a class="dropdown-item" href="/allCoupon">Liste coupons</a>
+                                <a class="dropdown-item" href="/allProduct">Liste produits</a>
+                                <a class="dropdown-item" href="/allProduct">Liste catégorie</a>
                             </div>
                         </div>
                         <?php endif; ?>

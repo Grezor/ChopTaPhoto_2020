@@ -11,7 +11,8 @@ if (isset($_GET['id'])) {
     $panier->add($product[0]->id);
     header('Location: manage.php');
     die('produit ajouter');
-    //var_dump($product);
+    var_dump($panier);
+   
 }else {
     die('vous n avez rien selectionner');
 }

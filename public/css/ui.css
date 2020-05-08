@@ -989,6 +989,11 @@ a[class*='card']:hover .title {
     color: #3167eb;
 }
 
+/* [class*='card-product'] .badge {
+    top: 10px;
+    left: 10px;
+    position: absolute;
+} */
 [class*='card-product'] .badge {
     top: 10px;
     left: 10px;

@@ -44,6 +44,14 @@ if (!empty($_POST)) {
 		$errors['ville'] = "Votre prenom n'est pas valide";
 	}
 
+	if (empty($_POST['nbrProduct'])) {
+		$errors['nbrProduct'] = "Votre quantité n'est pas valide";
+	}
+
+	if (empty($_POST['codeEvent'])) {
+		$errors['codeEvent'] = "Veuillez inserer un code événement";
+	}
+
 	if (empty($errors)) {
 		['debut' => $startStr, 'fin' => $endStr] = $_POST;
 		
@@ -74,9 +82,8 @@ if (!empty($_POST)) {
 
 	if (empty($errors)) {
 		//$req = $pdo->prepare("INSERT INTO client (name, firstname, password, email, e) VALUES(:name, :firstname, :password, :email )");
-		$req = $pdo->prepare("INSERT INTO booking (nom, prenom, email, adresse, postal, ville, debut, fin, created_at, product_id)
-			VALUES(:nom, :prenom, :email, :adresse, :postal, :ville, :debut, :fin, now(), :productId)");
-
+		$req = $pdo->prepare("INSERT INTO booking (nom, prenom, email, adresse, postal, ville, debut, fin, created_at, nbrProduct, product_id, codeEvent)
+			VALUES(:nom, :prenom, :email, :adresse, :postal, :ville, :debut, :fin, now(), :nbrProduct, :productId, :codeEvent)");
 		
 		$req->execute([
 			':nom' => $_POST['nom'],
@@ -87,11 +94,28 @@ if (!empty($_POST)) {
 			':ville' => $_POST['ville'],
 			':debut' => $start->format('Y-m-d'),
 			':fin' => $end->format('Y-m-d'),
-			':productId' => $productId
+			':nbrProduct' =>$_POST['nbrProduct'],
+			':productId' => $productId,
+			':codeEvent' => $_POST['codeEvent']
 		]);
+
+
 		$user_id = $pdo->lastInsertId();
+		/**
+		 * Mise a jour de la quantité du produit
+		 * exemple : 
+		 * quantité du produit (18) => réserve 2 => reste 16
+		 */
+		$quantity = $_POST['nbrProduct'];
+		$updatequantity = "UPDATE product SET quantity = quantity - :quantity WHERE id = :id";
+		$statement = $pdo->prepare($updatequantity);
+		if ($statement->execute([
+			':quantity' => $quantity,
+			':id' => $productId
+		]))
+
 		// On envoit l'email de confirmation
-	// mail($_POST['email'], 'Confirmation de votre compte', "Nous avons bien recu votre commande, votre compte merci");
+		// mail($_POST['email'], 'Confirmation de votre compte', "Nous avons bien recu votre commande, votre compte merci");
 		// On redirige l'utilisateur vers la page de login avec un message flash
 		$_SESSION['flash']['success'] = "Le produit {$productId} a bien été reservé";
 		header('Location: /booking');
@@ -102,7 +126,7 @@ if (!empty($_POST)) {
 
 }
 
-require_once (__DIR__ .'/../../include/header.php');
+require_once __DIR__ . '/../../include/header.php';
 ?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
@@ -165,19 +189,28 @@ require_once (__DIR__ .'/../../include/header.php');
 					</div>
 
 					<div class="form-group col-md-12">
-						<label>start</label>
+						<label>Début</label>
 						<input type="date" name="debut" class="form-control">
 					</div>
 					<div class="form-group col-md-12">
-						<label>end</label>
+						<label>fin</label>
 						<input type="date" name="fin" class="form-control">
 					</div>
-					
+					<div class="form-group col-md-12">
+						<label>Nombre</label>
+						<input type="number" name="nbrProduct" class="form-control">
+					</div>
+
+					<div class="form-group col-md-12">
+						<label>CodeEvent</label>
+						<p>inserer un code evennement pour visualisez les photos sur l'application mobile</p>
+						<input type="text" name="codeEvent" class="form-control">
+					</div>
 				</div>
 
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block">Ajouter le produit </button>
+					<button type="submit" class="btn btn-primary btn-block">Confirmer votre confirmation</button>
 				</div> <!-- form-group// -->
 
 			</form>

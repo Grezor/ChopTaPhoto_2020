@@ -18,19 +18,10 @@ endif ?>
 <section class="section-pagetop bg">
     <div class="container">
         <h2 class="title-page">Produits</h2>
-        <!-- <nav>
-            <ol class="breadcrumb text-white">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Best category</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Great articles</li>
-            </ol>
-        </nav> -->
     </div>
 
 </section>
-<!-- ========================= SECTION INTRO END// ========================= -->
 
-<!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
     <div class="container">
 
@@ -64,61 +55,9 @@ endif ?>
 
 
                 </div>
-
-                <div class="card">
-                    <article class="filter-group">
-                        <header class="card-header">
-                            <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-                                <i class="icon-control fa fa-chevron-down"></i>
-                                <h6 class="title">Réservations </span></h6>
-                            </a>
-                        </header>
-                        <div class="filter-content collapse show" id="collapse_1">
-                            <div class="card-body">
-
-                                <?php
-                                $category = $pdo->prepare('SELECT id, name FROM category WHERE id = "20"');
-                                $category->execute([]);
-                                foreach ($category as $categorie) :
-                                ?>
-                                    <ul class="list-menu">
-                                        <li><a href='/?reservation=<?= $categorie->id ?>'><?= $categorie->name; ?></a></li>
-                                    </ul>
-                                <?php endforeach; ?>
-                            </div>
-
-                        </div>
-                    </article>
-
-
-                </div>
-
-
-            </aside>
-
-            
+            </aside>   
 
             <main class="col-md-9">
-
-                <!-- <header class="border-bottom mb-4 pb-3">
-                    <div class="form-inline">
-                        <span class="mr-md-auto">32 Items found </span>
-                        <select class="mr-2 form-control">
-                            <option>Latest items</option>
-                            <option>Trending</option>
-                            <option>Most Popular</option>
-                            <option>Cheapest</option>
-                        </select>
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-outline-secondary" data-toggle="tooltip" title="List view">
-                                <i class="fa fa-bars"></i></a>
-                            <a href="#" class="btn  btn-outline-secondary active" data-toggle="tooltip" title="Grid view">
-                                <i class="fa fa-th"></i></a>
-                        </div>
-                    </div>
-                </header> -->
-             
-
                 <div class="row">
 
                     <?php
@@ -129,7 +68,7 @@ endif ?>
                     }
                     $loop = false;
 
-                    $products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description,p.is_location,
+                    $products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description,p.is_location,p.quantity,
                         p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
                         FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 '.$where.' ORDER BY p.created_at');
                     foreach ($products as $product) :
@@ -138,10 +77,11 @@ endif ?>
                         <div class="col-md-4">
                             <figure class="card card-product-grid">
                                 <div class="img-wrap">
-
+                                
                                     <?php if ((int) $product->is_new) : ?>
                                         <span class="badge badge-danger"> NEW </span>
                                     <?php endif; ?>
+                                   
                                     <?php $productImage = $product->path ?? 'images/shop/default.jpg'; ?>
                                     <img src="../<?= $productImage; ?>">
                                     <a class="btn-overlay" href="/produit/<?= $product->p_id; ?>"><i class="fa fa-search-plus"></i> Plus d'infos</a>
@@ -149,13 +89,28 @@ endif ?>
                                 <figcaption class="info-wrap">
                                     <div class="fix-height">
                                         <a href="/produit/<?= $product->p_id; ?>" class="title"><?= $product->name; ?></a>
-                                        <div class="price-wrap mt-2">
-                                            <span class="price"><?= $product->price; ?> €</span>
-                                            <span class=""><?= $product->description; ?></span>
+                                        <div class="price-wrap ">
+                                        Quantité : <span class=""> <?= $product->quantity ?></span>  <br>
+                                        <span class="price"><?= $product->price; ?> €</span>
+                                            <div class="card-body">
+                                                <span class=""><?= $product->description; ?></span>
+                                            </div>                                          
+                                        </div>
+                                        <div>
+                                        
                                         </div>
                                     </div>
-                                    <a href="../app/panier/add.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                                    <style>
+                                        .badge-quantity{
+                                            margin-bottom: 10px;
+                                            padding-bottom: 10px;
+                                        }
+
+                                       
+                                    </style>
+                                    <a href="../app/panier/add.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-primary mt-3">Ajouter au Panier </a>
                                     <?php if($product->is_location === '1'){ ?>
+                                        <!-- <a href="/login" class="btn btn-block btn-secondary">Réservation</a> -->
                                         <a href="../app/booking/reservations.php?id=<?= $product->p_id; ?>" class="btn btn-block btn-secondary">Reservation</a>
                                     <?php  }?>
                                 </figcaption>
@@ -164,8 +119,10 @@ endif ?>
 
                     <?php endforeach; ?>
                     <?php if ($loop === false): ?>
-                        <div class="col-md-12">
-                            Aucun élément à afficher (vérifier la catégorie)
+                        <div class="container">
+                            <div class="col-md-12">
+                                Aucun élément à afficher (vérifier la catégorie)
+                            </div>
                         </div>
                     <?php endif; ?>
                 </div>

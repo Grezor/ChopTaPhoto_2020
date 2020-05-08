@@ -42,7 +42,7 @@ if (!empty($_POST)) {
 	// ajout d'une image au produit
 	// la variable globale $_FILES va contenir tout les information du fichier.
 	$files = $_FILES['files'];
-	var_dump($files);
+	// var_dump($files);
 	$filesname = $files['name'];
 	$filetmp = $files['tmp_name'];
 
@@ -53,7 +53,7 @@ if (!empty($_POST)) {
 	if(!in_array($filecheck, $fileextstored)){
 		$errors['image__format'] = "Votre image n'est pas dans un format valide";
 	}
-	print_r($filesname);
+	// print_r($filesname);
 
 	// Pour envoyer les données a la base de données
 	if (empty($errors)) {
@@ -70,7 +70,7 @@ if (!empty($_POST)) {
 			':is_location' => (int) $location			
 		]);
 		
-		echo "<pre>" . $req->debugDumpParams() . "</pre>";
+		// echo "<pre>" . $req->debugDumpParams() . "</pre>";
 		$productId = (int) $pdo->lastInsertId();
 		
 		$destinationfile = 'images/shop/'. $filesname;
@@ -90,14 +90,14 @@ if (!empty($_POST)) {
 
 		exit();
 	}
-	var_dump($errors);
+	// var_dump($errors);
 }
 
 
 
 ?>
 
-<!-- update -->
+
 <?php 
 
 
@@ -212,12 +212,13 @@ if (!empty($_POST)) {
 							<th scope="col">IMAGE</th>
 							
 							<th scope="col">modifications</th>
+							<th scope="col">mis à jour</th>
 						</tr>
 					</thead>
 					<tbody>
 
 						<?php
-						$requeteSelect = "SELECT p.id, p.name,p.quantity, p.price, p.description, p.ref, pimg.path, p.is_location,p.created_at, pimg.is_main, p.category_id 
+						$requeteSelect = "SELECT p.id, p.name,p.quantity, p.price, p.description, p.ref, pimg.path, p.is_location,p.created_at, p.updated, pimg.is_main, p.category_id 
 						FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id ";
 						// $requeteSelect = "SELECT p.id, p.name, p.description, p.price, p.quantity, p.ref, p.is_location, p.created_at, pimg.is_main, pimg.path FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id";
 						$selectproduct = $pdo->prepare($requeteSelect);
@@ -227,10 +228,10 @@ if (!empty($_POST)) {
 						<?php foreach ($selectproduct as $resultProduct) { ?>
 							<tr>
 								
-								<th  scope="row"><?= $resultProduct->id; ?></th>
+								<th><?= $resultProduct->id; ?></th>
 								<th><?= $resultProduct->name; ?></th>
-								<th><?= $resultProduct->description; ?></th>
-								<th><?= $resultProduct->price; ?></th>
+								<th><?php echo substr($resultProduct->description, 0, 45); ?></th>
+								<th><?= $resultProduct->price; ?> €</th>
 								<th><?= $resultProduct->quantity; ?></th>
 								<th><?= $resultProduct->ref; ?></th>
 								<th><?= $resultProduct->category_id; ?></th>
@@ -243,7 +244,7 @@ if (!empty($_POST)) {
 
 								</th>
 								<th><?= $resultProduct->created_at; ?></th>
-							
+								<th><?= $resultProduct->updated; ?></th>
 								<th><a href="/admin/edit/<?= $resultProduct->id; ?>" class="btn btn-success">Edit</a></th>
 								<th><a href="/admin/delete/<?= $resultProduct->id; ?>" class="btn btn-danger">Delete</a></th>
 							

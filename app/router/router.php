@@ -2,15 +2,22 @@
 
 $uri = $_SERVER['REQUEST_URI'];
 
-function pageNotFound($msg = 'Page introuvable') {
+function pageNotFound($msg = 'Page introuvable 2') {
     header('HTTP/1.1 404 Not Found', true, 404);
     echo $msg;
 }
 
 $router = new AltoRouter();
 
-define('VIEW_PATH', realpath(__DIR__ . '/../'));
+define('VIEW_PATH', realpath(__DIR__ . '../../'));
+// define('VIEW_PATH', realpath(__DIR__ . '/..'));
+// $path = define('VIEW_PATH', realpath(dirname(__FILE__) . '/../../'));
+// $directory = 'VIEW_PATH' + '/app';
+// var_dump($path);
 
+// $directory = realpath( __DIR__ . '/../../');
+//  echo $directory;
+// exit();
 $router->map('GET', '/produit', function() {
     echo 'dddddd';
 });
@@ -49,9 +56,10 @@ $router->map('GET | POST', '/authbooking', function() {
     require VIEW_PATH . '/auth/allbooking.php';
 }, 'authbooking');
 
-// $router->map('GET | POST', '/reservations/[i:id]', function() {
-//     require VIEW_PATH . '/booking/reservations.php';
-// }, 'reservations');
+$router->map('GET | POST', '/reservations/[i:id]', function() {
+    require VIEW_PATH . '/booking/reservations.php';
+}, 'reservations');
+
 /**
  * ABOUT 
  */
@@ -60,9 +68,16 @@ $router->map('GET | POST', '/about', function() {
     require VIEW_PATH . '/menu/about.php';
 }, 'about');
 
-// $router->map('GET | POST', '/about', function() {
-//     require VIEW_PATH . '/menu/about.php';
-// }, 'about');
+$router->map('GET | POST', '/contact', function() {
+    require VIEW_PATH . '/menu/contact.php';
+}, 'contact');
+
+/**
+ * =========== votes ============
+ */
+// $router->map('GET | POST', '/like', function($productId) {
+//     require VIEW_PATH . '/vote/like.php';
+// }, 'like');
 
 
 $router->map('GET | POST', '/newproduct', function() {
@@ -123,6 +138,29 @@ $router->map('GET | POST', '/admin/deleteBooking/[i:id]', function($productId) {
     require VIEW_PATH . '/auth/deleteBooking.php';
 }, 'deleteBooking');
 
+$router->map('GET | POST', '/admin/deleteUsers/[i:id]', function($userId) {
+    require VIEW_PATH . '/auth/deleteUsers.php';
+}, 'deleteUsers');
+
+/**
+ * =========== COUPON ============
+ */
+$router->map('GET | POST', '/admin/editCoupon/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/editCoupon.php';
+}, 'editCoupon');
+
+$router->map('GET | POST', '/admin/deleteCoupon/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/deleteCoupon.php';
+}, 'deleteCoupon');
+
+
+$router->map('GET | POST', '/admin/editClient/[i:id]', function($productId) {
+    require VIEW_PATH . '/auth/editClient.php';
+}, 'editClient');
+/**
+ * =========== FIN COUPON ============
+ */
+
 $router->map('GET', '/', function() {
     require VIEW_PATH . '/products.php';
 }, 'home');
@@ -151,3 +189,6 @@ call_user_func_array($match['target'], $match['params']);
  * [POST] /admin/products/{id} => Traitement du formulaire d'édition du produit (update sql)
  * [DELETE] /admin/products/{id} => Suppression d'un produit (delete sql)
  */
+
+
+

@@ -9,8 +9,8 @@ if (!empty($_POST)) {
 
 		// Pour envoyer les données a la base de données
 	if (empty($errors)) {
-		$req = $pdo->prepare("INSERT INTO booking (nom, prenom, email, adresse, ville, postal, pays)
-			VALUES(:nom, :prenom, :email, :adresse, :ville, :postal, :pays)");
+		$req = $pdo->prepare("INSERT INTO booking (nom, prenom, email, adresse, ville, postal, pays, codeEvent)
+			VALUES(:nom, :prenom, :email, :adresse, :ville, :postal, :pays, codeEvent)");
 
 		$req->execute([
             ':nom' => $_POST['nom'],
@@ -19,8 +19,7 @@ if (!empty($_POST)) {
             ':adresse' => $_POST['adresse'],
             ':ville' => $_POST['ville'],
             ':postal' => $_POST['postal'],
-            ':pays' => $_POST['pays'],
-
+			':pays' => $_POST['pays'],
 		]);
 
 		$_SESSION['flash']['success'] = 'payer';

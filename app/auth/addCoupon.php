@@ -7,15 +7,15 @@ if (!empty($_POST)) {
 	$errors = [];
 	require_once __DIR__ . '/../../include/db.php';
 
-	if (empty($_POST['name']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['name'])) {
-		$errors['name'] = "Votre nom n'est pas valide";
+	if (empty($_POST['nameCoupon']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['nameCoupon'])) {
+		$errors['nameCoupon'] = "Votre nom n'est pas valide";
 	}else{
 		//si il existe deja
-		$req = $pdo->prepare('SELECT id FROM coupon WHERE name = ?');
-		$req->execute([$_POST['name']]);
+		$req = $pdo->prepare('SELECT id FROM coupon WHERE nameCoupon = ?');
+		$req->execute([$_POST['nameCoupon']]);
 		$coupon = $req->fetch();
 		if ($coupon) {
-			$errors['name'] = 'Ce nom est déja utilisée';
+			$errors['nameCoupon'] = 'Ce nom est déja utilisée';
 		}
 	}
 	if (empty($_POST['code']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['code'])) {
@@ -44,11 +44,11 @@ if (!empty($_POST)) {
 
 	// Pour envoyer les données a la base de données
 	if (empty($errors)) {
-		$req = $pdo->prepare("INSERT INTO coupon (name, code, product_id, price_reduc, created_at, started_at, finished_at, max_use)
-			VALUES(:name, :code, :productId, :priceReduc, now(), :startedAt, :finishedAt, :maxUse)");
+		$req = $pdo->prepare("INSERT INTO coupon (nameCoupon, code, product_id, price_reduc, created_at, started_at, finished_at, max_use)
+			VALUES(:nameCoupon, :code, :productId, :priceReduc, now(), :startedAt, :finishedAt, :maxUse)");
 		
 		$req->execute([
-			':name' => $_POST['name'],
+			':nameCoupon' => $_POST['nameCoupon'],
 			':code' => $_POST['code'],
 			':productId' => $_POST['product_id'],
 			':priceReduc' => $_POST['price_reduc'], 
@@ -64,7 +64,7 @@ if (!empty($_POST)) {
     // mail($_POST['email'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur ce lien\n\nhttp://localhost/Ecommerce_Bootstrap/auth/confirm.php?id=$user_id&token=$token");
     // On redirige l'utilisateur vers la page de login avec un message flash
     $_SESSION['flash']['success'] = 'coupon cree';
-  
+	header("Location: /addCoupon");
     exit();
 	}
 	
@@ -97,18 +97,14 @@ if (!empty($_POST)) {
 				<div class="form-row">
 					<div class="col form-group">
 						<label>Nom</label>
-					  	<input type="text" name="name" class="form-control" placeholder="">
-					</div> <!-- form-group end.// -->
+					  	<input type="text" name="nameCoupon" class="form-control" placeholder="">
+					</div> 
 					<div class="col form-group">
 						<label>code</label>
 					  	<input type="text" name="code" class="form-control" placeholder="">
-					</div> <!-- form-group end.// -->
-				</div> <!-- form-row end.// -->
-				<!-- <div class="form-group">
-					<label>Email</label>
-					<input type="email" name="email" class="form-control" placeholder="">
-					
-				</div>  -->
+					</div> 
+				</div> 
+			
 				
 				
 				<div class="form-row">
@@ -127,7 +123,7 @@ if (!empty($_POST)) {
 							
 							?>
 							<div class="form-group col-md-12">
-							  <select name="product_id">
+							  <select name="product_id" class="form-control">
 								<?php foreach ($stmt as $row) { ?>
 								  <option value="<?php echo $row->id; ?>"><?php echo $row->id; ?> - <?php echo $row->name; ?></option>
 								<?php } ?>
@@ -151,16 +147,93 @@ if (!empty($_POST)) {
 					
 				</div>
 			    <div class="form-group">
-			        <button type="submit" class="btn btn-primary btn-block">M'inscrire  </button>
-			    </div> <!-- form-group// -->      
-			    <div class="form-group"> 
-		            <label class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> I am agree with <a href="#">terms and contitions</a>  </div> </label>
-		        </div>          
+			        <button type="submit" class="btn btn-primary btn-block">Ajouter le coupon  </button>
+			    </div>     
+			      
 			</form>
 		</article>
     </div> 
 
 
+
+</section>
+
+<section>
+<div class="card mx-auto" style="margin-top:40px;">
+			<article class="card-body">
+				<header class="mb-4">
+					<h4 class="card-title">listes des coupons</h4>
+				</header>
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">Nom du produit</th>
+							<th scope="col">code</th>
+							<th scope="col">nom du coupon</th>
+							<th scope="col">prix reduction</th>
+							<th scope="col">creation</th>
+							<th scope="col">mis a jour le </th>
+							<th scope="col">commence</th>
+							<th scope="col">fin</th>
+							<th scope="col">nombre coupon</th>
+							<th scope="col">Action</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<?php
+						$requeteSelect = "SELECT c.id, prd.name, prd.name, c.code, c.nameCoupon, c.updated_at, c.price_reduc, c.created_at, c.started_at, c.finished_at, c.max_use FROM coupon AS c
+											LEFT JOIN product AS prd ON c.product_id = prd.id";
+						$selectproduct = $pdo->prepare($requeteSelect);
+						$selectproduct->execute();
+
+						?>
+						<?php foreach ($selectproduct as $resultProduct) { ?>
+							<tr>
+								
+								<th  scope="row"><?= $resultProduct->id; ?></th>
+								<th><?= $resultProduct->name; ?></th>
+								<th class="code"><?= $resultProduct->code; ?></th>
+								<th><?= $resultProduct->nameCoupon; ?></th>
+								<th><?= $resultProduct->price_reduc; ?></th>
+								<th><?= $resultProduct->created_at; ?></th>
+								<?php if($resultProduct->updated_at === NULL){ ?>
+								<th class="update_coupon"> </th>
+								<?php }else{ ?>
+									<th class="update_coupon"><?= strftime('%d/%m/%Y',strtotime($resultProduct->updated_at)); ?></th>
+								<?php } ?>
+								<th><?= $resultProduct->started_at; ?></th>
+								<th><?= $resultProduct->finished_at; ?></th>
+								<th><?= $resultProduct->max_use; ?></th>
+								<th><a href="/admin/editCoupon/<?= $resultProduct->id; ?>" class="btn btn-success">Edit</a></th>
+								<th><a href="/admin/deleteCoupon/<?= $resultProduct->id; ?>" class="btn btn-danger">Delete</a></th>
+							
+							</tr>
+
+						<?php } ?>
+
+
+
+<style>
+	.update_coupon{
+		color: #3498db;
+	}
+
+	.code{
+		color: #e74c3c;
+	}
+</style>
+
+				
+				</table>
+
+			</article>
+		</div>
+
+		</tbody>
 
 </section>
 <?php 

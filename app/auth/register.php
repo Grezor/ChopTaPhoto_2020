@@ -50,12 +50,34 @@ if (!empty($_POST)) {
 			
 		]);
 		$user_id = $pdo->lastInsertId();
-    // On envoit l'email de confirmation
-    mail($_POST['email'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur ce lien\n\n https://choptaphoto.duplessigeoffrey.fr/confirm?id=$user_id&token=$token");
-    // On redirige l'utilisateur vers la page de login avec un message flash
-    $_SESSION['flash']['success'] = 'Un email de confirmation vous a été envoyé pour valider votre compte';
-    header('Location: /login');
-    exit();
+	// On envoit l'email de confirmation
+	$name = $_POST['name'];
+	// $user_id = $pdo->lastInsertId();
+	// $token = str_random(60);
+	ob_start();
+	require 'mail.php';
+	$content = ob_get_clean();
+
+	// Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+	
+	
+
+	mail($_POST['email'], ' Confirmation de votre compte', $content, $headers);
+	// envoie un mail de verification a la personne
+	$_SESSION['flash']['success'] = 'Un email de vérification vous a été envoyé, merci de cliquer sur le lien pour confirmer votre adresse email';
+	header('Location: /login');
+	exit();
+
+
+
+    // mail($_POST['email'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur ce lien\n\n https://localhost/confirm?id=$user_id&token=$token");
+    // // On redirige l'utilisateur vers la page de login avec un message flash
+    // $_SESSION['flash']['success'] = 'Un email de confirmation vous a été envoyé pour valider votre compte';
+    // header('Location: /login');
+    // exit();
 	}
 	
 }

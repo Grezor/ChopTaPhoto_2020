@@ -1,5 +1,4 @@
-<?php
-require_once  '../..//include/header.php';
+<?php require_once (__DIR__ .'/../../include/header.php');
 $title = "Panier ";
 //var_dump($_SESSION);
 if (isset($_GET['del'])) {
@@ -37,7 +36,7 @@ $panier->affichePrixCouponExiste();
 		<div class="row">
 			<main class="col-md-9">
 				<div class="card">
-
+				<form action="manage.php" method="POST">
 					<table class="table table-borderless table-shopping-cart">
 						<thead class="text-muted">
 							<tr class="small text-uppercase">
@@ -61,8 +60,6 @@ $panier->affichePrixCouponExiste();
 								?>
 								<tr>
 									<td>
-
-
 										<figure class="itemside">
 										<?php $productImage = $product->path ?? 'public/images/shop/default.jpg'; ?>
                                     	
@@ -74,37 +71,47 @@ $panier->affichePrixCouponExiste();
 											</figcaption>
 										</figure>
 									</td>
+									<!-- Quantité -->
 									<td>
-										<span><?= $_SESSION['panier'][$product->p_id]; ?></span>
+										<input class="form-control" onchange="updatePrice(this.value)" min="1" type="number" name="panier[quantity][<?= $product->p_id; ?>]" value="<?= $_SESSION['panier'][$product->p_id]; ?>" width="30px">
+										<!-- <span></span> -->
 									</td>
 									<td>
 										<div class="price-wrap">
-											<var class="price"><?= $product->price; ?>€</var>
-											
+											<var class="price" id="pht"><?= $product->price; ?>€</var>
 										</div> <!-- price-wrap .// -->
 									</td>
+
+									
 									<td>
-										<var class="price"><?= number_format($product->price * 1.2, 2, ',', ' ') ?>€</var>
+										<var class="price" id="tva"><?= number_format($product->price * 1.2, 2, ',', ' ') ?></var>€
 									</td>
 							
 									<td class="text-right">
-										<a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-										<a href="manage.php?del=<?= $product->p_id; ?>" class="btn btn-light">Supprimer</a>
+										<a href="manage.php?del=<?= $product->p_id; ?>" class="btn btn-light btn-delete">Supprimer</a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
-
+							</form>
 						</tbody>
 					</table>
-
+					
 					<div class="card-body border-top">
-						<a href="payment.php" class="btn btn-primary float-md-right"> payement <i class="fa fa-chevron-right"></i> </a>
-						<a href="/" class="btn btn-light"><i class="fa fa-chevron-left"></i> Continue d'acheter </a>
+						<?php if(!empty($_SESSION['panier'] === [])) {?>
+							<a href="/" class="btn btn-light"><i class="fa fa-chevron-left"></i> Continue d'acheter </a>
+							<div class="alert alert-secondary float-md-right" role="alert">
+								<p class="">impossible de payer</p>
+							</div>
+						<?php }else{ ?>
+							<input class="btn btn-light" type="submit" value="recalculer">
+							<a href="payment.php" class="btn btn-primary float-md-right"> payement <i class="fa fa-chevron-right"></i> </a>
+							<a href="/" class="btn btn-light"><i class="fa fa-chevron-left"></i> Continue d'acheter </a>
+						<?php } ?>
 					</div>
 				</div> <!-- card.// -->
 
 				<div class="alert alert-success mt-3">
-					<p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+					<p class="icontext"><i class="icon text-success fa fa-truck"></i>Livraison gratuite dans un délai de 1 à 2 semaines</p>
 				</div>
 
 			</main> <!-- col.// -->
@@ -118,7 +125,7 @@ $panier->affichePrixCouponExiste();
 									<form action="" method="POST">
 										<input type="text" class="form-control" name="code_coupon" placeholder="Coupon code">
 										<span class="input-group-append">
-											<button class="btn btn-primary btn-block" name="Apply_Coupon">Valider</button>
+											<button class="btn btn-primary btn-block" name="Apply_Coupon" >Valider</button>
 										</span>
 										
 									</form>
@@ -138,12 +145,12 @@ $panier->affichePrixCouponExiste();
 					<div class="card-body">
 						<dl class="dlist-align">
 							<dt>Total prix:</dt>
-							<dd class="text-right">
+							<dd class="text-right" id="prixjs">
 								<?= number_format($totalPanier, 2, ',', ' ') ?> €</dd>
 						</dl>
 						<dl class="dlist-align">
 							<dt>prix TVA</dt>
-							<dd class="text-right">
+							<dd class="text-right" id="tvajs">
 								<?= number_format($totalPanierTVA - $totalPanier, 2, ',', ' ') ?> €</dd>
 						</dl>
 						<dl class="dlist-align">
@@ -152,7 +159,7 @@ $panier->affichePrixCouponExiste();
 						</dl>
 						<dl class="dlist-align">
 							<dt>Total:</dt>
-							<dd class="text-right  h5"><strong>	<?= number_format($totalPanierTVACoupon, 2, ',', ' ') ?> €</strong></dd>
+							<dd class="text-right  h5" ><strong id="totaljs">	<?= number_format($totalPanierTVACoupon, 2, ',', ' ') ?> €</strong></dd>
 						</dl>
 						<hr>
 						<p class="text-center mb-3">
@@ -197,9 +204,7 @@ $panier->affichePrixCouponExiste();
 <!-- ========================= SECTION  END// ========================= -->
 
 <!-- ========================= FOOTER ========================= -->
-<?php 
-include_once __DIR__ . '/../include/footer.php';
-?>
+<?php require_once (__DIR__ .'/../../include/footer.php');?>
 <!-- ========================= FOOTER END // ========================= -->
 
 
