@@ -7,19 +7,6 @@ sessionStart();
  require_once (__DIR__ .'/../../include/header.php');?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
-
-  <button type="button" class="btn btn-primary">
-    Admin <span class="badge badge-light"><img src="/images/admin/niveau1.jpg" alt="" class="king1"></span>
-  </button>
-
-  <button type="button" class="btn btn-primary">
-    Visiteurs <span class="badge badge-light"><img src="/images/admin/niveau2.jpg" alt="" class="king1"></span>
-  </button>
-
-  <button type="button" class="btn btn-primary">
-    Acheteur <span class="badge badge-light"><img src="/images/admin/niveau3.jpg" alt="" class="king1"></span>
-  </button>
-
   <div class="card mx-auto" style="margin-top:40px;">
     <article class="card-body">
       <?php 
@@ -83,20 +70,19 @@ sessionStart();
                 height: 50px;
 
               }
-            </style>
-            <td><?= strftime('%d-%m-%Y',strtotime($row->register_at)); ?></td>
-            <td><?php if ($row->role === '1') { ?><img src="/images/admin/niveau1.jpg" alt="" class="king"></td>
-            <?php } ?>
-            <!-- acheteur : badge level 2  -->
-            <?php if ($row->role === '2') {  ?>
-            <img src="/images/admin/niveau2.jpg" alt="" class="visit">
-            <?php } ?>
-            <!-- Si c'est un nouveau utilisateurs  -->
-            <?php if ((int) $row->is_new){ ?>
-            <span class="badge badge-danger"> NEW </span>
-            <?php } ?>
 
+              .classVisiteur{
+                background-color: #e67e22!important;
+              }
+            </style>
+            <td><?= strftime('%d.%m.%Y',strtotime($row->register_at)); ?></td>
+            <td><?php if($row->role === '1'){ ?>
+              <span class="badge badge-success">Administrateur</span>
+              <?php } else{?>
+              <span class="badge badge-danger classVisiteur">Visiteur</span>
+              <?php }?>
             </td>
+
             <td><?= $row->reset_at; ?></td>
             <td><a href="/admin/deleteUsers/<?= $row->id; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
             <a href="/admin/editClient/<?= $row->id; ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>

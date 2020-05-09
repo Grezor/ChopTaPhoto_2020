@@ -16,7 +16,7 @@ if(isset($_SESSION['auth']->id)){
 
 }
 
-$products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description, p.ref, pimg.path, p.like_count, p.dislike_count 
+$products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.quantity, p.description, p.descriptionDetails, p.color, p.ref, pimg.path, p.like_count, p.dislike_count 
                         FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 
                         WHERE p.id=:id', ['id' => $productId]);
 if (count($products) === 0) {
@@ -36,81 +36,112 @@ if (count($products) === 0) {
 <?php foreach ($products as $product) : ?>
 
 <div class="container">
-    <div class="col-md-3">
+    <div class="col-md-3 mb-3">
         <a href="/" class="btn btn-block btn-primary">Retour</a>
     </div>
-    </figcaption>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <article class="card card-product-list">
-        <div class="row no-gutters">
-            <aside class="col-md-3">
-                <?php $productImage = $product->path ?? 'images/shop/default.jpg'; ?>
 
-                <a href="#" class="img-wrap"><img src="../<?= $productImage; ?>"></a>
-            </aside>
-            <div class="col-md-6">
-                <div class="info-main">
-                    <a href="#" class="h5 title"> <?= $product->name; ?></a>
 
-                    <span class="badge badge-secondary"><?= $product->ref; ?></span>
 
-                    <p> <?= $product->description; ?></p>
-                </div>
+    <output class="mt-3">
+        <div class="card">
+            <div class="row no-gutters">
+                <aside class="col-md-6">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap">
+                            <?php $productImage = $product->path ?? 'images/shop/default.jpg'; ?>
+                            <div><a href="#" class="img-wrap"><img src="../<?= $productImage; ?>"></a></div>
+                        </div>
+                    </article>
+                </aside>
+                <main class="col-md-6 border-left">
+                    <article class="content-body">
 
-            </div>
+                        <h2 class="title"><?= $product->name; ?></h2>
+                        <h5>
+                            <small class="text-uppercase">Quantité </small> 
+                            <span class="badge badge-danger"><?= $product->quantity; ?></span>
+			            </h5>
 
-            <aside class="col-sm-3">
-                <div class="info-aside">
-                    <div class="price-wrap">
-                        <span class="price h5"><?= $product->price; ?> €</span>
-                    </div>
-                    <p class="text-success">Prix avec TVA : <?= number_format($product->price * 1.2, 2, ',', ' ') ?>€
-                    </p>
-                    <br>
-                    <p>
+                        <div class="rating-wrap my-3">
+                            <ul class="rating-stars">
+                                <li style="width:80%" class="stars-active">
+                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                            </ul>
+
+                            <div class="vote <?= Vote::getClass($vote); ?>" id="vote" data-id="<?= $product->p_id; ?>"
+                                data_ref="product" data-ref_id="<?= $product->p_id; ?>"
+                                data-user_id="<?= $_SESSION['auth']->id; ?>">
+                                <div class="vote_bar">
+                                    <div class="vote_progress"
+                                        style="width: <?= ($product->like_count + $product->dislike_count) == 0 ? 100 : round(100 * ($product->like_count / ($product->like_count + $product->dislike_count) )) ?>%">
+
+                                    </div>
+                                </div>
+                                <div class="vote_btns">
+                                    <button class="vote_btn vote_like">
+                                        <i class="fa fa-thumbs-up"></i>
+                                        <?= $product->like_count; ?>
+                                    </button>
+                                    <button class="vote_btn vote_dislike">
+                                        <i class="fa fa-thumbs-down"></i>
+                                        <?= $product->dislike_count; ?>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <small class="label-rating text-muted">132 reviews</small>
+                            <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <var class="price h4"><?= $product->price; ?> €</var>
+                            <span class="text-muted">
+                                <p class="text-success">Prix avec TVA :
+                                    <?= number_format($product->price * 1.2, 2, ',', ' ') ?>€
+                                </p>
+                            </span>
+                        </div>
+
+                        <p><?= $product->description; ?></p>
+
+                        <dl class="row">
+                            <dt class="col-sm-3">reference :</dt>
+                            <dd class="col-sm-9"><?= $product->ref; ?></dd>
+
+                            <dt class="col-sm-3">Color</dt>
+                            <dd class="col-sm-9"><?= $product->color; ?></dd>
+
+                            <dt class="col-sm-3">Delivery</dt>
+                            <dd class="col-sm-9">Russia, USA, and Europe </dd>
+                        </dl>
+
+                        <hr>
+
                         <a href="../app/panier/add.php?id=<?= $product->p_id; ?>" class="btn btn-primary btn-block">
                             Ajouter au panier </a>
 
-                        <div class="vote <?= Vote::getClass($vote); ?>" id="vote" data-id="<?= $product->p_id; ?>"
-                            data_ref="product" data-ref_id="<?= $product->p_id; ?>"
-                            data-user_id="<?= $_SESSION['auth']->id; ?>">
-                            <div class="vote_bar">
-                                <div class="vote_progress"
-                                    style="width: <?= ($product->like_count + $product->dislike_count) == 0 ? 100 : round(100 * ($product->like_count / ($product->like_count + $product->dislike_count) )) ?>%">
-
-                                </div>
-                            </div>
-                            <div class="vote_btns">
-                                <button class="vote_btn vote_like">
-                                    <i class="fa fa-thumbs-up"></i>
-                                    <?= $product->like_count; ?>
-                                </button>
-                                <button class="vote_btn vote_dislike">
-                                    <i class="fa fa-thumbs-down"></i>
-                                    <?= $product->dislike_count; ?>
-                                </button>
-                            </div>
-                        </div>
-                    </p>
-                </div>
-            </aside>
+                    </article>
+                </main>
+            </div>
         </div>
-    </article>
+    </output>
     <?php endforeach; ?>
 </div>
-</section>
+<br>
+<br>
+<br>
+<br>
 
-<style>
-    [class*='card-product'] .badge {
-        top: 10px;
-        left: 10px;
-        position: relative;
-    }
-</style>
+
 <?php 
 include_once __DIR__ . '/../include/footer.php';
 ?>

@@ -27,7 +27,7 @@ header('Content-type: text/html; charset=UTF-8');
     <link href="../../public/images/home/logo2.png" rel="shortcut icon" type="image/x-icon">
     <!-- <script src="../../public/css/bootstrap.css/js/jquery-2.0.0.min.js" type="text/javascript"></script> -->
     <!-- <script src="../../public/js/bootstrap.bundle.min.js" type="text/javascript"></script> -->
-    <link href="../../public/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
+    <link href="../../public/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../../public/fonts/all.min.css" type="text/css" rel="stylesheet">
     <!-- custom style -->
     <link href="../../public/css/ui.css" rel="stylesheet" type="text/css" />
@@ -86,7 +86,7 @@ header('Content-type: text/html; charset=UTF-8');
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action page 
+                                Action page
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/authbooking">reservation</a>
@@ -117,9 +117,9 @@ header('Content-type: text/html; charset=UTF-8');
 
         </div>
     </section>
-  
 
 
+<!-- 
     <style>
         .navbar-light .nav-link {
             color: rgba(0, 0, 0, 0.5);
@@ -131,4 +131,4 @@ header('Content-type: text/html; charset=UTF-8');
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
-    </style>
+    </style> -->
