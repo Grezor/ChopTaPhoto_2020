@@ -1,12 +1,11 @@
 # ChopTaphoto 
 
-## ▶️ Présentation : 
+## Présentation 
+Dans le cadre de notre scolarité, nous sommes menés à faire des projets. Ce projet consiste a créé un site e-commerce, permettant de louer et d'acheter des bornes photos, afin de répondre à des événements de type mariage, anniversaire, journée d’intégration, salon, conférences, événements ….
 
-La société « ChopTaPhoto » est une société de location de borne photo travaillant principalement dans le Nord. Elle propose ses services auprès de particulier et entreprise, afin de répondre à des événements de type mariage, anniversaire, journée d’intégration, salon, conférences, événements ….
+## Prérequis 
 
-## ▶️ Prérequis : 
-
-## ▶️ L'architecture : 
+## L'architecture 
 ```
 ├─── app
 │   ├─── authentifications
@@ -30,16 +29,12 @@ La société « ChopTaPhoto » est une société de location de borne photo trav
 ├───seeds (fichier pour fausses donnees)
 └───vendor (librairie faker)
 ```
-## ▶️ Déployment : 
 
-## ▶️ Détails des branches : 
+## Tests / fonctionnement 
 
-- branche master :
-- branche login : L'authentification
-- branche booking : Système de réservation
-- branche payment : payment du panier 
+---
+**Duplessi Geoffrey** 
+> GitHub [@Grezor][4]
 
-## ▶️ Tests / fonctionnement :
-
-## ▶️ Auteur
-- **Duplessi Geoffrey** 
+[4]: https://github.com/Grezor
+ 
