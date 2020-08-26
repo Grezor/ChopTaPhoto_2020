@@ -11,37 +11,33 @@ $db = $database->Connection();
 
 $booking = new Booking($db);
 
-$result = $booking->read();
+$bookings = $booking->read();
 
-// get row count
-$numbers = $result->rowCount();
+$bookingResults = [];
+foreach ($bookings as $row) {
+    $bookingResults[] = [
+        'id' => $row['id'],
+        'nom' => $row['nom'],
+        'prenom' => $row['prenom'],
+        'email' => $row['email'],
+        'adresse' => $row['adresse'],
+        'postal' => $row['postal'],
+        'ville' => $row['ville'],
+        'debut' => $row['debut'], 
+        'fin' => $row['fin'],
+        'created_at' => $row['created_at']
+    ];
+}
 
-if ($numbers > 0) {
-    $booking_array = [];
-    $booking_array['data'] = [];
-
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
-        $booking_item = [
-            'id' => $id,
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'email' => $email,
-            'adresse' => $adresse,
-            'postal' => $postal,
-            'ville' => $ville,
-            'debut' => $debut, 
-            'fin' => $fin,
-            'created_at' => $created_at
-
-        ];
-        array_push($booking_array['data'], $booking_item);
-    }
-    // turn to json
-    echo json_encode($booking_array);
-} else {
+if (empty($bookingResults)) {
     // no product
     echo json_encode([
         'message' => 'no booking'
     ]);
+    return;
 }
+
+// turn to json
+echo json_encode([
+    'data' => $bookingResults
+]);

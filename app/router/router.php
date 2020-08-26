@@ -9,8 +9,7 @@ function pageNotFound($msg = 'Page introuvable 2') {
 
 $router = new AltoRouter();
 
-define('VIEW_PATH', realpath(__DIR__ . ''));
-// define('VIEW_PATH', realpath(__DIR__ . '../../'));
+define('VIEW_PATH', realpath(__DIR__ . '../../'));
 
 // define('VIEW_PATH', realpath(__DIR__ . '/..'));
 // $path = define('VIEW_PATH', realpath(dirname(__FILE__) . '/../../'));
