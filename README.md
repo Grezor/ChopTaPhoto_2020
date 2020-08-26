@@ -7,9 +7,10 @@ Dans le cadre de notre scolarité, nous sommes menés à faire des projets. Ce p
 
 
 ## Installation : 
+Pour pouvoir installer le projet veuillez vous rendre dans la documentation. Un guide a été créé afin de pouvoir vous aider lors de l'installation.
 
-## contribution :
-
+## Contribution :
+- ```contributing.md```
 ## Remerciments :
 
 
