@@ -5,32 +5,13 @@ Dans le cadre de notre scolarité, nous sommes menés à faire des projets. Ce p
 
 ## Prérequis :
 
-## L'architecture 
-```
-├─── app
-│   ├─── authentifications
-│   ├─── panier
-│   ├─── booking
-│   ├─── payment
-|   ├─── router
-├───css
-├───fonts
-├───images
-│   ├───404
-│   ├───admin
-│   ├───blog
-│   ├───cart
-│   ├───home
-│   ├───product-details
-│   └───shop
-├───include (les fichiers header,footer)
-├───js
-├───panier (fichiers des functione du paniers)
-├───seeds (fichier pour fausses donnees)
-└───vendor (librairie faker)
-```
+## Installation : 
 
-## Tests / fonctionnement 
+## contribution :
+
+## Remerciments :
+
+## 
 
 ---
 **Duplessi Geoffrey** 
