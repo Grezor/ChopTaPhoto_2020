@@ -10,7 +10,6 @@ $database = new Database();
 $db = $database->Connection();
 
 $product = new Product($db);
-
 $result = $product->read();
 
 
