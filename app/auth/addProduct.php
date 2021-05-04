@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../include/functions.php';
-// sessionStart();
+
 
 if (!empty($_POST)) {
 	$errors = [];
@@ -42,7 +42,7 @@ if (!empty($_POST)) {
 	// ajout d'une image au produit
 	// la variable globale $_FILES va contenir tout les information du fichier.
 	$files = $_FILES['files'];
-	// var_dump($files);
+
 	$filesname = $files['name'];
 	$filetmp = $files['tmp_name'];
 
@@ -90,17 +90,8 @@ if (!empty($_POST)) {
 
 		exit();
 	}
-	// var_dump($errors);
+
 }
-
-
-
-?>
-
-
-<?php 
-
-
 
 ?>
 <?php require_once (__DIR__ .'/../../include/header.php');?>

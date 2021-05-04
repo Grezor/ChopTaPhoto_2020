@@ -11,9 +11,9 @@ $router = new AltoRouter();
 
 define('VIEW_PATH', realpath(__DIR__ . '/../'));
 
-$router->map('GET', '/produit', function() {
-    echo 'dddddd';
-});
+// $router->map('GET', '/produit', function() {
+//     echo 'dddddd';
+// });
 
 $router->map('GET', '/produit/[i:id]', function($productId) {
     // echo 'je suis ' . $lol;

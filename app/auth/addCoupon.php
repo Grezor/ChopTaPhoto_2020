@@ -1,7 +1,5 @@
 <?php 
-
 require_once __DIR__ . '/../../include/functions.php';
-sessionStart();
 
 if (!empty($_POST)) {
 	$errors = [];
@@ -38,10 +36,6 @@ if (!empty($_POST)) {
 		$errors['max_use'] = "Votre started_at n'est pas valide";
 	}
 
-
-
-	
-
 	// Pour envoyer les données a la base de données
 	if (empty($errors)) {
 		$req = $pdo->prepare("INSERT INTO coupon (nameCoupon, code, product_id, price_reduc, created_at, started_at, finished_at, max_use)
@@ -57,8 +51,6 @@ if (!empty($_POST)) {
 			':maxUse' => $_POST['max_use']
 		]);
 
-		
-
 		$last_id = $pdo->lastInsertId();
     // On envoit l'email de confirmation
     // mail($_POST['email'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur ce lien\n\nhttp://localhost/Ecommerce_Bootstrap/auth/confirm.php?id=$user_id&token=$token");
@@ -69,9 +61,10 @@ if (!empty($_POST)) {
 	}
 	
 }
-?>
 
-<?php require_once (__DIR__ .'/../../include/header.php');?>
+require_once (__DIR__ .'/../../include/header.php');
+
+?>
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 

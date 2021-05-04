@@ -1,6 +1,4 @@
 <?php
-// header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0", false);
-// header("Pragma: no-cache");
 
 require_once  __DIR__ . '/db.php';
 require_once  __DIR__ . '/panier.class.php';
