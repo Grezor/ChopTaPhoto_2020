@@ -18,7 +18,6 @@ endif ?>
 <section class="section-pagetop bg">
     <div class="container">
         <h2 class="title-page">Produits</h2>
-        <a href="">test</a>
     </div>
 
 </section>
