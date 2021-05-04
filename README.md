@@ -50,20 +50,11 @@ $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 ## API
 API is an acronym for Applications Programming Interface. An API is therefore a programming interface that allows you to "plug in" to an application to exchange data. It operates on an input/output agreement, it is a distribution channel. A API is open and offered by the program owner. It is a concept and an intangible element.
 
-[more infos](https://github.com/Grezor/Todolist/blob/master/server.js)
-- all task : http://localhost:3000/api/todolists
-- task n°2 : http://localhost:3000/api/todolists/2
-
 ## Functionality
-- Create 
-- Read
-- Update
-- Delete
+
 
 ## Use
-- Creates a new task
-- Update a task
-- Delete a task
+
 
 ## Project status
 ❌ - the project has problems
