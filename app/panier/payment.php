@@ -9,7 +9,7 @@ if (!empty($_POST)) {
 
 		// Pour envoyer les données a la base de données
 	if (empty($errors)) {
-		$req = $pdo->prepare("INSERT INTO booking (nom, prenom, email, adresse, ville, postal, pays, codeEvent)
+		$req = $DB->query("INSERT INTO booking (nom, prenom, email, adresse, ville, postal, pays, codeEvent)
 			VALUES(:nom, :prenom, :email, :adresse, :ville, :postal, :pays, codeEvent)");
 
 		$req->execute([

@@ -6,7 +6,7 @@ header('Content-type: application/json');
 include_once('../../api/database.php');
 include_once('../../api/models/Product.php');
 
-$database = new Database();
+$database = new Database($db);
 $db = $database->Connection();
 
 $product = new Product($db);

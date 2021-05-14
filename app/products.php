@@ -3,7 +3,6 @@ include_once __DIR__ . '/../include/header.php';
 require_once __DIR__ . '/../include/db.php';
 require_once __DIR__ . '/../include/functions.php';
 
-// $DB->query('SELECT * FROM product');
 $panier = new Panier($DB);
 $categoryId = intval($_GET['category'] ?? 0);
 
@@ -36,13 +35,10 @@ endif ?>
                                 <h6 class="title">Catégorie</span></h6>
                             </a>
                         </header>
-                        <div class="filter-content collapse show" id="collapse_1" style="">
+                        <div class="filter-content collapse show" id="collapse_1">
                             <div class="card-body">
-
-                                <?php
-                                $category = $pdo->prepare('SELECT id, name FROM category');
-                                $category->execute([]);
-                                foreach ($category as $categorie) :
+                                <?php $category = $DB->query('SELECT id, name FROM category');
+                                    foreach ($category as $categorie) :
                                 ?>
                                     <ul class="list-menu">
                                         <li><a href='/?category=<?= $categorie->id ?>'><?= $categorie->name; ?></a></li>
