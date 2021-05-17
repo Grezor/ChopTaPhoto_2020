@@ -23,7 +23,8 @@ class Product {
 
     public function read()
     {
-        $requete = 'SELECT id,name, description, descriptionDetails, price, quantity, color, ref, is_location, category_id, created_at, updated FROM ' . $this->table . ' ORDER BY created_at';
+        $requete = 'SELECT id,name, description, descriptionDetails, price, quantity, color, ref, is_location, category_id, created_at, updated 
+                    FROM ' . $this->table . ' ORDER BY created_at';
         $stmt = $this->connexion->prepare($requete);
         $stmt->execute();
         return $stmt;

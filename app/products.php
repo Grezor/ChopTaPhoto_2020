@@ -60,7 +60,7 @@ endif ?>
                     // Affichage de la listes des produits
                     $where = '';
                     if (!empty($categoryId)) {
-                        $where = 'WHERE category_id = '.$DB->getDB()->quote($categoryId);
+                        $where = 'WHERE category_id = '. $DB->getDB()->quote($categoryId);
                     }
                     $loop = false;
 

@@ -6,7 +6,7 @@ header('Content-type: application/json');
 include_once('../../api/database.php');
 include_once('../../api/models/Product.php');
 
-$database = new Database($db);
+$database = new Database();
 $db = $database->Connection();
 
 $product = new Product($db);
@@ -38,8 +38,6 @@ if ($result) {
         ];
         array_push($product_array['data'], $product_item);
     }
-    // turn to json
-    echo count($product_array['data']);
     echo json_encode($product_array);
 } else {
     // no product

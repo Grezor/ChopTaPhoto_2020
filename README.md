@@ -50,6 +50,14 @@ $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 ## API
 API is an acronym for Applications Programming Interface. An API is therefore a programming interface that allows you to "plug in" to an application to exchange data. It operates on an input/output agreement, it is a distribution channel. A API is open and offered by the program owner. It is a concept and an intangible element.
 
+
+| method   |      url      |  response |
+|----------|:-------------:|------:|
+| [GET] |  http://localhost:8000/app/api/category/read.php | Status: 200 OK |
+| [GET] |  http://localhost:8000/app/api/product/read.php) |  Status: 200 OK |
+| [GET] | http://localhost:8000/app/api/user/read.php |  Status: 200 OK |
+
+
 ## Functionality
 
 
