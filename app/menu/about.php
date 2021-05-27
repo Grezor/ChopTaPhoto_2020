@@ -24,7 +24,7 @@
             <article class="content-body">
                 <h3 class="title">ChopTaphoto</h3>
                 <div class="rating-wrap mb-3">
-                    <span class="badge badge-warning"> <i class="fa fa-star"></i> 3.8</span>
+                    <span class="badge badge-warning"> <em class="fa fa-star"></em> 3.8</span>
                     <small class="text-muted ml-2">45 reviews</small>
                 </div>
                 <p>La société « ChopTaPhoto » est une société de location de borne photo travaillant principalement dans le Nord. Elle propose ses services auprès de particulier et entreprise, afin de répondre à des événements de type mariage, anniversaire, journée d’intégration, salon, conférences, événements …. </p>
