@@ -5,5 +5,10 @@
     <arg value="s" />
     <arg value="p" />
     <rule ref="PSR12" />
-   <file>./</file>
+    <file>app/</file>
+    <file>database/</file>
+    <file>include/</file>
+    <file>public/</file>
+    <file>seeds/</file>
+
 </ruleset>
