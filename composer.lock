@@ -60,6 +60,10 @@
                 "router",
                 "routing"
             ],
+            "support": {
+                "issues": "https://github.com/dannyvankooten/AltoRouter/issues",
+                "source": "https://github.com/dannyvankooten/AltoRouter/tree/2.0.1"
+            },
             "time": "2019-11-23T11:01:41+00:00"
         },
         {
