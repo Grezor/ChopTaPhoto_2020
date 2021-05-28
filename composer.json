@@ -1,4 +1,6 @@
 {
+    "name": "choptaphoto",
+    "description": "project school",
     "license": "MIT",
     "require": {
         "fzaninotto/faker": "^1.5",
