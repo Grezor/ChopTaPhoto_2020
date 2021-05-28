@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="PSR-12">
+    <description>PSR-12 coding Standard</description>
+    <arg value="-colors" />
+    <arg value="s" />
+    <arg value="p" />
+    <rule ref="PSR12" />
+   <file>./</file>
+</ruleset>

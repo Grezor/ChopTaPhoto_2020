@@ -2,5 +2,8 @@
     "require": {
         "fzaninotto/faker": "^1.5",
         "altorouter/altorouter": "^2.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.6"
     }
 }
