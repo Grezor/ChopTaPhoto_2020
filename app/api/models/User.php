@@ -1,10 +1,14 @@
-<?php 
-class User {
+<?php
+
+namespace app\api\models;
+
+class User
+{
     private $connexion;
     private $table = 'client';
-    
+
     public $id;
-    public $name; 
+    public $name;
     public $firstname;
     public $email;
     public $password;
@@ -22,7 +26,8 @@ class User {
 
     public function read()
     {
-        $requete = 'SELECT id, name, firstname, email, password, email_token, register_at, connection_at, reset_token, reset_at, role 
+        $requete = 'SELECT id, name, firstname, email, password, email_token, register_at, connection_at, reset_token, 
+                        reset_at, role 
                     FROM ' . $this->table . ' ORDER BY register_at';
         $stmt = $this->connexion->prepare($requete);
         $stmt->execute();

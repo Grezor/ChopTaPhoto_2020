@@ -2,7 +2,8 @@
 
 $uri = $_SERVER['REQUEST_URI'];
 
-function pageNotFound($msg = 'Page introuvable 2') {
+function pageNotFound($msg = 'Page introuvable 2')
+{
     header('HTTP/1.1 404 Not Found', true, 404);
     echo $msg;
 }
@@ -15,53 +16,53 @@ define('VIEW_PATH', realpath(__DIR__ . '/../'));
 //     echo 'dddddd';
 // });
 
-$router->map('GET', '/produit/[i:id]', function($productId) {
+$router->map('GET', '/produit/[i:id]', function ($productId) {
     // echo 'je suis ' . $lol;
     require VIEW_PATH . '/productDetails.php';
 }, 'product.show');
 
-$router->map('GET | POST', '/login', function() {
+$router->map('GET | POST', '/login', function () {
     require VIEW_PATH . '/auth/login.php';
 }, 'login');
 
-$router->map('GET | POST', '/register', function() {
+$router->map('GET | POST', '/register', function () {
     require VIEW_PATH . '/auth/register.php';
 }, 'register');
 
-$router->map('GET', '/logout', function() {
+$router->map('GET', '/logout', function () {
     require VIEW_PATH . '/auth/logout.php';
 }, 'logout');
 
 
-$router->map('GET', '/confirm', function() {
+$router->map('GET', '/confirm', function () {
     require VIEW_PATH . '/auth/confirm.php';
 }, 'confirm');
 
-$router->map('GET | POST', '/forget', function() {
+$router->map('GET | POST', '/forget', function () {
     require VIEW_PATH . '/auth/forget.php';
 }, 'forget');
 
-$router->map('GET | POST', '/booking', function() {
+$router->map('GET | POST', '/booking', function () {
     require VIEW_PATH . '/booking/booking.php';
 }, 'booking');
 
-$router->map('GET | POST', '/authbooking', function() {
+$router->map('GET | POST', '/authbooking', function () {
     require VIEW_PATH . '/auth/allbooking.php';
 }, 'authbooking');
 
-$router->map('GET | POST', '/reservations/[i:id]', function() {
+$router->map('GET | POST', '/reservations/[i:id]', function () {
     require VIEW_PATH . '/booking/reservations.php';
 }, 'reservations');
 
 /**
- * ABOUT 
+ * ABOUT
  */
 
-$router->map('GET | POST', '/about', function() {
+$router->map('GET | POST', '/about', function () {
     require VIEW_PATH . '/menu/about.php';
 }, 'about');
 
-$router->map('GET | POST', '/contact', function() {
+$router->map('GET | POST', '/contact', function () {
     require VIEW_PATH . '/menu/contact.php';
 }, 'contact');
 
@@ -73,88 +74,88 @@ $router->map('GET | POST', '/contact', function() {
 // }, 'like');
 
 
-$router->map('GET | POST', '/newproduct', function() {
+$router->map('GET | POST', '/newproduct', function () {
     require VIEW_PATH . '/menu/news.php';
 }, 'nouveauté');
 
-$router->map('GET | POST', '/reset', function() {
+$router->map('GET | POST', '/reset', function () {
     require VIEW_PATH . '/auth/reset.php';
 }, 'reset');
 
-$router->map('GET | POST', '/account', function() {
+$router->map('GET | POST', '/account', function () {
     require VIEW_PATH . '/auth/account.php';
 }, 'account');
 
-$router->map('GET | POST', '/addProduct', function() {
+$router->map('GET | POST', '/addProduct', function () {
     require VIEW_PATH . '/auth/addProduct.php';
 }, 'addProduct');
 
-$router->map('GET | POST', '/addCategory', function() {
+$router->map('GET | POST', '/addCategory', function () {
     require VIEW_PATH . '/auth/addCategory.php';
 }, 'addCategory');
 
-$router->map('GET | POST', '/addCoupon', function() {
+$router->map('GET | POST', '/addCoupon', function () {
     require VIEW_PATH . '/auth/addCoupon.php';
 }, 'addCoupon');
 
-$router->map('GET | POST', '/allUsers', function() {
+$router->map('GET | POST', '/allUsers', function () {
     require VIEW_PATH . '/auth/allUsers.php';
 }, 'allUsers');
 
 
-$router->map('GET | POST', '/delete', function() {
+$router->map('GET | POST', '/delete', function () {
     require VIEW_PATH . '/auth/delete.php';
 }, 'delete');
 
-$router->map('GET', '/admin', function() {
+$router->map('GET', '/admin', function () {
     require VIEW_PATH . '/auth/admin.php';
 }, 'admin');
 
-$router->map('GET', '/admin/product/[i:id]', function($productId) {
+$router->map('GET', '/admin/product/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/edit.php';
 }, 'admin.product.edit');
 
 
-$router->map('GET | POST', '/admin/edit/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/edit/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/edit.php';
 }, 'adminedit');
 
-$router->map('GET | POST', '/admin/delete/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/delete/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/delete.php';
 }, 'admindelete');
 
-$router->map('GET | POST', '/admin/deleteCategory/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/deleteCategory/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/deleteCategorie.php';
 }, 'deleteCategory');
 
-$router->map('GET | POST', '/admin/deleteBooking/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/deleteBooking/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/deleteBooking.php';
 }, 'deleteBooking');
 
-$router->map('GET | POST', '/admin/deleteUsers/[i:id]', function($userId) {
+$router->map('GET | POST', '/admin/deleteUsers/[i:id]', function ($userId) {
     require VIEW_PATH . '/auth/deleteUsers.php';
 }, 'deleteUsers');
 
 /**
  * =========== COUPON ============
  */
-$router->map('GET | POST', '/admin/editCoupon/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/editCoupon/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/editCoupon.php';
 }, 'editCoupon');
 
-$router->map('GET | POST', '/admin/deleteCoupon/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/deleteCoupon/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/deleteCoupon.php';
 }, 'deleteCoupon');
 
 
-$router->map('GET | POST', '/admin/editClient/[i:id]', function($productId) {
+$router->map('GET | POST', '/admin/editClient/[i:id]', function ($productId) {
     require VIEW_PATH . '/auth/editClient.php';
 }, 'editClient');
 /**
  * =========== FIN COUPON ============
  */
 
-$router->map('GET', '/', function() {
+$router->map('GET', '/', function () {
     require VIEW_PATH . '/products.php';
 }, 'home');
 
@@ -177,11 +178,8 @@ call_user_func_array($match['target'], $match['params']);
  * [GET] /admin/products => /Liste les produits
  * [GET] /admin/products/new => Formulaire d'ajour d'un produit
  * [POST] /admin/products => Traitement du formulaire d'ajout (insert sql)
- * 
+ *
  * [GET] /admin/products/{id} => Formulaire d'édition d'un produit (id en paramètre)
  * [POST] /admin/products/{id} => Traitement du formulaire d'édition du produit (update sql)
  * [DELETE] /admin/products/{id} => Suppression d'un produit (delete sql)
  */
-
-
-

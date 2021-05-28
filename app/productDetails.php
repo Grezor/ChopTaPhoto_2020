@@ -1,11 +1,11 @@
 <?php
 // afficher le produit en détails
-require_once (__DIR__ . '/../include/header.php');
-require_once (__DIR__ . '/../include/vote.php');
+require_once(__DIR__ . '/../include/header.php');
+require_once(__DIR__ . '/../include/vote.php');
 ob_start();
 
 $vote = false;
-if(isset($_SESSION['auth']->id)){
+if (isset($_SESSION['auth']->id)) {
     $req = $pdo->prepare('SELECT * FROM votes WHERE ref = :ref AND product_id = :product_id AND client_id = :client_id');
     $req->execute([
         ':ref' => 'product',
@@ -13,11 +13,13 @@ if(isset($_SESSION['auth']->id)){
         ':client_id' => $_SESSION['auth']->id
     ]);
     $vote = $req->fetch();
-
 }
 
-$products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.quantity, p.description, p.descriptionDetails, p.color, p.ref, pimg.path, p.like_count, p.dislike_count 
-                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1 
+$products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.quantity, p.description, p.descriptionDetails, p.color,
+                            p.ref, pimg.path, p.like_count, p.dislike_count 
+                        FROM product AS p 
+                            LEFT JOIN product_image AS pimg ON p.id = pimg.product_id 
+                        AND pimg.is_main = 1 
                         WHERE p.id=:id', ['id' => $productId]);
 if (count($products) === 0) {
     pageNotFound('Produit introuvable');
@@ -34,7 +36,6 @@ if (count($products) === 0) {
 </section>
 
 <?php foreach ($products as $product) : ?>
-
 <div class="container">
     <div class="col-md-3 mb-3">
         <a href="/" class="btn btn-block btn-primary">Retour</a>
@@ -58,9 +59,9 @@ if (count($products) === 0) {
 
                         <h2 class="title"><?= $product->name; ?></h2>
                         <h5>
-                            <small class="text-uppercase">Quantité </small> 
+                            <small class="text-uppercase">Quantité </small>
                             <span class="badge badge-danger"><?= $product->quantity; ?></span>
-			            </h5>
+                        </h5>
 
                         <div class="rating-wrap my-3">
                             <ul class="rating-stars">
@@ -80,9 +81,10 @@ if (count($products) === 0) {
                                 data_ref="product" data-ref_id="<?= $product->p_id; ?>"
                                 data-user_id="<?= $_SESSION['auth']->id; ?>">
                                 <div class="vote_bar">
+                                    <?php $total = $product->like_count + $product->dislike_count; ?>
                                     <div class="vote_progress"
-                                        style="width: <?= ($product->like_count + $product->dislike_count) == 0 ? 100 : round(100 * ($product->like_count / ($product->like_count + $product->dislike_count) )) ?>%">
-
+                                        style="width: <?= ($total) == 0 ? 100 :
+                                        round(100 * ($product->like_count / ($total) )) ?>%">
                                     </div>
                                 </div>
                                 <div class="vote_btns">
@@ -134,14 +136,12 @@ if (count($products) === 0) {
             </div>
         </div>
     </output>
-    <?php endforeach; ?>
+<?php endforeach; ?>
 </div>
 <br>
 <br>
 <br>
 <br>
-
-
-<?php 
+<?php
 include_once __DIR__ . '/../include/footer.php';
 ?>

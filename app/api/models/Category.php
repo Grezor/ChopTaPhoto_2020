@@ -1,11 +1,16 @@
-<?php 
-class Category {
+<?php
+
+namespace app\models;
+
+class Category
+{
+
+
+
     private $connexion;
     private $table = 'category';
-    
     public $id;
-    public $name; 
-
+    public $name;
     public function __construct($db)
     {
         $this->connexion = $db;

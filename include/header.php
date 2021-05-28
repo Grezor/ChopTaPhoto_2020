@@ -99,7 +99,7 @@ header('Content-type: text/html; charset=UTF-8');
                             </div>
                         </div>
                         <?php endif; ?>
-                        <?php else : ?>
+                    <?php else : ?>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="/login">Connexion</a>
@@ -109,7 +109,7 @@ header('Content-type: text/html; charset=UTF-8');
                             </li>
                         </ul>
 
-                        <?php endif; ?>
+                    <?php endif; ?>
                     </div>
         </nav>
 

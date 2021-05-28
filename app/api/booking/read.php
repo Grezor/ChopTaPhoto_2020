@@ -2,15 +2,13 @@
 
 header('Acess-Control-Allow-Origin: *');
 header('Content-type: application/json');
-
 include_once('../../api/database.php');
 include_once('../../api/models/Booking.php');
 
 $database = new Database();
-$db = $database->Connection();
+$db = $database->connection();
 
 $booking = new Booking($db);
-
 $bookings = $booking->read();
 
 $bookingResults = [];
@@ -23,7 +21,7 @@ foreach ($bookings as $row) {
         'adresse' => $row['adresse'],
         'postal' => $row['postal'],
         'ville' => $row['ville'],
-        'debut' => $row['debut'], 
+        'debut' => $row['debut'],
         'fin' => $row['fin'],
         'created_at' => $row['created_at']
     ];
@@ -37,7 +35,6 @@ if (empty($bookingResults)) {
     return;
 }
 
-// turn to json
 echo json_encode([
     'data' => $bookingResults
 ]);

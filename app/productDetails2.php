@@ -1,12 +1,12 @@
 
-<?php 
+<?php
 include_once __DIR__ . '/../include/header.php';
 ?>
 <section class="section-content padding-y">
 <div class="container">
 
 <header class="section-heading">
-	<h2 class="section-title">Starter page </h2>
+    <h2 class="section-title">Starter page </h2>
 </header><!-- sect-heading -->
 
 <article>
@@ -48,6 +48,6 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div> <!-- container .//  -->
 </section>
 
-<?php 
+<?php
 include_once __DIR__ . '/../include/footer.php';
 ?>

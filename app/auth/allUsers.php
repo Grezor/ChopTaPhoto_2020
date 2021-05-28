@@ -1,23 +1,19 @@
-<?php 
-
+<?php
 require_once __DIR__ . '/../../include/functions.php';
 sessionStart();
-
-
- require_once (__DIR__ .'/../../include/header.php');?>
-<!-- ========================= SECTION CONTENT ========================= -->
+require_once(__DIR__ . '/../../include/header.php');
+?>
 <section class="section-content padding-y">
   <div class="card mx-auto" style="margin-top:40px;">
     <article class="card-body">
-      <?php 
+      <?php
         $sql = "SELECT count(name) FROM client ";
-	      $stmt = $pdo->prepare($sql);
-	      $stmt->execute();
-      ?>
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute();
+        ?>
       <header class="mb-4">
         <h4 class="card-title">liste des utilisateurs </h4>
       </header>
-
       <table class="table table-hover">
         <thead>
           <tr>
@@ -36,22 +32,23 @@ sessionStart();
 
           <?php
           // pour dire quel utilisateurs viens de s'inscrire et changer de icon
-          $sql = "SELECT id, name, firstname, email, email_token, register_at, reset_at, role, (DATE_SUB( now(), INTERVAL 1 HOUR) < register_at) AS is_new 
-          FROM client ";
-          $stmt = $pdo->prepare($sql);
-          $stmt->execute();
-          ?>
+            $sql = "SELECT id, name, firstname, email, email_token, register_at, reset_at, role, 
+                    (DATE_SUB( now(), INTERVAL 1 HOUR) < register_at) AS is_new 
+                    FROM client";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            ?>
           <?php foreach ($stmt as $row) { ?>
           <tr>
             <th scope="row"><?= $row->id; ?></th>
             <td><?= $row->name; ?></td>
             <td><?= $row->firstname; ?></td>
             <td><?= $row->email; ?></td>
-            <td><?php if($row->email_token === NULL){ ?>
+            <td><?php if ($row->email_token === null) { ?>
               <span class="badge badge-success">Activé</span>
-              <?php } else{?>
+                <?php } else {?>
               <span class="badge badge-danger"> Non Activé</span>
-              <?php }?>
+                <?php }?>
             </td>
             <style>
               .king {
@@ -71,31 +68,31 @@ sessionStart();
 
               }
 
-              .classVisiteur{
-                background-color: #e67e22!important;
+              .classVisiteur {
+                background-color: #e67e22 !important;
               }
             </style>
-            <td><?= strftime('%d.%m.%Y',strtotime($row->register_at)); ?></td>
-            <td><?php if($row->role === '1'){ ?>
+            <td><?= strftime('%d.%m.%Y', strtotime($row->register_at)); ?></td>
+            <td><?php if ($row->role === '1') { ?>
               <span class="badge badge-success">Administrateur</span>
-              <?php } else{?>
+                <?php } else {?>
               <span class="badge badge-danger classVisiteur">Visiteur</span>
-              <?php }?>
+                <?php }?>
             </td>
 
             <td><?= $row->reset_at; ?></td>
             <td><a href="/admin/deleteUsers/<?= $row->id; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-            <a href="/admin/editClient/<?= $row->id; ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-          </td>
+              <a href="/admin/editClient/<?= $row->id; ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
+            </td>
           </tr>
 
           <?php } ?>
       </table>
-   </article>
+    </article>
   </div>
   </tbody>
 </section>
 
-<?php 
+<?php
 include_once __DIR__ . '/../../include/footer.php';
 ?>

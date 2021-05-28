@@ -26,8 +26,7 @@ foreach ($users as $row) {
         'connection_at' => $row['connection_at'],
         'reset_token' => $row['reset_token'],
         'reset_at' => $row['reset_at'],
-        'role' => $row['role'],
-        
+        'role' => $row['role']
     ];
 }
 

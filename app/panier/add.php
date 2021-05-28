@@ -1,9 +1,10 @@
-<?php 
-require_once (__DIR__ .'/../../include/panier.class.php');
+<?php
+
+require_once(__DIR__ . '/../../include/panier.class.php');
 $DB = new DB();
 $panier = new Panier($DB);
 if (isset($_GET['id'])) {
-    $product = $DB->query('SELECT id FROM product WHERE id=:id', array('id' =>$_GET['id']));
+    $product = $DB->query('SELECT id FROM product WHERE id=:id', array('id' => $_GET['id']));
     // si le produit est vide
     if (empty($product)) {
         die('ce produit n_exite pas');
@@ -12,7 +13,6 @@ if (isset($_GET['id'])) {
     header('Location: manage.php');
     die('produit ajouter');
     var_dump($panier);
-   
-}else {
+} else {
     die('vous n avez rien selectionner');
 }

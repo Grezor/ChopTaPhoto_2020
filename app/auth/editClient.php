@@ -6,26 +6,27 @@ $sql = 'SELECT * FROM client WHERE id=:id';
 $statement = $pdo->prepare($sql);
 $statement->execute([':id' => $productId ]);
 $client = $statement->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['product_id']) && isset ($_POST['name'])  && isset($_POST['firstname']) && isset($_POST['email']) ) {
+if (isset($_POST['product_id']) && isset($_POST['name'])  && isset($_POST['firstname']) && isset($_POST['email'])) {
+    $productId = $_POST['name'];
+    $firstname = $_POST['firstname'];
+    $email = $_POST['email'];
+    $role = $_POST['role'];
 
-  $productId = $_POST['name'];
-  $firstname = $_POST['firstname'];
-  $email = $_POST['email'];
-  $role = $_POST['role'];
-
-  $sql = 'UPDATE client SET name =:name, firstname=:firstname, email=:email, role = :role WHERE id=:id';
-  $statement = $pdo->prepare($sql);
-  if ($statement->execute([
-      ':name' => $productId,
-      ':firstname' => $firstname,
-      ':email'=> $email,
-      ':role' => $role,
-    ])) {
-    $_SESSION['flash']['success'] = "Vous avez mis a jour";
-    header("Location: /allUsers");
-  }
+    $sql = 'UPDATE client SET name =:name, firstname=:firstname, email=:email, role = :role WHERE id=:id';
+    $statement = $pdo->prepare($sql);
+    if (
+        $statement->execute([
+        ':name' => $productId,
+        ':firstname' => $firstname,
+        ':email' => $email,
+        ':role' => $role,
+        ])
+    ) {
+        $_SESSION['flash']['success'] = "Vous avez mis a jour";
+        header("Location: /allUsers");
+    }
 }
-require_once (__DIR__ .'/../../include/header.php');
+require_once(__DIR__ . '/../../include/header.php');
 ?>
 
 <div class="container">
@@ -34,17 +35,16 @@ require_once (__DIR__ .'/../../include/header.php');
       <h2>Update Client </h2>
     </div>
     <div class="card-body">
-    <?php 
-		if(isset($_SESSION['flash'])): ?>
+    <?php
+    if (isset($_SESSION['flash'])) : ?>
+        <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
+            <div class="alert alert-<?= $type; ?>">
+                <?= $message; ?>
+            </div>
+        <?php endforeach; ?>
+        <?php unset($_SESSION['flash']); ?>
 
-		<?php foreach ($_SESSION['flash'] as $type=> $message): ?>
-			<div class="alert alert-<?= $type; ?>">
-		        <?= $message; ?>
-			</div>
-		<?php endforeach; ?>
-		<?php unset($_SESSION['flash']); ?>
-
-		<?php endif; ?>
+    <?php endif; ?>
       <form method="post">
         <div class="form-group">
           <label for="name">Name</label>
@@ -76,6 +76,6 @@ require_once (__DIR__ .'/../../include/header.php');
   </div>
 </div>
 
-<?php 
+<?php
 include_once __DIR__ . '/../../include/footer.php';
 ?>

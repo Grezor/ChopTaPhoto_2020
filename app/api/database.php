@@ -1,5 +1,9 @@
 <?php
-class Database{
+
+namespace  App\api;
+
+class Database
+{
     // Connexion à la base de données
     private $host = "localhost";
     private $db_name = "choptaphoto";
@@ -8,18 +12,24 @@ class Database{
     private $connexion;
 
     // getter pour la connexion
-    public function Connection(){
+    public function connection()
+    {
 
         $this->connexion = null;
 
-        try{
-            $this->connexion = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+        try {
+            $this->connexion = new PDO(
+                "mysql:host=" . $this->host . ";
+                dbname=" . $this->db_name,
+                $this->username,
+                $this->password
+            );
             $this->connexion->exec("set names utf8");
             $this->connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }catch(PDOException $exception){
+        } catch (PDOException $exception) {
             echo "Erreur de connexion : " . $exception->getMessage();
         }
 
         return $this->connexion;
-    }   
+    }
 }

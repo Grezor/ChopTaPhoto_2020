@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Product;
+
 header('Acess-Control-Allow-Origin: *');
 header('Content-type: application/json');
 
@@ -30,7 +32,7 @@ if ($result) {
             'price' => $price,
             'quantity' => $quantity,
             'color' => $color,
-            'ref' => $ref, 
+            'ref' => $ref,
             'is_location' => $is_location,
             'category_id' => $category_id,
             'created_at' => $created_at,
