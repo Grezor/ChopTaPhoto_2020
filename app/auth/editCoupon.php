@@ -46,14 +46,14 @@ require_once(__DIR__ . '/../../include/header.php');
     <div class="card-body">
       <?php
         if (isset($_SESSION['flash'])) : ?>
-      <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
+            <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
       <div class="alert alert-<?= $type; ?>">
-        <?= $message; ?>
+                <?= $message; ?>
       </div>
-      <?php endforeach; ?>
-      <?php unset($_SESSION['flash']); ?>
+            <?php endforeach; ?>
+            <?php unset($_SESSION['flash']); ?>
 
-      <?php endif; ?>
+        <?php endif; ?>
       <form method="post">
         <div class="form-group">
           <label for="name">Name</label>

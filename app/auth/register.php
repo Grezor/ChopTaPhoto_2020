@@ -35,7 +35,7 @@ if (!empty($_POST)) {
 
     // Pour envoyer les données a la base de données
     if (empty($errors)) {
-        //$req = $pdo->prepare("INSERT INTO client (name, firstname, password, email, e) VALUES(:name, :firstname, 
+        //$req = $pdo->prepare("INSERT INTO client (name, firstname, password, email, e) VALUES(:name, :firstname,
         // :password, :email )");
         $req = $pdo->prepare("INSERT INTO client SET name = ?, firstname = ?, password = ?, email= ?, email_token = ?,
              register_at = NOW(), role ='2' ");

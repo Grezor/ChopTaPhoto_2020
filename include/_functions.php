@@ -1,6 +1,5 @@
 <?php
 
-
 function sessionStart()
 {
     if (session_status() === PHP_SESSION_NONE) {

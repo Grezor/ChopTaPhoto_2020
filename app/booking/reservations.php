@@ -81,7 +81,7 @@ if (!empty($_POST)) {
     }
 
     if (empty($errors)) {
-        //$req = $pdo->prepare("INSERT INTO client (name, firstname, password, email, e) VALUES(:name, :firstname, 
+        //$req = $pdo->prepare("INSERT INTO client (name, firstname, password, email, e) VALUES(:name, :firstname,
         // :password, :email )");
         $req = $pdo->prepare("INSERT INTO booking (nom, prenom, email, adresse, postal, ville, debut, fin, created_at, 
                                             nbrProduct, product_id, codeEvent)
@@ -144,13 +144,13 @@ require_once __DIR__ . '/../../include/header.php';
 
             <?php
             if (isset($_SESSION['flash'])) : ?>
-            <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
+                <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
             <div class="alert alert-<?= $type; ?>">
-                <?= $message; ?>
+                    <?= $message; ?>
             </div>
 
-            <?php endforeach; ?>
-            <?php unset($_SESSION['flash']); ?>
+                <?php endforeach; ?>
+                <?php unset($_SESSION['flash']); ?>
 
             <?php endif; ?>
 
