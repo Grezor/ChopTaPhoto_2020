@@ -34,16 +34,6 @@
                     <li>Réservation sécurité</li>
                     <li>Livraison rapide </li>
                 </ul>
-
-
-
-
-
-
-
-
-
-
             </article> 
         </main> 
     </div> 
