@@ -14,7 +14,7 @@ jobs:
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-          
+
       - name: Cache composer dependencies
         uses: actions/cache@v2.1.6
         with:
@@ -22,10 +22,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer
-
-      - run: package-installer packages.txt
-        if: steps.cache-packages.outputs.cache-hit != 'true'
-
+            
       - name: Install PHP CodeSniffer Composer package
         run: composer global require "squizlabs/php_codesniffer=*"
 
