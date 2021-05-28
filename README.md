@@ -74,3 +74,10 @@ Reading articles & watching tutorials can help, but what's better than actually 
 
 ## Author
 **Duplessi Geoffrey** 
+
+## phpcs :
+
+```
+- phpcbf
+- phpcs
+```
