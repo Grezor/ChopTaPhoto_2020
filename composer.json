@@ -1,7 +1,14 @@
 {
-    "name": "choptaphoto",
+    "name": "vendor_name/choptaphoto",
     "description": "project school",
+    "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+          "name": "Geoffrey D",
+          "email": "duplessi.geoffrey@gmail.com"
+        }
+      ],
     "require": {
         "fzaninotto/faker": "^1.5",
         "altorouter/altorouter": "^2.0"
