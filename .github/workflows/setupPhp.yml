@@ -15,11 +15,12 @@ jobs:
         run: echo "::set-ouput name=dir::$(composer config cache-files-dir)"
 
       - name: Cache composer dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-packages-${{ hashFiles('**/composer*.lock') }}
-          restore-keys:  ${{ runner.os }}-packages-
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer
 
       - run: package-installer packages.txt
         if: steps.cache-packages.outputs.cache-hit != 'true'
