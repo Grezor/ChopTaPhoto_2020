@@ -74,7 +74,8 @@ class Vote
                 return false;
             }
             $this->former_vote = $vote_row;
-            $this->pdo->prepare("UPDATE votes SET vote = ?, created_at = ?  WHERE id = {$vote_row->id}")->execute([$vote, date('Y-m-d- H:i:s')]);
+            $this->pdo->prepare("UPDATE votes SET vote = ?, created_at = ? WHERE id = {$vote_row->id}")
+                      ->execute([$vote, date('Y-m-d- H:i:s')]);
 
             return true;
         }

@@ -7,12 +7,12 @@ $panier = new Panier($DB);
 $categoryId = intval($_GET['category'] ?? 0);
 
 if (isset($_SESSION['flash'])) : ?>
-    <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
+<?php foreach ($_SESSION['flash'] as $type => $message) : ?>
 <div class="alert alert-<?= $type; ?>">
-        <?= $message ?>
+    <?= $message ?>
 </div>
-    <?php endforeach ?>
-    <?php unset($_SESSION['flash']);
+<?php endforeach ?>
+<?php unset($_SESSION['flash']);
 endif ?>
 <section class="section-pagetop bg">
     <div class="container">
@@ -55,22 +55,22 @@ endif ?>
 
             <main class="col-md-9">
                 <div class="row">
-
                     <?php
                     // Affichage de la listes des produits
-                    $where = '';
-                    if (!empty($categoryId)) {
-                        $where = 'WHERE category_id = ' . $DB->getDB()->quote($categoryId);
-                    }
-                    $loop = false;
+                $where = '';
+                if (!empty($categoryId)) {
+                    $where = 'WHERE category_id = ' . $DB->getDB()->quote($categoryId);
+                }
+                $loop = false;
 
-                    $products = $DB->query('SELECT p.id as p_id, p.name, p.price, p.description,p.is_location,p.quantity,
-                        p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
-                        FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1
-                         ' . $where . ' ORDER BY p.created_at');
-                    foreach ($products as $product) :
-                        $loop = true;
-                        ?>
+                $products = $DB->query('SELECT p.id as p_id, 
+                                            p.name, p.price, p.description,p.is_location,p.quantity,
+                    p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
+                    FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1
+                        ' . $where . ' ORDER BY p.created_at');
+                foreach ($products as $product) :
+                    $loop = true;
+                    ?>
                     <div class="col-md-4">
                         <figure class="card card-product-grid">
                             <div class="img-wrap">

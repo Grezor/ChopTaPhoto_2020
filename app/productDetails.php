@@ -6,7 +6,12 @@ ob_start();
 
 $vote = false;
 if (isset($_SESSION['auth']->id)) {
-    $req = $pdo->prepare('SELECT * FROM votes WHERE ref = :ref AND product_id = :product_id AND client_id = :client_id');
+    $req = $pdo->prepare('SELECT * 
+                          FROM votes 
+                          WHERE ref = :ref 
+                            AND product_id = :product_id 
+                            AND client_id = :client_id
+                        ');
     $req->execute([
         ':ref' => 'product',
         ':product_id' => $productId,
