@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Session start
+ */
 function sessionStart()
 {
     if (session_status() === PHP_SESSION_NONE) {
@@ -7,9 +10,11 @@ function sessionStart()
     }
 }
 
+/**
+ * Generate random id
+ */
 function randomId()
 {
-    //fonction qui génére un id aléatoire
     $string = rand(0, 9);
     $string = strval($string);
     $chaine = "abcdefghijklmnpqrstuvwxy";
@@ -20,12 +25,18 @@ function randomId()
     return $string;
 }
 
+/**
+ * generates a token key to register
+ */
 function str_random($length)
 {
     $alphabet = "0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN";
     return substr(str_shuffle(str_repeat($alphabet, $length)), 0, $length);
 }
 
+/**
+ * the user must log in before accessing the desired page
+ */
 function logged_only()
 {
     if (!isset($_SESSION['auth'])) {
@@ -35,7 +46,20 @@ function logged_only()
     }
 }
 
+/**
+ * Allows to know if the user has an admin role
+ */
 function isAdmin($user): bool
 {
     return (int) $user->role === 1;
+}
+
+/**
+ * this function is not used ?
+ */
+function get_orders_with()
+{
+    require_once '../../include/db.php';
+    $req = $pdo->prepare('SELECT id FROM product WHERE name = ?');
+    $req->execute([$_POST['name']]);
 }
