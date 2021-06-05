@@ -25,6 +25,11 @@ function randomId()
     return $string;
 }
 
+function pageNotFound($msg = 'Page introuvable 2')
+{
+    header('HTTP/1.1 404 Not Found', true, 404);
+    echo $msg;
+}
 /**
  * generates a token key to register
  */
@@ -62,4 +67,9 @@ function get_orders_with()
     require_once '../../include/db.php';
     $req = $pdo->prepare('SELECT id FROM product WHERE name = ?');
     $req->execute([$_POST['name']]);
+}
+
+function defineView()
+{
+    return define('VIEW_PATH', realpath(__DIR__ . '/../'));
 }

@@ -14,6 +14,7 @@
   <exclude-pattern>public/js/funcybox.js</exclude-pattern>
   <exclude-pattern>public/js/jquery-3.2.1.slim.min.js</exclude-pattern>
   <exclude-pattern>public/js/popper.min.js</exclude-pattern>
+  <exclude-pattern>public/css/all.min.css</exclude-pattern>
   <rule ref="Generic.Files.LineEndings">
     <properties>
       <property name="eolChar" value="\n"/>

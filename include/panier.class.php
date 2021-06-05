@@ -5,7 +5,7 @@ namespace include;
 class Panier
 {
     private $DB;
-    
+
     public function __construct($DB)
     {
         if (!isset($_SESSION['panier'])) {
@@ -85,7 +85,7 @@ class Panier
         unset($_SESSION['panier'][$product_id]);
     }
     /**
-     * 
+     *
      */
     public function getPrixCoupon()
     {

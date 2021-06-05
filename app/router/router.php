@@ -1,16 +1,8 @@
 <?php
 
-$uri = $_SERVER['REQUEST_URI'];
-
-function pageNotFound($msg = 'Page introuvable 2')
-{
-    header('HTTP/1.1 404 Not Found', true, 404);
-    echo $msg;
-}
-
 $router = new AltoRouter();
-
-define('VIEW_PATH', realpath(__DIR__ . '/../'));
+require_once(__DIR__ . '/../include/_functions.php');
+defineView();
 
 // $router->map('GET', '/produit', function() {
 //     echo 'dddddd';
@@ -168,18 +160,4 @@ if ($match === false) {
     ];
 }
 
-// var_dump($router->generate('produit.show', ['id' => 1]));
 call_user_func_array($match['target'], $match['params']);
-
-// Routes admin crud (version laravel: https://laravel.com/docs/5.7/controllers#resource-controllers)
-
-// Ressource : produits (products)
-/**
- * [GET] /admin/products => /Liste les produits
- * [GET] /admin/products/new => Formulaire d'ajour d'un produit
- * [POST] /admin/products => Traitement du formulaire d'ajout (insert sql)
- *
- * [GET] /admin/products/{id} => Formulaire d'édition d'un produit (id en paramètre)
- * [POST] /admin/products/{id} => Traitement du formulaire d'édition du produit (update sql)
- * [DELETE] /admin/products/{id} => Suppression d'un produit (delete sql)
- */
