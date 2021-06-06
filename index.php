@@ -1,3 +1,13 @@
 <?php
+
+use App\Router\Router;
+
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/app/router/router.php';
+
+$altoRouter = new AltoRouter();
+$router = new Router($altoRouter);
+
+require __DIR__ . '/routes/web.php';
+
+$response = $router->run();
+$response->render();

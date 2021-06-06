@@ -1,163 +1,107 @@
 <?php
 
-$router = new AltoRouter();
-require_once(__DIR__ . '/../include/_functions.php');
-defineView();
+namespace App\Router;
 
-// $router->map('GET', '/produit', function() {
-//     echo 'dddddd';
-// });
+use AltoRouter;
+use App\Controllers\HomeController;
+use App\Controllers\HttpErrorController;
+use App\Responses\AbstractResponse;
+use App\Router\Router as RouterRouter;
+use Exception;
+use ReflectionClass;
 
-$router->map('GET', '/produit/[i:id]', function ($productId) {
-    // echo 'je suis ' . $lol;
-    require VIEW_PATH . '/productDetails.php';
-}, 'product.show');
+class Router
+{
+    private AltoRouter $router;
 
-$router->map('GET | POST', '/login', function () {
-    require VIEW_PATH . '/auth/login.php';
-}, 'login');
+    public function __construct(AltoRouter $router)
+    {
+        $this->router = $router;
+    }
 
-$router->map('GET | POST', '/register', function () {
-    require VIEW_PATH . '/auth/register.php';
-}, 'register');
+    public function get(string $path, array $action, string|null $name = null): void
+    {
+        $this->addRoute(['GET'], $path, $action, $name);
+    }
 
-$router->map('GET', '/logout', function () {
-    require VIEW_PATH . '/auth/logout.php';
-}, 'logout');
+    public function post(string $path, array $action, string|null $name = null): void
+    {
+        $this->addRoute(['POST'], $path, $action, $name);
+    }
 
+    public function put(string $path, array $action, string|null $name = null): void
+    {
+        $this->addRoute(['PUT'], $path, $action, $name);
+    }
 
-$router->map('GET', '/confirm', function () {
-    require VIEW_PATH . '/auth/confirm.php';
-}, 'confirm');
+    public function patch(string $path, array $action, string|null $name = null): void
+    {
+        $this->addRoute(['PATCH'], $path, $action, $name);
+    }
 
-$router->map('GET | POST', '/forget', function () {
-    require VIEW_PATH . '/auth/forget.php';
-}, 'forget');
+    public function delete(string $path, array $action, string|null $name = null): void
+    {
+        $this->addRoute(['DELETE'], $path, $action, $name);
+    }
 
-$router->map('GET | POST', '/booking', function () {
-    require VIEW_PATH . '/booking/booking.php';
-}, 'booking');
+    /**
+     * addRoute
+     *
+     * @param  array $methods (GET/POST/PUT/DELETE)
+     * @param  string $path (HomeController::class)
+     * @param  array $action (method index, show, update)
+     * @param  string|null $name (name route)
+     * @return void
+     */
+    public function addRoute(array $methods, string $path, array $action, string|null $name = null): void
+    {
+        if (count($action) !== 2) {
+            throw new Exception("L'action doit comporter 2 élements [ClassName, methods]");
+        }
 
-$router->map('GET | POST', '/authbooking', function () {
-    require VIEW_PATH . '/auth/allbooking.php';
-}, 'authbooking');
+        $methods = implode(' | ', $methods);
 
-$router->map('GET | POST', '/reservations/[i:id]', function () {
-    require VIEW_PATH . '/booking/reservations.php';
-}, 'reservations');
+        $this->router->map($methods, $path, $action, $name);
+    }
 
-/**
- * ABOUT
- */
+    /**
+     * run
+     *
+     * @return AbstractResponse
+     */
+    public function run(): AbstractResponse
+    {
+        $routeMatched = $this->router->match();
 
-$router->map('GET | POST', '/about', function () {
-    require VIEW_PATH . '/menu/about.php';
-}, 'about');
+        if ($routeMatched === false) {
+            $routeMatched = $this->getNotFoundAction();
+        }
 
-$router->map('GET | POST', '/contact', function () {
-    require VIEW_PATH . '/menu/contact.php';
-}, 'contact');
+        $targetClass = $routeMatched['target'][0]; // exemple HomeController::class
+        $targetMethod = $routeMatched['target'][1]; // exemple: index
 
-/**
- * =========== votes ============
- */
-// $router->map('GET | POST', '/like', function($productId) {
-//     require VIEW_PATH . '/vote/like.php';
-// }, 'like');
+        $class = new ReflectionClass($targetClass);
+        // si la classe n'est pas instanciable
+        if (!$class->isInstantiable()) {
+            throw new Exception("The class {$targetClass} is not instantiable");
+        }
+        //crée une nouvelle instance
+        $instance = $class->newInstance();
+        // recuperer la methode de la class
+        $method = $class->getMethod($targetMethod);
+        return $method->invokeArgs($instance, $routeMatched['params']);
+    }
 
-
-$router->map('GET | POST', '/newproduct', function () {
-    require VIEW_PATH . '/menu/news.php';
-}, 'nouveauté');
-
-$router->map('GET | POST', '/reset', function () {
-    require VIEW_PATH . '/auth/reset.php';
-}, 'reset');
-
-$router->map('GET | POST', '/account', function () {
-    require VIEW_PATH . '/auth/account.php';
-}, 'account');
-
-$router->map('GET | POST', '/addProduct', function () {
-    require VIEW_PATH . '/auth/addProduct.php';
-}, 'addProduct');
-
-$router->map('GET | POST', '/addCategory', function () {
-    require VIEW_PATH . '/auth/addCategory.php';
-}, 'addCategory');
-
-$router->map('GET | POST', '/addCoupon', function () {
-    require VIEW_PATH . '/auth/addCoupon.php';
-}, 'addCoupon');
-
-$router->map('GET | POST', '/allUsers', function () {
-    require VIEW_PATH . '/auth/allUsers.php';
-}, 'allUsers');
-
-
-$router->map('GET | POST', '/delete', function () {
-    require VIEW_PATH . '/auth/delete.php';
-}, 'delete');
-
-$router->map('GET', '/admin', function () {
-    require VIEW_PATH . '/auth/admin.php';
-}, 'admin');
-
-$router->map('GET', '/admin/product/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/edit.php';
-}, 'admin.product.edit');
-
-
-$router->map('GET | POST', '/admin/edit/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/edit.php';
-}, 'adminedit');
-
-$router->map('GET | POST', '/admin/delete/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/delete.php';
-}, 'admindelete');
-
-$router->map('GET | POST', '/admin/deleteCategory/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/deleteCategorie.php';
-}, 'deleteCategory');
-
-$router->map('GET | POST', '/admin/deleteBooking/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/deleteBooking.php';
-}, 'deleteBooking');
-
-$router->map('GET | POST', '/admin/deleteUsers/[i:id]', function ($userId) {
-    require VIEW_PATH . '/auth/deleteUsers.php';
-}, 'deleteUsers');
-
-/**
- * =========== COUPON ============
- */
-$router->map('GET | POST', '/admin/editCoupon/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/editCoupon.php';
-}, 'editCoupon');
-
-$router->map('GET | POST', '/admin/deleteCoupon/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/deleteCoupon.php';
-}, 'deleteCoupon');
-
-
-$router->map('GET | POST', '/admin/editClient/[i:id]', function ($productId) {
-    require VIEW_PATH . '/auth/editClient.php';
-}, 'editClient');
-/**
- * =========== FIN COUPON ============
- */
-
-$router->map('GET', '/', function () {
-    require VIEW_PATH . '/products.php';
-}, 'home');
-
-$match = $router->match();
-if ($match === false) {
-    $match = [
-        'target' => 'pageNotFound',
-        'name' => '',
-        'params' => []
-    ];
+    /**
+     * getNotFoundAction
+     * @return array
+     */
+    private function getNotFoundAction(): array
+    {
+        return [
+            'target' => [HttpErrorController::class, 'e404'],
+            'name' => '',
+            'params' => []
+        ];
+    }
 }
-
-call_user_func_array($match['target'], $match['params']);

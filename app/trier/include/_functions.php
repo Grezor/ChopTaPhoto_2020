@@ -68,8 +68,3 @@ function get_orders_with()
     $req = $pdo->prepare('SELECT id FROM product WHERE name = ?');
     $req->execute([$_POST['name']]);
 }
-
-function defineView()
-{
-    return define('VIEW_PATH', realpath(__DIR__ . '/../'));
-}
