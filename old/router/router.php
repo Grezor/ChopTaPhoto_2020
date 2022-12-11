@@ -159,5 +159,3 @@ if ($match === false) {
         'params' => []
     ];
 }
-
-call_user_func_array($match['target'], $match['params']);
