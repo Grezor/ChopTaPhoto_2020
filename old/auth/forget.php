@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 sessionStart();s
 
 if (!empty($_POST) && !empty($_POST['email'])) {
@@ -29,7 +29,7 @@ if (!empty($_POST) && !empty($_POST['email'])) {
     die();
 }
 
-require_once __DIR__ . '/../../include/header.php';
+require_once __DIR__ . '/../../database/header.php';
 ?>
 <section class="section-conten padding-y" style="min-height:84vh">
     <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">

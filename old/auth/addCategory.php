@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 sessionStart();
 
 if (!empty($_POST)) {
     $errors = [];
-    require_once __DIR__ . '/../../include/db.php';
+    require_once __DIR__ . '/../../database/db.php';
 
     if (empty($_POST['name']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['name'])) {
         $errors['name'] = "Votre nom n'est pas valide";
@@ -35,7 +35,7 @@ if (!empty($_POST)) {
 }
 ?>
 
-<?php require_once(__DIR__ . '/../../include/header.php');?>
+<?php require_once(__DIR__ . '/../../database/header.php');?>
 
 <section class="section-content padding-y">
     <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
@@ -121,4 +121,4 @@ if (!empty($_POST)) {
 
 </section>
 
-<?php require_once(__DIR__ . '/../../include/footer.php');?>
+<?php require_once(__DIR__ . '/../../database/footer.php');?>

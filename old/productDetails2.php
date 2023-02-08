@@ -1,6 +1,6 @@
 
 <?php
-include_once __DIR__ . '/../include/header.php';
+include_once __DIR__ . '/../database/header.php';
 ?>
 <section class="section-content padding-y">
 <div class="container">
@@ -49,5 +49,5 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </section>
 
 <?php
-include_once __DIR__ . '/../include/footer.php';
+include_once __DIR__ . '/../database/footer.php';
 ?>

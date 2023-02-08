@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../../include/functions.php');
+require_once(__DIR__ . '/../../database/functions.php');
 
 sessionStart();
 if (!empty($_POST) && !empty($_POST['name']) && !empty($_POST['password'])) {
@@ -21,7 +21,7 @@ if (!empty($_POST) && !empty($_POST['name']) && !empty($_POST['password'])) {
     header('Location: /login');
     exit();
 }
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 ?>
 
 
@@ -74,5 +74,5 @@ require_once(__DIR__ . '/../../include/header.php');
 </section>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

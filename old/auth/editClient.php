@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../include/db.php' ;
+require __DIR__ . '/../../database/db.php';
 
 // recuperation de l'id selectionner
 $sql = 'SELECT * FROM client WHERE id=:id';
@@ -26,7 +26,7 @@ if (isset($_POST['product_id']) && isset($_POST['name'])  && isset($_POST['first
         header("Location: /allUsers");
     }
 }
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 ?>
 
 <div class="container">
@@ -77,5 +77,5 @@ require_once(__DIR__ . '/../../include/header.php');
 </div>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

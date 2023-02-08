@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 
 if (!empty($_POST)) {
     $errors = [];
-    require_once __DIR__ . '/../../include/db.php';
+    require_once __DIR__ . '/../../database/db.php';
 
     if (empty($_POST['nameCoupon']) || !preg_match('/^[a-zA-Z0-9_+$]/', $_POST['nameCoupon'])) {
         $errors['nameCoupon'] = "Votre nom n'est pas valide";
@@ -64,7 +64,7 @@ if (!empty($_POST)) {
     }
 }
 
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 
 ?>
 <!-- ========================= SECTION CONTENT ========================= -->
@@ -232,5 +232,5 @@ require_once(__DIR__ . '/../../include/header.php');
 
 </section>
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

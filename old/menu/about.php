@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . '/../../include/header.php');?>
+<?php require_once(__DIR__ . '/../../database/header.php');?>
 <style>
     .image_about {
         background-size: cover;
@@ -43,5 +43,5 @@
 </div>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

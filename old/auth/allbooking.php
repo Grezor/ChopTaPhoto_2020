@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 sessionStart();
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 ?>
 
 <section class="section-content padding-y">
@@ -54,5 +54,5 @@ require_once(__DIR__ . '/../../include/header.php');
     </tbody>
 </section>
 <?php
-    include_once __DIR__ . '/../../include/footer.php';
+    include_once __DIR__ . '/../../database/footer.php';
 ?>

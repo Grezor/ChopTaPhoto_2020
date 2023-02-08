@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 
 if (isset($_GET['id']) && isset($_GET['token'])) {
-    require_once __DIR__ . '/../../include/db.php';
-    require_once __DIR__ . '/../../include/functions.php';
+    require_once __DIR__ . '/../../database/db.php';
+    require_once __DIR__ . '/../../database/functions.php';
     $req = $pdo->prepare('SELECT * 
                             FROM client 
                             WHERE id = ? and reset_token = ? 
@@ -31,7 +31,7 @@ if (isset($_GET['id']) && isset($_GET['token'])) {
     header('Location: /login');
     exit();
 }
-require_once __DIR__ . '/../../include/header.php';
+require_once __DIR__ . '/../../database/header.php';
 ?>
 <section class="section-conten padding-y" style="min-height:84vh">
     <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
@@ -68,5 +68,5 @@ require_once __DIR__ . '/../../include/header.php';
 </section>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

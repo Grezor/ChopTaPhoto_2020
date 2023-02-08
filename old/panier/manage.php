@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . '/../../include/header.php');
+<?php require_once(__DIR__ . '/../../database/header.php');
 $title = "Panier ";
 if (isset($_GET['del'])) {
     $panier->del($_GET['del']);
@@ -64,7 +64,7 @@ $panier->affichePrixCouponExiste();
                                             <div class="aside"><img src="../../<?= $productImage; ?>" class="img-sm">
                                             </div>
                                             <figcaption class="info">
-                                                <a href="../../include/productDetails.php?id=<?= $product->p_id; ?>"
+                                                <a href="../../database/productDetails.php?id=<?= $product->p_id; ?>"
                                                     class="title text-dark"><?= $product->name; ?></a>
                                                 <h3><?= $product->ref; ?></h3>
                                                 <p class="text-muted small"><?= $product->description; ?></p>
@@ -206,6 +206,6 @@ $panier->affichePrixCouponExiste();
 
     </div>
 </section>
-<?php require_once(__DIR__ . '/../../include/footer.php');?>
+<?php require_once(__DIR__ . '/../../database/footer.php');?>
 </body>
 </html>

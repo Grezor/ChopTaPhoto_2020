@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../../include/panier.class.php');
+require_once(__DIR__ . '/../../database/panier.class.php');
 $DB = new DB();
 $panier = new Panier($DB);
 if (isset($_GET['id'])) {

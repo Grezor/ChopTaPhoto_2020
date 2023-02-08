@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../../include/functions.php';
+require __DIR__ . '/../../database/functions.php';
 
 // recuperation de l'id selectionner
 $sql = 'SELECT * FROM product WHERE id=:id';
@@ -88,7 +88,7 @@ if (
         header("Location: /addProduct");
     }
 }
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 ?>
 
 <div class="container">
@@ -165,5 +165,5 @@ require_once(__DIR__ . '/../../include/header.php');
 </div>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

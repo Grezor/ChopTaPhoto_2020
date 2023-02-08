@@ -9,13 +9,13 @@
 # Ce champs nous permettra de savoir si oui ou non l'utilisateur a un compte validé ou pas.
 */
 
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 sessionStart();
 
 $user_id = $_GET['id'];
 $token = $_GET['token'];
 
-require_once __DIR__ . '/../../include/db.php';
+require_once __DIR__ . '/../../database/db.php';
 $req = $pdo->prepare('SELECT * FROM client WHERE
     id = :id AND email_token = :token AND register_at >= DATE_SUB(now(), INTERVAL 1 HOUR)');
 $req->execute([

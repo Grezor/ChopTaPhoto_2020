@@ -1,7 +1,7 @@
 <?php
 // afficher le produit en détails
-require_once(__DIR__ . '/../include/header.php');
-require_once(__DIR__ . '/../include/vote.php');
+require_once(__DIR__ . '/../database/header.php');
+require_once(__DIR__ . '/../database/vote.php');
 ob_start();
 
 $vote = false;
@@ -148,5 +148,5 @@ if (count($products) === 0) {
 <br>
 <br>
 <?php
-include_once __DIR__ . '/../include/footer.php';
+include_once __DIR__ . '/../database/footer.php';
 ?>

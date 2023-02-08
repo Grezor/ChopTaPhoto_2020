@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 sessionStart();
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 ?>
 <section class="section-content padding-y">
   <div class="card mx-auto" style="margin-top:40px;">
@@ -94,5 +94,5 @@ require_once(__DIR__ . '/../../include/header.php');
 </section>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>

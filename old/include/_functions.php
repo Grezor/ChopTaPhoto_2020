@@ -64,7 +64,7 @@ function isAdmin($user): bool
  */
 function get_orders_with()
 {
-    require_once '../../include/db.php';
+    require_once '../../database/db.php';
     $req = $pdo->prepare('SELECT id FROM product WHERE name = ?');
     $req->execute([$_POST['name']]);
 }

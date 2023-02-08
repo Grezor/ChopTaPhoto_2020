@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../include/db.php';
+require_once __DIR__ . '/../../database/db.php';
 
 // on veux apeler le fichier en post
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -18,7 +18,7 @@ session_start();
 
 // déclanche le votee
 
-require_once __DIR__ . '/../../include/vote.php';
+require_once __DIR__ . '/../../database/vote.php';
 $vote = new Vote($pdo);
 
 if ($_GET['vote'] == 1) {

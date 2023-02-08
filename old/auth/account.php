@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../include/functions.php';
+require_once __DIR__ . '/../../database/functions.php';
 sessionStart();
 logged_only();
 
@@ -10,13 +10,13 @@ if (!empty($_POST)) {
     } else {
         $user_id = $_SESSION['auth']->id;
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        require_once __DIR__ . '/../../include/db.php';
+        require_once __DIR__ . '/../../database/db.php';
         $req = $pdo->prepare('UPDATE client SET password = ?')->execute([$password]);
         $_SESSION['flash']['success'] = "Votre mot de passe a jour";
     }
 }
 
-require_once __DIR__ . '/../../include/header.php';
+require_once __DIR__ . '/../../database/header.php';
 ?>
 <div class="container">
 
@@ -52,5 +52,5 @@ if (isset($_SESSION['flash'])) : ?>
 
 </div>
 <?php
-    include_once __DIR__ . '/../../include/footer.php';
+    include_once __DIR__ . '/../../database/footer.php';
 ?>

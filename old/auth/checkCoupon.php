@@ -1,7 +1,7 @@
 <?php
 
 // si un coupon existe
-require_once  __DIR__ . '/include/db.php';
+require_once  __DIR__ . '/database/db.php';
 sessionStart();
 error_log('test');
 
@@ -16,4 +16,4 @@ if (isset($_POST['code_coupon']) && !empty($_POST['code_coupon'])) {
 }
 
 
-     include_once __DIR__ . '/../../include/footer.php';
+     include_once __DIR__ . '/../../database/footer.php';

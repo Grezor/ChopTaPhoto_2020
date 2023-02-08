@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../include/db.php' ;
+require __DIR__ . '/../../database/db.php';
 
 // recuperation de l'id selectionner
 $sql = 'SELECT * FROM coupon WHERE id=:id';
@@ -35,7 +35,7 @@ if (
         header("Location: /addCoupon");
     }
 }
-require_once(__DIR__ . '/../../include/header.php');
+require_once(__DIR__ . '/../../database/header.php');
 ?>
 
 <div class="container">
@@ -101,5 +101,5 @@ require_once(__DIR__ . '/../../include/header.php');
 </div>
 
 <?php
-include_once __DIR__ . '/../../include/footer.php';
+include_once __DIR__ . '/../../database/footer.php';
 ?>
