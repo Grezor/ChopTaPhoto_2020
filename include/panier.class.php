@@ -1,7 +1,4 @@
 <?php
-
-namespace include;
-
 class Panier
 {
     private $DB;

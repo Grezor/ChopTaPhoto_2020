@@ -71,5 +71,5 @@ function get_orders_with()
 
 function defineView()
 {
-    return define('VIEW_PATH', realpath(__DIR__ . '/../'));
+    return define('VIEW_PATH', realpath(__DIR__ . '/../app/'));
 }

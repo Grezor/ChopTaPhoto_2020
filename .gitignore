@@ -4,7 +4,7 @@
 
 ### Composer ###
 composer.phar
-/vendor
+/vendor/*
 include/db.php
 include/db2.php
 

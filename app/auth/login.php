@@ -5,9 +5,10 @@ require_once(__DIR__ . '/../../include/functions.php');
 sessionStart();
 if (!empty($_POST) && !empty($_POST['name']) && !empty($_POST['password'])) {
     $req = $pdo->prepare('SELECT * FROM client WHERE (name = :name OR email = :email) AND email_token IS NULL');
-    $req->execute(['name' => $_POST['name'], 'email' => $_POST['name']]);
+    $req->execute([':name' => $_POST['name'], ':email' => $_POST['name']]);
     $user = $req->fetch();
-    if (password_verify($_POST['password'], $user->password)) {
+
+    if ($user && password_verify($_POST['password'], $user->password)) {
         $_SESSION['auth'] = $user;
         $_SESSION['flash']['success'] = "Vous etes maintenant connecté";
         $pdo->prepare('UPDATE client SET connection_at = NOW()  WHERE id = ?')->execute([$user->id]);

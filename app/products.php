@@ -58,16 +58,18 @@ endif ?>
                     <?php
                     // Affichage de la listes des produits
                     $where = '';
+                    var_dump($categoryId);
                     if (!empty($categoryId)) {
-                        $where = 'WHERE category_id = ' . $DB->getDB()->quote($categoryId);
+                        $where = ' WHERE category_id = ' . $DB->getDB()->quote($categoryId);
                     }
                     $loop = false;
 
-                    $products = $DB->query('SELECT p.id as p_id, 
+                    $products = $DB->query('SELECT p.id as p_id, p.category_id,
                                             p.name, p.price, p.description,p.is_location,p.quantity,
                     p.created_at, (DATE_SUB(now(), INTERVAL 1 HOUR) < p.created_at) AS is_new, pimg.path
                     FROM product AS p LEFT JOIN product_image AS pimg ON p.id = pimg.product_id AND pimg.is_main = 1
                         ' . $where . ' ORDER BY p.created_at');
+                    var_dump($products);
                     foreach ($products as $product) :
                         $loop = true;
                         ?>

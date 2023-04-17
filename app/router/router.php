@@ -1,7 +1,6 @@
 <?php
-
 $router = new AltoRouter();
-require_once(__DIR__ . '/../include/_functions.php');
+require_once(__DIR__ . '/../../include/_functions.php');
 defineView();
 
 // $router->map('GET', '/produit', function() {

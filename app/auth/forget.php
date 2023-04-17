@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../include/functions.php';
-sessionStart();s
+sessionStart();
 
 if (!empty($_POST) && !empty($_POST['email'])) {
     $req = $pdo->prepare('SELECT * FROM client WHERE (email = :email) AND email_token IS NULL');
